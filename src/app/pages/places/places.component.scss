@@ -1,0 +1,12 @@
+.hero {
+  background: url('../../../assets/bg-2.jpg');
+  background-size: cover;
+}
+
+.place-card {
+  .card-image {
+    height: 150px;
+    border-radius: 6px 6px 0 0;
+    background-size: cover !important;
+  }
+}

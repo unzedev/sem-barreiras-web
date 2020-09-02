@@ -1,0 +1,47 @@
+<section class="hero is-medium is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title is-1">Estabelecimentos</h1>
+      <p class="subtitle">Veja estabelecimentos acessíveis em Porto Alegre</p>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <!-- <div class="box">
+      <h3 class="title is-5">Filtrar</h3>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium tenetur nulla rem odit quia laboriosam ipsa sequi, incidunt minima. Explicabo totam veniam dolorem a consectetur sapiente qui labore eligendi dicta.</p>
+    </div> -->
+    <div class="columns is-multiline">
+      <div class="column is-4" *ngFor="let place of places">
+        <div class="card place-card">
+          <div class="card-image" [style]="{ 'background': 'url(' + place.cover + ')' }"></div>
+          <div class="card-content">
+            <h3 class="title is-4">{{ place.title }}</h3>
+            <p class="subtitle is-6 mb-0">{{ place.type }}</p>
+            <bar-rating [(rate)]="place.rating" [theme]="'stars'" [readOnly]="true"></bar-rating>
+            <div class="tags">
+              <span class="tag" *ngFor="let a of place.accessibilities">
+                <span class="icon">
+                  <i class="fas fa-car" *ngIf="a === 'estacionamento'"></i>
+                  <i class="fas fa-door-open" *ngIf="a === 'entrada facilitada'"></i>
+                  <i class="fas fa-walking" *ngIf="a === 'circulação interna'"></i>
+                  <i class="fas fa-toilet" *ngIf="a === 'banheiro acessível'"></i>
+                  <i class="fas fa-map-signs" *ngIf="a === 'sinalização'"></i>
+                  <i class="fas fa-smile-beam" *ngIf="a === 'posicionamento atitudinal positivo'"></i>
+                </span>
+                <span>
+                  {{ a }}
+                </span>
+              </span>
+            </div>
+          </div>
+          <footer class="card-footer">
+            <a [routerLink]="'/' + place.id" class="card-footer-item">Ver</a>
+            <!-- <a [routerLink]="'/' + place.id + '/avaliar'" class="card-footer-item">Avaliar</a> -->
+          </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

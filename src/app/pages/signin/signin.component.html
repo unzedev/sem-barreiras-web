@@ -1,0 +1,38 @@
+<section class="hero is-primary is-medium">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-5">
+          <div class="box px-6 py-6">
+            <h1 class="title has-text-dark">Entrar</h1>
+            <p class="subtitle has-text-dark">
+              Insira seus dados para acessar sua conta
+            </p>
+            <form (submit)="signin()">
+              <div class="field">
+                <label for="email">E-mail</label>
+                <div class="control">
+                  <input type="email" class="input" name="email" id="email" required>
+                </div>
+              </div>
+              <div class="field">
+                <label for="password">Senha</label>
+                <div class="control">
+                  <input type="password" class="input" name="password" id="password" required>
+                </div>
+              </div>
+              <br>
+              <div class="field">
+                <button type="submit" class="button is-fullwidth is-primary">Entrar</button>
+              </div>
+              <br>
+              <div class="has-text-centered">
+                <a href="/cadastrar">Ainda não tenho uma conta</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

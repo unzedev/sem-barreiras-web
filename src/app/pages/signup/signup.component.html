@@ -1,0 +1,62 @@
+<section class="hero is-primary is-medium">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-5">
+          <div class="box px-6 py-6">
+            <h1 class="title has-text-dark">Cadastrar</h1>
+            <p class="subtitle has-text-dark">
+              Insira seus dados para cadastrar sua conta
+            </p>
+            <form (submit)="signup()">
+              <div class="field">
+                <label for="name">Nome</label>
+                <div class="control">
+                  <input type="text" class="input" name="name" id="name" required>
+                </div>
+              </div>
+              <div class="field">
+                <label for="email">E-mail</label>
+                <div class="control">
+                  <input type="email" class="input" name="email" id="email" required>
+                </div>
+              </div>
+              <div class="field">
+                <label for="deficiency">Deficiência ou deficiência do parente</label>
+                <div class="control">
+                  <div class="select is-fullwidth">
+                    <select class="input" name="deficiency" id="deficiency">
+                      <option value="">Selecione...</option>
+                      <option value="física">Física</option>
+                      <option value="auditiva">Auditiva</option>
+                      <option value="visual">Visual</option>
+                      <option value="mental">Mental</option>
+                      <option value="múltipla">Múltipla</option>
+                      <optgroup title="Outros">
+                        <option value="nenhuma">Nenhuma</option>
+                      </optgroup>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label for="password">Senha</label>
+                <div class="control">
+                  <input type="password" class="input" name="password" id="password" required>
+                </div>
+              </div>
+              <br>
+              <div class="field">
+                <button type="submit" class="button is-fullwidth is-primary">Cadastrar</button>
+              </div>
+              <br>
+              <div class="has-text-centered">
+                <a href="/entrar">Já tenho uma conta</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
