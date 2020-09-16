@@ -1,10 +1,10 @@
 <section class="hero is-medium is-primary"
-  [style]="{ 'background': 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.1) 100%), url(' + place.cover + ')' }">
+  [style]="{ 'background': 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.1) 100%), url(' + place.foto + ')' }">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title is-1">{{ place.title }}</h1>
-      <p class="subtitle mb-0">{{ place.type }}</p>
-      <bar-rating [(rate)]="place.rating" [theme]="'stars'" [readOnly]="true"></bar-rating>
+      <h1 class="title is-1">{{ place.titulo }}</h1>
+      <p class="subtitle mb-0">{{ place.tipo }}</p>
+      <bar-rating [(rate)]="place.avaliacao_media" [theme]="'stars'" [readOnly]="true"></bar-rating>
     </div>
   </div>
 </section>
@@ -15,33 +15,50 @@
         <div class="box">
           <h3 class="title is-5 mb-3">Accessibilidades</h3>
           <div class="tags">
-            <span class="tag" *ngFor="let a of place.accessibilities">
+            <span class="tag" *ngIf="place.estacionamento">
               <span class="icon">
-                <i class="fas fa-car" *ngIf="a === 'estacionamento'"></i>
-                <i class="fas fa-door-open" *ngIf="a === 'entrada facilitada'"></i>
-                <i class="fas fa-walking" *ngIf="a === 'circulação interna'"></i>
-                <i class="fas fa-toilet" *ngIf="a === 'banheiro acessível'"></i>
-                <i class="fas fa-map-signs" *ngIf="a === 'sinalização'"></i>
-                <i class="fas fa-smile-beam" *ngIf="a === 'posicionamento atitudinal positivo'"></i>
+                <i class="fas fa-car"></i>
               </span>
-              <span>
-                {{ a }}
+              <span>estacionamento</span>
+            </span>
+            <span class="tag" *ngIf="place.entrada_facilitada">
+              <span class="icon">    
+                <i class="fas fa-door-open"></i>
               </span>
-          </span>
+              <span>entrada facilitada</span>
+            </span>
+            <span class="tag" *ngIf="place.circulacao_interna">
+              <span class="icon">
+                <i class="fas fa-walking"></i>
+              </span>
+              <span>circulação interna</span>
+            </span>
+            <span class="tag" *ngIf="place.banheiro_acessivel">
+              <span class="icon">
+                <i class="fas fa-toilet"></i>
+              </span>
+              <span>banheiro acessível</span>
+            </span>
+            <span class="tag" *ngIf="place.sinalizacao">
+              <span class="icon">
+                <i class="fas fa-map-signs"></i>
+              </span>
+              <span>sinalização</span>
+            </span>
           </div>
         </div>
         <div class="box">
           <h3 class="title is-5 mb-3">Endereço</h3>
           <address>
-            <p>{{ place.address.cep }}</p>
-            <p>{{ place.address.city }}, {{ place.address.state }}</p>
-            <p>Bairro {{ place.address.neighborhood }}</p>
-            <p>{{ place.address.street }} {{ place.address.number }}{{ place.address.complement ? ', ' + place.address.complement : '' }}</p>
+            <p>{{ place.endereco.cep }}</p>
+            <p>{{ place.endereco.cidade }}, {{ place.endereco.estado }}</p>
+            <p>Bairro {{ place.endereco.bairro }}</p>
+            <p>{{ place.endereco.logradouro }} {{ place.endereco.numero }}{{ place.endereco.complemento ? ', ' + place.endereco.complemento : '' }}</p>
           </address>
         </div>
       </div>
 
-      <div class="column">
+      <!-- <div class="column">
         <h2 class="title is-4">Avaliações</h2>
         <div class="box" *ngFor="let rating of place.ratings">
           <h3 class="title is-5 mb-3">{{ rating.title }}</h3>
@@ -50,7 +67,7 @@
           <br>
           <small>{{ rating.user }}</small>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </section>

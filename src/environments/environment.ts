@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://sembarreiras.herokuapp.com',
+  apiUrl: 'https://api-sem-barreiras.herokuapp.com',
 };
 
 /*

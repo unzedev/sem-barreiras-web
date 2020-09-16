@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { PlacesService } from '../../services/places/places.service';
+import { PublicDataService } from '../../services/public-data/public-data.service';
 
 @Component({
   selector: 'app-places',
@@ -8,81 +12,101 @@ import { Component, OnInit } from '@angular/core';
 export class PlacesComponent implements OnInit {
 
   places: any[] = [];
+  pagination: any = {
+    limite: 20,
+    offset: 0,
+    total: 100,
+  };
+  filter: any = {
+    titulo: '',
+    tipo: '',
+    estado: '',
+  };
 
-  constructor() { }
+  cities: Observable<any[]>;
+
+  constructor(
+    private placesService: PlacesService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private publicDataService: PublicDataService,
+  ) { }
 
   ngOnInit(): void {
+    this.fetchUrlParams();
+    this.getMockedPlaces();
+  }
+
+  getCities(): void {
+    this.cities = this.publicDataService.getCities(this.filter.estado);
+  }
+
+  fetchUrlParams(): void {
+    this.route.queryParamMap.subscribe(p => {
+      if (p.get('offset')) { this.pagination.offset = p.get('offset'); }
+      if (p.get('titulo')) { this.filter.titulo = p.get('titulo'); }
+      if (p.get('tipo')) { this.filter.tipo = p.get('tipo'); }
+      if (p.get('estado')) {
+        this.filter.estado = p.get('estado');
+        this.getCities();
+      }
+      if (p.get('cidade')) { this.filter.cidade = p.get('cidade'); }
+    }).unsubscribe();
+  }
+
+  cleanFiltersAndSearch(): void {
+    this.pagination.offset = 0;
+    this.filter = {
+      titulo: '',
+      tipo: '',
+      estado: '',
+      cidade: '',
+    };
     this.getPlaces();
   }
 
   getPlaces(): void {
+    const filter = this.filter;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        offset: this.pagination.offset,
+        ...filter,
+      },
+      queryParamsHandling: 'merge',
+    });
+
+    this.placesService.getPlaces({
+      offset: this.pagination.offset,
+      ...filter,
+    }).subscribe((res) => {
+      this.places = res.data.data;
+      this.pagination = res.data.paginacao;
+    });
+  }
+
+  getMockedPlaces(): void {
     this.places = [
       {
-        id: 1,
-        title: 'Shopping de Berlim',
-        type: 'Shopping',
-        cover: 'https://images.unsplash.com/photo-1583594454990-015f8118f982?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1252&q=80',
-        rating: 5,
-        address: {
-          cep: '90250220',
-          state: 'RS',
-          city: 'Porto Alegre',
-          neighborhood: 'Humaitá',
-          street: 'Rua Walter Ferreira',
-          number: '75',
-          complement: 'Apto 404',
+        id: '5f5f5eb71fb23c00046b752e',
+        avaliacao_media: 4.65,
+        banheiro_acessivel: false,
+        circulacao_interna: true,
+        descricao: 'Lorem ipsum dolor sit amet',
+        endereco: {
+          cep: '90254-085',
+          cidade: 'Porto Alegre',
+          complemento: 'Apto. 404, Bloco A',
+          estado: 'RS',
+          logradouro: 'Av. AJ Renner',
+          numero: '300'
         },
-        accessibilities: [
-          'estacionamento',
-          'entrada facilitada',
-          'circulação interna',
-          'banheiro acessível',
-          'sinalização',
-          'posicionamento atitudinal positivo',
-        ],
-      },
-      {
-        id: 2,
-        title: 'Dina`s',
-        type: 'Barbearia',
-        cover: 'https://images.unsplash.com/photo-1597938888241-9d4ad046d569?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
-        rating: 2,
-        address: {
-          cep: '90250220',
-          state: 'RS',
-          city: 'Porto Alegre',
-          neighborhood: 'Humaitá',
-          street: 'Rua Walter Ferreira',
-          number: '75',
-          complement: 'Apto 404',
-        },
-        accessibilities: [
-          'circulação interna',
-          'banheiro acessível',
-          'sinalização',
-        ],
-      },
-      {
-        id: 3,
-        title: 'Mercado Central',
-        type: 'Mercado',
-        cover: 'https://images.unsplash.com/photo-1582359424705-cb2f273329d1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
-        rating: 3,
-        address: {
-          cep: '90250220',
-          state: 'RS',
-          city: 'Porto Alegre',
-          neighborhood: 'Humaitá',
-          street: 'Rua Walter Ferreira',
-          number: '75',
-          complement: 'Apto 404',
-        },
-        accessibilities: [
-          'estacionamento',
-          'entrada facilitada',
-          'circulação interna',
-          'sinalização',
-        ],
+        entrada_facilitada: true,
+        estacionamento: true,
+        foto: 'https://images.unsplash.com/photo-1583594454990-015f8118f982?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1252&q=80',
+        sinalizacao: true,
+        tipo: 'restaurante',
+        titulo: 'Estabelecimento X'
       },
     ];
   }

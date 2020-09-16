@@ -2,38 +2,153 @@
   <div class="hero-body">
     <div class="container">
       <h1 class="title is-1">Estabelecimentos</h1>
-      <p class="subtitle">Veja estabelecimentos acessíveis em Porto Alegre</p>
+      <p class="subtitle">Encontre estabelecimentos acessíveis{{ filter.cidade ? ' em ' + filter.cidade : '' }}</p>
     </div>
   </div>
 </section>
 <section class="section">
   <div class="container">
-    <!-- <div class="box">
-      <h3 class="title is-5">Filtrar</h3>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium tenetur nulla rem odit quia laboriosam ipsa sequi, incidunt minima. Explicabo totam veniam dolorem a consectetur sapiente qui labore eligendi dicta.</p>
-    </div> -->
+    <div class="box filter-box">
+      <h3 class="title is-5">Buscar</h3>
+      <div class="columns is-multiline">
+        <div class="column is-3">
+          <div class="field">
+            <label for="estabelecimento">Nome</label>
+            <div class="control">
+              <input [(ngModel)]="filter.titulo" class="input" type="text" id="estabelecimento" name="estabelecimento">
+            </div>
+          </div>
+        </div>
+        <div class="column is-3">
+          <div class="field">
+            <label for="tipo">Tipo</label>
+            <div class="control">
+              <div class="select">
+                <select [(ngModel)]="filter.tipo" class="input" name="tipo" id="tipo">
+                  <option value="">Selecione...</option>
+                  <option value="restaurante">Restaurante</option>
+                  <option value="academia">Academia</option>
+                  <option value="mercado">Mercado</option>
+                  <option value="salao_de_beleza">Salão de Beleza</option>
+                  <option value="banco">Banco</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column is-3">
+          <div class="field">
+            <label for="estado">Estado</label>
+            <div class="control">
+              <div class="select">
+                <select (change)="getCities()"
+                  [(ngModel)]="filter.estado"
+                  class="input"
+                  name="estado"
+                  id="estado">
+                  <option value="">Selecione...</option>
+                  <option value="AC">Acre</option>
+                  <option value="AL">Alagoas</option>
+                  <option value="AP">Amapá</option>
+                  <option value="AM">Amazonas</option>
+                  <option value="BA">Bahia</option>
+                  <option value="CE">Ceará</option>
+                  <option value="DF">Distrito Federal</option>
+                  <option value="ES">Espírito Santo</option>
+                  <option value="GO">Goiás</option>
+                  <option value="MA">Maranhão</option>
+                  <option value="MT">Mato Grosso</option>
+                  <option value="MS">Mato Grosso do Sul</option>
+                  <option value="MG">Minas Gerais</option>
+                  <option value="PA">Pará</option>
+                  <option value="PB">Paraíba</option>
+                  <option value="PR">Paraná</option>
+                  <option value="PE">Pernambuco</option>
+                  <option value="PI">Piauí</option>
+                  <option value="RJ">Rio de Janeiro</option>
+                  <option value="RN">Rio Grande do Norte</option>
+                  <option value="RS">Rio Grande do Sul</option>
+                  <option value="RO">Rondônia</option>
+                  <option value="RR">Roraima</option>
+                  <option value="SC">Santa Catarina</option>
+                  <option value="SP">São Paulo</option>
+                  <option value="SE">Sergipe</option>
+                  <option value="TO">Tocantins</option>
+                  <option value="EX">Estrangeiro</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column is-3">
+          <div class="field">
+            <label for="cidade">Cidade</label>
+            <ng-select class="custom" [items]="cities | async"
+              [virtualScroll]="true"
+              bindLabel="nome"
+              bindValue="nome"
+              id="cidade"
+              [(ngModel)]="filter.cidade">
+            </ng-select>
+          </div>
+        </div>
+        <div class="column is-12">
+          <div class="buttons is-right">
+            <button class="button is-light" type="button" (click)="cleanFiltersAndSearch()">
+              Limpar
+            </button>
+            <button class="button is-link" type="button" (click)="pagination.offset = 0; getPlaces()">
+              Buscar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="columns is-multiline">
       <div class="column is-4" *ngFor="let place of places">
         <div class="card place-card">
-          <div class="card-image" [style]="{ 'background': 'url(' + place.cover + ')' }"></div>
+          <div class="card-image" [style]="{ 'background': 'url(' + place.foto + ')' }"></div>
           <div class="card-content">
-            <h3 class="title is-4">{{ place.title }}</h3>
-            <p class="subtitle is-6 mb-0">{{ place.type }}</p>
-            <bar-rating [(rate)]="place.rating" [theme]="'stars'" [readOnly]="true"></bar-rating>
+            <h3 class="title is-4">{{ place.titulo }}</h3>
+            <p class="subtitle is-6 mb-0">{{ place.tipo }}</p>
+            <bar-rating [(rate)]="place.avaliacao_media" [theme]="'stars'" [readOnly]="true"></bar-rating>
             <div class="tags">
-              <span class="tag" *ngFor="let a of place.accessibilities">
+              <span class="tag" *ngIf="place.estacionamento">
                 <span class="icon">
-                  <i class="fas fa-car" *ngIf="a === 'estacionamento'"></i>
-                  <i class="fas fa-door-open" *ngIf="a === 'entrada facilitada'"></i>
-                  <i class="fas fa-walking" *ngIf="a === 'circulação interna'"></i>
-                  <i class="fas fa-toilet" *ngIf="a === 'banheiro acessível'"></i>
-                  <i class="fas fa-map-signs" *ngIf="a === 'sinalização'"></i>
-                  <i class="fas fa-smile-beam" *ngIf="a === 'posicionamento atitudinal positivo'"></i>
+                  <i class="fas fa-car"></i>
                 </span>
-                <span>
-                  {{ a }}
-                </span>
+                <span>estacionamento</span>
               </span>
+              <span class="tag" *ngIf="place.entrada_facilitada">
+                <span class="icon">    
+                  <i class="fas fa-door-open"></i>
+                </span>
+                <span>entrada facilitada</span>
+              </span>
+              <span class="tag" *ngIf="place.circulacao_interna">
+                <span class="icon">
+                  <i class="fas fa-walking"></i>
+                </span>
+                <span>circulação interna</span>
+              </span>
+              <span class="tag" *ngIf="place.banheiro_acessivel">
+                <span class="icon">
+                  <i class="fas fa-toilet"></i>
+                </span>
+                <span>banheiro acessível</span>
+              </span>
+              <span class="tag" *ngIf="place.sinalizacao">
+                <span class="icon">
+                  <i class="fas fa-map-signs"></i>
+                </span>
+                <span>sinalização</span>
+              </span>
+              <!-- <span class="tag" *ngIf="place.">
+                <span class="icon">
+                  <i class="fas fa-smile-beam"></i>
+                </span>
+                <span>posicionamento atitudinal positivo</span>
+              </span> -->
             </div>
           </div>
           <footer class="card-footer">
@@ -43,5 +158,70 @@
         </div>
       </div>
     </div>
+    <nav class="pagination is-centered" role="navigation" aria-label="paginação">
+      <button class="pagination-previous"
+        (click)="this.pagination.offset = pagination.offset - 20; getPlaces()"
+        [disabled]="pagination.offset === 0">
+        Anterior
+      </button>
+      <button class="pagination-next"
+        (click)="this.pagination.offset = pagination.offset + 20; getPlaces()"
+        [disabled]="pagination.total === pagination.offset">
+        Próxima
+      </button>
+      <ul class="pagination-list">
+        <!-- <li>
+          <a class="pagination-link"
+            aria-label="Ir para página 1"
+            (click)="getPlaces(0)"
+            *ngIf="pagination.offset < pagination.total">
+            1
+          </a>
+        </li>
+        <li>
+          <span class="pagination-ellipsis"
+            *ngIf="pagination.offset < pagination.total">
+            &hellip;
+          </span>
+        </li>
+        <li>
+          <a class="pagination-link"
+            [attr.aria-label]="'Ir para página ' + (pagination.offset)"
+            (click)="getPlaces(pagination.offset - 1)"
+            *ngIf="pagination.offset < pagination.total">
+            {{ pagination.offset }}
+          </a>
+        </li> -->
+        <li>
+          <a class="pagination-link is-current"
+            [attr.aria-label]="'Página ' + ((pagination.offset + 20) / 20)"
+            aria-current="página">
+            {{ (pagination.offset + 20) / 20 }}
+          </a>
+        </li>
+        <!-- <li>
+          <a class="pagination-link"
+            [attr.aria-label]="'Ir para página ' + (pagination.offset + 1)"
+            (click)="getPlaces(pagination.offset + 1)"
+            *ngIf="pagination.total > pagination.offset + 1">
+            {{ pagination.offset + 1 }}
+          </a>
+        </li>
+        <li>
+          <span class="pagination-ellipsis"
+            *ngIf="pagination.total > pagination.offset + 1">
+            &hellip;
+          </span>
+        </li>
+        <li>
+          <a class="pagination-link"
+            [attr.aria-label]="'Ir para página ' + pagination.total"
+            (click)="getPlaces(pagination.total)"
+            *ngIf="pagination.total > pagination.offset + 1">
+            {{ pagination.total }}
+          </a>
+        </li> -->
+      </ul>
+    </nav>
   </div>
 </section>

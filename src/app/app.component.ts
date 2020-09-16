@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,11 @@ export class AppComponent implements OnInit {
 
   menuIsActive = false;
   navbarIsTransparent = false;
+
+  constructor(private config: NgSelectConfig) {
+    this.config.notFoundText = 'Não encontramos nenhum resultado.';
+    this.config.appendTo = 'body';
+  }
 
   toggleMenu(): any {
     this.menuIsActive = !this.menuIsActive;

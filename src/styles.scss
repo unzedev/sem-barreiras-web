@@ -2,6 +2,7 @@
 @import '~bulma/bulma.sass';
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 @import '~ngx-bar-rating/themes/br-stars-theme.css';
+@import '~@ng-select/ng-select/themes/default.theme.css';
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
 * {
@@ -62,4 +63,16 @@
     width: 18px;
     height: 18px;
   }
+}
+
+.select {
+  width: 100%;
+}
+
+button, a {
+  cursor: pointer;
+}
+
+.ng-dropdown-panel.ng-select-top {
+  bottom: -8px !important;
 }

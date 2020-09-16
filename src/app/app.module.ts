@@ -1,6 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { BarRatingModule } from 'ngx-bar-rating';
+import { NgxUiLoaderHttpModule, NgxUiLoaderModule, NgxUiLoaderRouterModule } from 'ngx-ui-loader';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +25,12 @@ import { SigninComponent } from './pages/signin/signin.component';
     BrowserModule,
     AppRoutingModule,
     BarRatingModule,
+    HttpClientModule,
+    FormsModule,
+    NgSelectModule,
+    NgxUiLoaderModule,
+    NgxUiLoaderRouterModule,
+    NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
   ],
   providers: [],
   bootstrap: [AppComponent],
