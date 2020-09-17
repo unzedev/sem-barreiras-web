@@ -12,6 +12,10 @@ export class PlaceComponent implements OnInit {
 
   place: any = null;
   ratings: any = [];
+  ratingsPagination: any = {
+    offset: 0,
+    total: 0,
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -33,10 +37,17 @@ export class PlaceComponent implements OnInit {
   getRatings(): void {
     const params = {
       estabelecimento_id: this.route.snapshot.paramMap.get('id'),
+      offset: this.ratingsPagination.offset,
     };
     this.ratingsService.getRatings(params).subscribe((res) => {
-      this.ratings = res.dados.filter((item) => item.status === 'aprovada');
+      this.ratings = [...this.ratings, ...res.dados.filter((item) => item.status === 'aprovada')];
+      this.ratingsPagination = res.paginacao;
     });
+  }
+
+  loadMoreRatings(): void {
+    this.ratingsPagination.offset += 20;
+    this.getRatings();
   }
 
 }

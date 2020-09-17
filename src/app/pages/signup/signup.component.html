@@ -12,20 +12,20 @@
               <div class="field">
                 <label for="name">Nome</label>
                 <div class="control">
-                  <input type="text" class="input" name="name" id="name" required>
+                  <input type="text" class="input" name="name" id="name" required [(ngModel)]="register.nome">
                 </div>
               </div>
               <div class="field">
                 <label for="email">E-mail</label>
                 <div class="control">
-                  <input type="email" class="input" name="email" id="email" required>
+                  <input type="email" class="input" name="email" id="email" required [(ngModel)]="register.email">
                 </div>
               </div>
               <div class="field">
                 <label for="deficiency">Deficiência ou deficiência do parente</label>
                 <div class="control">
                   <div class="select is-fullwidth">
-                    <select class="input" name="deficiency" id="deficiency">
+                    <select class="input" name="deficiency" id="deficiency" [(ngModel)]="register.deficiencia">
                       <option value="">Selecione...</option>
                       <option value="física">Física</option>
                       <option value="auditiva">Auditiva</option>
@@ -42,7 +42,7 @@
               <div class="field">
                 <label for="password">Senha</label>
                 <div class="control">
-                  <input type="password" class="input" name="password" id="password" required>
+                  <input type="password" class="input" name="password" id="password" required [(ngModel)]="register.password">
                 </div>
               </div>
               <br>

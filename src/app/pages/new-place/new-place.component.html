@@ -1,0 +1,228 @@
+<section class="hero is-medium is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title is-1">Novo Estabelecimento</h1>
+      <p class="subtitle">Preencha o formulário abaixo para cadastrar um novo estabelecimento</p>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="box form-box">
+      <form (submit)="registerPlace()">
+        <div class="columns is-multiline">
+          <div class="column is-8">
+            <h2 class="title">Informações Principais</h2>
+            <div class="columns is-multiline">
+              <div class="column is-6">
+                <div class="field">
+                  <label for="titulo">Título</label>
+                  <div class="control">
+                    <input
+                      type="text"
+                      class="input"
+                      name="titulo"
+                      id="titulo"
+                      required
+                      [(ngModel)]="place.titulo">
+                  </div>
+                </div>
+              </div>
+              <div class="column is-6">
+                <div class="field">
+                  <label for="tipo">Tipo</label>
+                  <div class="control">
+                    <input
+                      type="text"
+                      class="input"
+                      name="tipo"
+                      id="tipo"
+                      required
+                      [(ngModel)]="place.tipo">
+                  </div>
+                </div>
+              </div>
+              <div class="column is-12">
+                <div class="field">
+                  <label for="descricao">Descrição</label>
+                  <div class="control">
+                    <input
+                      type="text"
+                      class="input"
+                      name="descricao"
+                      id="descricao"
+                      required
+                      [(ngModel)]="place.descricao">
+                  </div>
+                </div>
+              </div>
+              <div class="column is-6">
+                <div class="field">
+                  <label for="telefone">Telefone <small>(opcional)</small></label>
+                  <div class="control">
+                    <input
+                      type="tel"
+                      class="input"
+                      name="telefone"
+                      id="telefone"
+                      [(ngModel)]="place.telefone">
+                  </div>
+                </div>
+              </div>
+              <div class="column is-6">
+                <div class="field">
+                  <label for="link">URL <small>(opcional)</small></label>
+                  <div class="control">
+                    <input
+                      type="url"
+                      class="input"
+                      name="link"
+                      id="link"
+                      [(ngModel)]="place.link">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <h2 class="title">Acessibilidades</h2>
+            <div class="field">
+              <label class="checkbox">
+                <input type="checkbox" [(ngModel)]="place.banheiro_acessivel" name="banheiro_acessivel">
+                Banheiro acessível
+              </label>
+            </div>
+            <div class="field">
+              <label class="checkbox">
+                <input type="checkbox" [(ngModel)]="place.circulacao_interna" name="circulacao_interna">
+                Circulação interna
+              </label>
+            </div>
+            <div class="field">
+              <label class="checkbox">
+                <input type="checkbox" [(ngModel)]="place.entrada_facilitada" name="entrada_facilitada">
+                Entrada facilitada
+              </label>
+            </div>
+            <div class="field">
+              <label class="checkbox">
+                <input type="checkbox" [(ngModel)]="place.estacionamento" name="estacionamento">
+                Estacionamento
+              </label>
+            </div>
+            <div class="field">
+              <label class="checkbox">
+                <input type="checkbox" [(ngModel)]="place.sinalizacao" name="sinalizacao">
+                Sinalização
+              </label>
+            </div>
+          </div>
+          <div class="column is-12">
+            <h2 class="title">Endereço</h2>
+          </div>
+          <div class="column is-3">
+            <div class="field">
+              <label for="cep">CEP</label>
+              <div class="control">
+                <input
+                  type="tel"
+                  class="input"
+                  name="cep"
+                  id="cep"
+                  required
+                  [(ngModel)]="place.endereco.cep">
+              </div>
+            </div>
+          </div>
+          <div class="column is-2">
+            <div class="field">
+              <label for="estado">Estado</label>
+              <div class="control">
+                <input
+                  type="text"
+                  class="input"
+                  name="estado"
+                  id="estado"
+                  required
+                  [(ngModel)]="place.endereco.estado">
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="cidade">Cidade</label>
+              <div class="control">
+                <input
+                  type="text"
+                  class="input"
+                  name="cidade"
+                  id="cidade"
+                  required
+                  [(ngModel)]="place.endereco.cidade">
+              </div>
+            </div>
+          </div>
+          <div class="column is-3">
+            <div class="field">
+              <label for="bairro">Bairro</label>
+              <div class="control">
+                <input
+                  type="text"
+                  class="input"
+                  name="bairro"
+                  id="bairro"
+                  required
+                  [(ngModel)]="place.endereco.bairro">
+              </div>
+            </div>
+          </div>
+          <div class="column is-5">
+            <div class="field">
+              <label for="logradouro">Logradouro</label>
+              <div class="control">
+                <input
+                  type="text"
+                  class="input"
+                  name="logradouro"
+                  id="logradouro"
+                  required
+                  [(ngModel)]="place.endereco.logradouro">
+              </div>
+            </div>
+          </div>
+          <div class="column is-2">
+            <div class="field">
+              <label for="numero">Número</label>
+              <div class="control">
+                <input
+                  type="tel"
+                  class="input"
+                  name="numero"
+                  id="numero"
+                  required
+                  [(ngModel)]="place.endereco.numero">
+              </div>
+            </div>
+          </div>
+          <div class="column is-5">
+            <div class="field">
+              <label for="complemento">Complemento <small>(opcional)</small></label>
+              <div class="control">
+                <input
+                  type="text"
+                  class="input"
+                  name="complemento"
+                  id="complemento"
+                  [(ngModel)]="place.endereco.complemento">
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="field">
+          <button type="submit" class="button is-fullwidth is-primary">Cadastrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

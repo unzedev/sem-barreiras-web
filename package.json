@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~10.0.4",
+    "@angular/animations": "^10.0.14",
     "@angular/common": "~10.0.4",
     "@angular/compiler": "~10.0.4",
     "@angular/core": "~10.0.4",
@@ -23,8 +23,10 @@
     "@ng-select/ng-select": "^5.0.1",
     "bulma": "^0.9.0",
     "ngx-bar-rating": "^1.1.0",
+    "ngx-toastr": "^13.0.0",
     "ngx-ui-loader": "^9.1.1",
     "rxjs": "~6.5.5",
+    "rxjs-compat": "^6.6.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },

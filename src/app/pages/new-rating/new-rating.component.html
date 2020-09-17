@@ -1,0 +1,71 @@
+<ng-container *ngIf="place">
+  <section class="hero is-medium is-primary"
+    [style]="{ 'background': place.foto ? 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.1) 100%), url(' + place.foto + ')' : '' }">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title is-1">{{ place.titulo }}</h1>
+        <p class="subtitle mb-0">{{ place.tipo }}</p>
+        <bar-rating [(rate)]="place.avaliacao_media" [theme]="'stars'" [readOnly]="true"></bar-rating>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="box form-box">
+        <form (submit)="registerRating()">
+          <h2 class="title">Nova Avaliação</h2>
+          <div class="columns is-multiline">
+            <div class="column is-6">
+              <div class="field">
+                <label for="titulo">Título</label>
+                <div class="control">
+                  <input
+                    type="text"
+                    class="input"
+                    name="titulo"
+                    id="titulo"
+                    required
+                    [(ngModel)]="rating.titulo">
+                </div>
+              </div>
+            </div>
+            <div class="column is-6">
+              <div class="field">
+                <label for="nota">Nota</label>
+                <div class="control">
+                  <input
+                    type="number"
+                    max="5"
+                    min="1"
+                    class="input"
+                    name="nota"
+                    id="nota"
+                    required
+                    [(ngModel)]="rating.nota">
+                </div>
+              </div>
+            </div>
+            <div class="column is-12">
+              <div class="field">
+                <label for="comentario">Comentário</label>
+                <div class="control">
+                  <input
+                    type="text"
+                    class="input"
+                    name="comentario"
+                    id="comentario"
+                    required
+                    [(ngModel)]="rating.comentario">
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="field">
+            <button type="submit" class="button is-fullwidth is-primary">Avaliar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</ng-container>

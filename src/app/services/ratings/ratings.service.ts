@@ -19,4 +19,8 @@ export class RatingsService {
   public getRating(id: any): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
+
+  public postRating(body: any): Observable<any> {
+    return this.http.post(this.apiUrl, body);
+  }
 }

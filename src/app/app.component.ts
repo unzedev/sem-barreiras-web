@@ -1,5 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgSelectConfig } from '@ng-select/ng-select';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from './services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +13,14 @@ export class AppComponent implements OnInit {
 
   menuIsActive = false;
   navbarIsTransparent = false;
+  userIsLogged = false;
 
-  constructor(private config: NgSelectConfig) {
+  constructor(
+    private config: NgSelectConfig,
+    private authService: AuthService,
+    private toastr: ToastrService,
+    private router: Router
+  ) {
     this.config.notFoundText = 'Não encontramos nenhum resultado.';
     this.config.appendTo = 'body';
   }
@@ -33,6 +42,20 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.setNavbarTransparency(0);
+    this.checkIfUserIsLogged();
+  }
+
+  checkIfUserIsLogged(): void {
+    if (this.authService.getAuthToken()) {
+      this.userIsLogged = true;
+    }
+  }
+
+  logout(): void {
+    this.authService.clearAuth();
+    this.userIsLogged = false;
+    this.toastr.show('Deslogado');
+    this.router.navigateByUrl('/');
   }
 
 }

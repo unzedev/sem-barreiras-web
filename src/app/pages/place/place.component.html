@@ -1,74 +1,81 @@
-<section class="hero is-medium is-primary"
-  [style]="{ 'background': place.foto ? 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.1) 100%), url(' + place.foto + ')' : '' }">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title is-1">{{ place.titulo }}</h1>
-      <p class="subtitle mb-0">{{ place.tipo }}</p>
-      <bar-rating [(rate)]="place.avaliacao_media" [theme]="'stars'" [readOnly]="true"></bar-rating>
+<ng-container *ngIf="place">
+  <section class="hero is-medium is-primary"
+    [style]="{ 'background': place.foto ? 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.1) 100%), url(' + place.foto + ')' : '' }">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title is-1">{{ place.titulo }}</h1>
+        <p class="subtitle mb-0">{{ place.tipo }}</p>
+        <bar-rating [(rate)]="place.avaliacao_media" [theme]="'stars'" [readOnly]="true"></bar-rating>
+      </div>
     </div>
-  </div>
-</section>
-<section class="section">
-  <div class="container">
-    <div class="columns">
-      <div class="column">
-        <div class="box">
-          <h3 class="title is-5 mb-3">Accessibilidades</h3>
-          <div class="tags">
-            <span class="tag" *ngIf="place.estacionamento">
-              <span class="icon">
-                <i class="fas fa-car"></i>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <div class="box">
+            <h3 class="title is-5 mb-3">Accessibilidades</h3>
+            <div class="tags">
+              <span class="tag" *ngIf="place.estacionamento">
+                <span class="icon">
+                  <i class="fas fa-car"></i>
+                </span>
+                <span>estacionamento</span>
               </span>
-              <span>estacionamento</span>
-            </span>
-            <span class="tag" *ngIf="place.entrada_facilitada">
-              <span class="icon">    
-                <i class="fas fa-door-open"></i>
+              <span class="tag" *ngIf="place.entrada_facilitada">
+                <span class="icon">    
+                  <i class="fas fa-door-open"></i>
+                </span>
+                <span>entrada facilitada</span>
               </span>
-              <span>entrada facilitada</span>
-            </span>
-            <span class="tag" *ngIf="place.circulacao_interna">
-              <span class="icon">
-                <i class="fas fa-walking"></i>
+              <span class="tag" *ngIf="place.circulacao_interna">
+                <span class="icon">
+                  <i class="fas fa-walking"></i>
+                </span>
+                <span>circulação interna</span>
               </span>
-              <span>circulação interna</span>
-            </span>
-            <span class="tag" *ngIf="place.banheiro_acessivel">
-              <span class="icon">
-                <i class="fas fa-toilet"></i>
+              <span class="tag" *ngIf="place.banheiro_acessivel">
+                <span class="icon">
+                  <i class="fas fa-toilet"></i>
+                </span>
+                <span>banheiro acessível</span>
               </span>
-              <span>banheiro acessível</span>
-            </span>
-            <span class="tag" *ngIf="place.sinalizacao">
-              <span class="icon">
-                <i class="fas fa-map-signs"></i>
+              <span class="tag" *ngIf="place.sinalizacao">
+                <span class="icon">
+                  <i class="fas fa-map-signs"></i>
+                </span>
+                <span>sinalização</span>
               </span>
-              <span>sinalização</span>
-            </span>
+            </div>
+          </div>
+          <div class="box">
+            <h3 class="title is-5 mb-3">Endereço</h3>
+            <address>
+              CEP {{ place.endereco.cep }}<br>
+              {{ place.endereco.cidade }}, {{ place.endereco.estado }}<br>
+              Bairro {{ place.endereco.bairro }}<br>
+              {{ place.endereco.logradouro }} {{ place.endereco.numero }}{{ place.endereco.complemento ? ', ' + place.endereco.complemento : '' }}
+            </address>
           </div>
         </div>
-        <div class="box">
-          <h3 class="title is-5 mb-3">Endereço</h3>
-          <address>
-            CEP {{ place.endereco.cep }}<br>
-            {{ place.endereco.cidade }}, {{ place.endereco.estado }}<br>
-            Bairro {{ place.endereco.bairro }}<br>
-            {{ place.endereco.logradouro }} {{ place.endereco.numero }}{{ place.endereco.complemento ? ', ' + place.endereco.complemento : '' }}
-          </address>
-        </div>
-      </div>
-
-      <div class="column">
-        <h2 class="title is-4">Avaliações</h2>
-        <p *ngIf="ratings.length === 0" class="has-text-grey">Ninguém avaliou este lugar ainda.</p>
-        <div class="box" *ngFor="let rating of ratings">
-          <h3 class="title is-5 mb-3">{{ rating.titulo }}</h3>
-          <bar-rating [(rate)]="rating.nota" [theme]="'stars'" [readOnly]="true"></bar-rating>
-          <p>{{ rating.comentario }}</p>
-          <br>
-          <small>{{ rating.user }}</small>
+  
+        <div class="column">
+          <h2 class="title is-4">Avaliações</h2>
+          <p *ngIf="ratings.length === 0" class="has-text-grey">Ninguém avaliou este lugar ainda.</p>
+          <div class="box" *ngFor="let rating of ratings">
+            <h3 class="title is-5 mb-3">{{ rating.titulo }}</h3>
+            <bar-rating [(rate)]="rating.nota" [theme]="'stars'" [readOnly]="true"></bar-rating>
+            <p>{{ rating.comentario }}</p>
+            <br>
+            <small>{{ rating.user }}</small>
+          </div>
+          <button class="button is-light is-fullwidth"
+            (click)="loadMoreRatings()"
+            *ngIf="ratingsPagination.total > ratingsPagination.offset + 1">
+            Carregar mais
+          </button>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</ng-container>

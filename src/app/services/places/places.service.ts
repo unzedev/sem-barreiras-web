@@ -21,10 +21,10 @@ export class PlacesService {
   }
 
   public putPlace(id: any, body: any): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`, body);
+    return this.http.put(`${this.apiUrl}/${id}`, body);
   }
 
   public postPlace(body: any): Observable<any> {
-    return this.http.get(this.apiUrl, body);
+    return this.http.post(this.apiUrl, body);
   }
 }

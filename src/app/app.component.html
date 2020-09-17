@@ -29,7 +29,10 @@
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
-          <div class="buttons">
+          <a *ngIf="userIsLogged" (click)="logout()" class="button is-primary is-outlined" [class]="{ 'is-inverted': navbarIsTransparent }">
+            Sair
+          </a>
+          <div class="buttons" *ngIf="!userIsLogged">
             <a routerLink="/cadastrar" routerLinkActive="is-active" class="button is-primary">
               <strong>Cadastrar</strong>
             </a>
