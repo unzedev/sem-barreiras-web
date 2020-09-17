@@ -104,124 +104,127 @@
         </div>
       </div>
     </div>
-    <div class="columns is-multiline">
-      <div class="column is-4" *ngFor="let place of places">
-        <div class="card place-card">
-          <div class="card-image" [style]="{ 'background': 'url(' + place.foto + ')' }"></div>
-          <div class="card-content">
-            <h3 class="title is-4">{{ place.titulo }}</h3>
-            <p class="subtitle is-6 mb-0">{{ place.tipo }}</p>
-            <bar-rating [(rate)]="place.avaliacao_media" [theme]="'stars'" [readOnly]="true"></bar-rating>
-            <div class="tags">
-              <span class="tag" *ngIf="place.estacionamento">
-                <span class="icon">
-                  <i class="fas fa-car"></i>
+    <p *ngIf="places.length === 0" class="has-text-grey has-text-centered">Não encontramos nenhum resultado.</p>
+    <div *ngIf="places.length > 0">
+      <div class="columns is-multiline">
+        <div class="column is-4" *ngFor="let place of places">
+          <div class="card place-card">
+            <div class="card-image has-background-primary" [style]="{ 'background': 'url(' + place.foto + ')' }"></div>
+            <div class="card-content">
+              <h3 class="title is-4">{{ place.titulo }}</h3>
+              <p class="subtitle is-6 mb-0">{{ place.tipo }}</p>
+              <bar-rating [(rate)]="place.avaliacao_media" [theme]="'stars'" [readOnly]="true"></bar-rating>
+              <div class="tags">
+                <span class="tag" *ngIf="place.estacionamento">
+                  <span class="icon">
+                    <i class="fas fa-car"></i>
+                  </span>
+                  <span>estacionamento</span>
                 </span>
-                <span>estacionamento</span>
-              </span>
-              <span class="tag" *ngIf="place.entrada_facilitada">
-                <span class="icon">    
-                  <i class="fas fa-door-open"></i>
+                <span class="tag" *ngIf="place.entrada_facilitada">
+                  <span class="icon">    
+                    <i class="fas fa-door-open"></i>
+                  </span>
+                  <span>entrada facilitada</span>
                 </span>
-                <span>entrada facilitada</span>
-              </span>
-              <span class="tag" *ngIf="place.circulacao_interna">
-                <span class="icon">
-                  <i class="fas fa-walking"></i>
+                <span class="tag" *ngIf="place.circulacao_interna">
+                  <span class="icon">
+                    <i class="fas fa-walking"></i>
+                  </span>
+                  <span>circulação interna</span>
                 </span>
-                <span>circulação interna</span>
-              </span>
-              <span class="tag" *ngIf="place.banheiro_acessivel">
-                <span class="icon">
-                  <i class="fas fa-toilet"></i>
+                <span class="tag" *ngIf="place.banheiro_acessivel">
+                  <span class="icon">
+                    <i class="fas fa-toilet"></i>
+                  </span>
+                  <span>banheiro acessível</span>
                 </span>
-                <span>banheiro acessível</span>
-              </span>
-              <span class="tag" *ngIf="place.sinalizacao">
-                <span class="icon">
-                  <i class="fas fa-map-signs"></i>
+                <span class="tag" *ngIf="place.sinalizacao">
+                  <span class="icon">
+                    <i class="fas fa-map-signs"></i>
+                  </span>
+                  <span>sinalização</span>
                 </span>
-                <span>sinalização</span>
-              </span>
-              <!-- <span class="tag" *ngIf="place.">
-                <span class="icon">
-                  <i class="fas fa-smile-beam"></i>
-                </span>
-                <span>posicionamento atitudinal positivo</span>
-              </span> -->
+                <!-- <span class="tag" *ngIf="place.">
+                  <span class="icon">
+                    <i class="fas fa-smile-beam"></i>
+                  </span>
+                  <span>posicionamento atitudinal positivo</span>
+                </span> -->
+              </div>
             </div>
+            <footer class="card-footer">
+              <a [routerLink]="'/' + place.id" class="card-footer-item">Ver</a>
+              <!-- <a [routerLink]="'/' + place.id + '/avaliar'" class="card-footer-item">Avaliar</a> -->
+            </footer>
           </div>
-          <footer class="card-footer">
-            <a [routerLink]="'/' + place.id" class="card-footer-item">Ver</a>
-            <!-- <a [routerLink]="'/' + place.id + '/avaliar'" class="card-footer-item">Avaliar</a> -->
-          </footer>
         </div>
       </div>
+      <nav class="pagination is-centered" role="navigation" aria-label="paginação">
+        <button class="pagination-previous"
+          (click)="this.pagination.offset = pagination.offset - 20; getPlaces()"
+          [disabled]="pagination.offset === 0">
+          Anterior
+        </button>
+        <button class="pagination-next"
+          (click)="this.pagination.offset = pagination.offset + 20; getPlaces()"
+          [disabled]="pagination.total <= pagination.offset + 1">
+          Próxima
+        </button>
+        <ul class="pagination-list">
+          <!-- <li>
+            <a class="pagination-link"
+              aria-label="Ir para página 1"
+              (click)="getPlaces(0)"
+              *ngIf="pagination.offset < pagination.total">
+              1
+            </a>
+          </li>
+          <li>
+            <span class="pagination-ellipsis"
+              *ngIf="pagination.offset < pagination.total">
+              &hellip;
+            </span>
+          </li>
+          <li>
+            <a class="pagination-link"
+              [attr.aria-label]="'Ir para página ' + (pagination.offset)"
+              (click)="getPlaces(pagination.offset - 1)"
+              *ngIf="pagination.offset < pagination.total">
+              {{ pagination.offset }}
+            </a>
+          </li> -->
+          <li>
+            <a class="pagination-link is-current"
+              [attr.aria-label]="'Página ' + ((pagination.offset + 20) / 20)"
+              aria-current="página">
+              {{ (pagination.offset + 20) / 20 }}
+            </a>
+          </li>
+          <!-- <li>
+            <a class="pagination-link"
+              [attr.aria-label]="'Ir para página ' + (pagination.offset + 1)"
+              (click)="getPlaces(pagination.offset + 1)"
+              *ngIf="pagination.total > pagination.offset + 1">
+              {{ pagination.offset + 1 }}
+            </a>
+          </li>
+          <li>
+            <span class="pagination-ellipsis"
+              *ngIf="pagination.total > pagination.offset + 1">
+              &hellip;
+            </span>
+          </li>
+          <li>
+            <a class="pagination-link"
+              [attr.aria-label]="'Ir para página ' + pagination.total"
+              (click)="getPlaces(pagination.total)"
+              *ngIf="pagination.total > pagination.offset + 1">
+              {{ pagination.total }}
+            </a>
+          </li> -->
+        </ul>
+      </nav>
     </div>
-    <nav class="pagination is-centered" role="navigation" aria-label="paginação">
-      <button class="pagination-previous"
-        (click)="this.pagination.offset = pagination.offset - 20; getPlaces()"
-        [disabled]="pagination.offset === 0">
-        Anterior
-      </button>
-      <button class="pagination-next"
-        (click)="this.pagination.offset = pagination.offset + 20; getPlaces()"
-        [disabled]="pagination.total === pagination.offset">
-        Próxima
-      </button>
-      <ul class="pagination-list">
-        <!-- <li>
-          <a class="pagination-link"
-            aria-label="Ir para página 1"
-            (click)="getPlaces(0)"
-            *ngIf="pagination.offset < pagination.total">
-            1
-          </a>
-        </li>
-        <li>
-          <span class="pagination-ellipsis"
-            *ngIf="pagination.offset < pagination.total">
-            &hellip;
-          </span>
-        </li>
-        <li>
-          <a class="pagination-link"
-            [attr.aria-label]="'Ir para página ' + (pagination.offset)"
-            (click)="getPlaces(pagination.offset - 1)"
-            *ngIf="pagination.offset < pagination.total">
-            {{ pagination.offset }}
-          </a>
-        </li> -->
-        <li>
-          <a class="pagination-link is-current"
-            [attr.aria-label]="'Página ' + ((pagination.offset + 20) / 20)"
-            aria-current="página">
-            {{ (pagination.offset + 20) / 20 }}
-          </a>
-        </li>
-        <!-- <li>
-          <a class="pagination-link"
-            [attr.aria-label]="'Ir para página ' + (pagination.offset + 1)"
-            (click)="getPlaces(pagination.offset + 1)"
-            *ngIf="pagination.total > pagination.offset + 1">
-            {{ pagination.offset + 1 }}
-          </a>
-        </li>
-        <li>
-          <span class="pagination-ellipsis"
-            *ngIf="pagination.total > pagination.offset + 1">
-            &hellip;
-          </span>
-        </li>
-        <li>
-          <a class="pagination-link"
-            [attr.aria-label]="'Ir para página ' + pagination.total"
-            (click)="getPlaces(pagination.total)"
-            *ngIf="pagination.total > pagination.offset + 1">
-            {{ pagination.total }}
-          </a>
-        </li> -->
-      </ul>
-    </nav>
   </div>
 </section>

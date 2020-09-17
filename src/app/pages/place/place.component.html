@@ -1,5 +1,5 @@
 <section class="hero is-medium is-primary"
-  [style]="{ 'background': 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.1) 100%), url(' + place.foto + ')' }">
+  [style]="{ 'background': place.foto ? 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.1) 100%), url(' + place.foto + ')' : '' }">
   <div class="hero-body">
     <div class="container">
       <h1 class="title is-1">{{ place.titulo }}</h1>
@@ -50,24 +50,25 @@
         <div class="box">
           <h3 class="title is-5 mb-3">Endereço</h3>
           <address>
-            <p>{{ place.endereco.cep }}</p>
-            <p>{{ place.endereco.cidade }}, {{ place.endereco.estado }}</p>
-            <p>Bairro {{ place.endereco.bairro }}</p>
-            <p>{{ place.endereco.logradouro }} {{ place.endereco.numero }}{{ place.endereco.complemento ? ', ' + place.endereco.complemento : '' }}</p>
+            CEP {{ place.endereco.cep }}<br>
+            {{ place.endereco.cidade }}, {{ place.endereco.estado }}<br>
+            Bairro {{ place.endereco.bairro }}<br>
+            {{ place.endereco.logradouro }} {{ place.endereco.numero }}{{ place.endereco.complemento ? ', ' + place.endereco.complemento : '' }}
           </address>
         </div>
       </div>
 
-      <!-- <div class="column">
+      <div class="column">
         <h2 class="title is-4">Avaliações</h2>
-        <div class="box" *ngFor="let rating of place.ratings">
-          <h3 class="title is-5 mb-3">{{ rating.title }}</h3>
-          <bar-rating [(rate)]="rating.rating" [theme]="'stars'" [readOnly]="true"></bar-rating>
-          <p>{{ rating.text }}</p>
+        <p *ngIf="ratings.length === 0" class="has-text-grey">Ninguém avaliou este lugar ainda.</p>
+        <div class="box" *ngFor="let rating of ratings">
+          <h3 class="title is-5 mb-3">{{ rating.titulo }}</h3>
+          <bar-rating [(rate)]="rating.nota" [theme]="'stars'" [readOnly]="true"></bar-rating>
+          <p>{{ rating.comentario }}</p>
           <br>
           <small>{{ rating.user }}</small>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </section>

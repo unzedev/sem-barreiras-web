@@ -34,7 +34,7 @@ export class PlacesComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchUrlParams();
-    this.getMockedPlaces();
+    this.getPlaces();
   }
 
   getCities(): void {
@@ -66,7 +66,12 @@ export class PlacesComponent implements OnInit {
   }
 
   getPlaces(): void {
-    const filter = this.filter;
+    const filter = {...this.filter};
+    for (const el in filter) {
+      if (filter[el].length === 0){
+        delete filter[el];
+      }
+    }
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {
@@ -80,35 +85,9 @@ export class PlacesComponent implements OnInit {
       offset: this.pagination.offset,
       ...filter,
     }).subscribe((res) => {
-      this.places = res.data.data;
-      this.pagination = res.data.paginacao;
+      this.places = res.dados;
+      this.pagination = res.paginacao;
     });
-  }
-
-  getMockedPlaces(): void {
-    this.places = [
-      {
-        id: '5f5f5eb71fb23c00046b752e',
-        avaliacao_media: 4.65,
-        banheiro_acessivel: false,
-        circulacao_interna: true,
-        descricao: 'Lorem ipsum dolor sit amet',
-        endereco: {
-          cep: '90254-085',
-          cidade: 'Porto Alegre',
-          complemento: 'Apto. 404, Bloco A',
-          estado: 'RS',
-          logradouro: 'Av. AJ Renner',
-          numero: '300'
-        },
-        entrada_facilitada: true,
-        estacionamento: true,
-        foto: 'https://images.unsplash.com/photo-1583594454990-015f8118f982?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1252&q=80',
-        sinalizacao: true,
-        tipo: 'restaurante',
-        titulo: 'Estabelecimento X'
-      },
-    ];
   }
 
 }
