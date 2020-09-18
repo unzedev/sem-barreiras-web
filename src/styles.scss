@@ -77,3 +77,32 @@ button, a {
 .ng-dropdown-panel.ng-select-top {
   bottom: -8px !important;
 }
+
+.over-top-box {
+  position: relative;
+  top: -75px;
+  margin-bottom: -50px !important;
+}
+
+.place-card {
+  border-top: 5px solid $primary;
+}
+
+.rating-card {
+  border-top: 5px solid $info;
+  &.no-footer {
+    height: auto;
+    padding-bottom: 0;
+  }
+}
+
+.input-stars {
+  .br-stars {
+    margin: 0 0 0 5px !important;
+    display: inline-block;
+  }
+}
+
+body {
+  margin-top: 56px;
+}

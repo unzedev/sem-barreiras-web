@@ -1,4 +1,4 @@
-<section class="hero is-medium is-primary">
+<section class="hero is-primary">
   <div class="hero-body">
     <div class="container">
       <h1 class="title is-1">Novo Estabelecimento</h1>
@@ -8,8 +8,8 @@
 </section>
 <section class="section">
   <div class="container">
-    <div class="box form-box">
-      <form (submit)="registerPlace()">
+    <div class="box over-top-box">
+      <form (submit)="registerPlace()" ngNativeValidate>
         <div class="columns is-multiline">
           <div class="column is-8">
             <h2 class="title">Informações Principais</h2>

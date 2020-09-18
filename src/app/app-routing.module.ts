@@ -6,6 +6,8 @@ import { PlacesComponent } from './pages/places/places.component';
 import { PlaceComponent } from './pages/place/place.component';
 import { NewPlaceComponent } from './pages/new-place/new-place.component';
 import { NewRatingComponent } from './pages/new-rating/new-rating.component';
+import { AdminPlacesComponent } from './pages/admin/admin-places/admin-places.component';
+import { AdminRatingsComponent } from './pages/admin/admin-ratings/admin-ratings.component';
 
 
 const routes: Routes = [
@@ -16,6 +18,19 @@ const routes: Routes = [
   {
     path: 'cadastrar',
     component: SignupComponent,
+  },
+  {
+    path: 'admin',
+    children: [
+      {
+        path: 'estabelecimentos',
+        component: AdminPlacesComponent,
+      },
+      {
+        path: 'avaliacoes',
+        component: AdminRatingsComponent,
+      },
+    ],
   },
   {
     path: '',

@@ -1,18 +1,17 @@
 <ng-container *ngIf="place">
-  <section class="hero is-medium is-primary"
-    [style]="{ 'background': place.foto ? 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.1) 100%), url(' + place.foto + ')' : '' }">
+  <section class="hero is-primary">
     <div class="hero-body">
       <div class="container">
         <h1 class="title is-1">{{ place.titulo }}</h1>
         <p class="subtitle mb-0">{{ place.tipo }}</p>
-        <bar-rating [(rate)]="place.avaliacao_media" [theme]="'stars'" [readOnly]="true"></bar-rating>
+        <bar-rating [(rate)]="place.avaliacao_media" theme="stars" [readOnly]="true"></bar-rating>
       </div>
     </div>
   </section>
   <section class="section">
     <div class="container">
-      <div class="box form-box">
-        <form (submit)="registerRating()">
+      <div class="box over-top-box">
+        <form (submit)="registerRating()" ngNativeValidate>
           <h2 class="title">Nova Avaliação</h2>
           <div class="columns is-multiline">
             <div class="column is-6">
@@ -31,7 +30,9 @@
             </div>
             <div class="column is-6">
               <div class="field">
-                <label for="nota">Nota</label>
+                <label for="nota">
+                    Nota <bar-rating name="rating" theme="stars" [(ngModel)]="rating.nota" [max]="5" required class="input-stars"></bar-rating>
+                </label>
                 <div class="control">
                   <input
                     type="number"
@@ -49,13 +50,9 @@
               <div class="field">
                 <label for="comentario">Comentário</label>
                 <div class="control">
-                  <input
-                    type="text"
-                    class="input"
-                    name="comentario"
-                    id="comentario"
-                    required
-                    [(ngModel)]="rating.comentario">
+                  <textarea class="textarea" name="comentario" id="comentario" rows="5"
+                  required
+                  [(ngModel)]="rating.comentario"></textarea>
                 </div>
               </div>
             </div>

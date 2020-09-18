@@ -1,8 +1,22 @@
-<section class="hero is-primary">
+<section class="hero is-info">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title is-1">Estabelecimentos</h1>
-      <p class="subtitle">Encontre estabelecimentos acessíveis{{ filter.cidade ? ' em ' + filter.cidade : '' }}</p>
+      <div class="columns">
+        <div class="column">
+          <h1 class="title is-1">Estabelecimentos</h1>
+          <p class="subtitle">Aqui você pode ver, aprovar e excluir estabelecimentos</p>
+        </div>
+        <div class="column has-text-right">
+          <a [routerLink]="'/adicionar'" class="button is-light">
+            <span class="icon">
+              <i class="fas fa-plus"></i>
+            </span>
+            <span>
+              Adicionar
+            </span>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -19,7 +33,7 @@
             </div>
           </div>
         </div>
-        <div class="column is-3">
+        <div class="column is-2">
           <div class="field">
             <label for="tipo">Tipo</label>
             <div class="control">
@@ -36,7 +50,21 @@
             </div>
           </div>
         </div>
-        <div class="column is-3">
+        <div class="column is-2">
+          <div class="field">
+            <label for="status">Situação</label>
+            <div class="control">
+              <div class="select">
+                <select [(ngModel)]="filter.status" class="input" name="status" id="status">
+                  <option value="">Selecione...</option>
+                  <option value="pendente">Pendente</option>
+                  <option value="aprovado">Aprovado</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column is-2">
           <div class="field">
             <label for="estado">Estado</label>
             <div class="control">
@@ -107,13 +135,26 @@
     <p *ngIf="places.length === 0" class="has-text-grey has-text-centered">Não encontramos nenhum resultado.</p>
     <div *ngIf="places.length > 0">
       <div class="columns is-multiline">
-        <div class="column is-4" *ngFor="let place of places">
+        <div class="column is-6" *ngFor="let place of places; let index = index">
           <div class="card place-card">
             <div class="card-image has-background-primary"></div>
             <div class="card-content">
-              <h3 class="title is-4">{{ place.titulo }}</h3>
-              <p class="subtitle is-6 mb-0">{{ place.tipo }}</p>
-              <bar-rating [(rate)]="place.avaliacao_media" theme="stars" [readOnly]="true"></bar-rating>
+              <div class="columns">
+                <div class="column">
+                  <p><span class="tag" [class]="{ 'is-success': place.status === 'aprovado', 'is-warning': place.status === 'pendente' }">{{ place.status }}</span></p>
+                  <h3 class="title is-4 mt-4">{{ place.titulo }}</h3>
+                  <p class="subtitle is-6 mb-0">{{ place.tipo }}</p>
+                  <bar-rating [(rate)]="place.avaliacao_media" theme="stars" [readOnly]="true"></bar-rating>
+                </div>
+                <div class="column">
+                  <address>
+                    CEP {{ place.endereco.cep }}<br>
+                    {{ place.endereco.cidade }}, {{ place.endereco.estado }}<br>
+                    Bairro {{ place.endereco.bairro }}<br>
+                    {{ place.endereco.logradouro }} {{ place.endereco.numero }}{{ place.endereco.complemento ? ', ' + place.endereco.complemento : '' }}
+                  </address>
+                </div>
+              </div>
               <div class="tags">
                 <span class="tag" *ngIf="place.estacionamento">
                   <span class="icon">
@@ -145,19 +186,7 @@
                   </span>
                   <span>sinalização</span>
                 </span>
-                <!-- <span class="tag" *ngIf="place.">
-                  <span class="icon">
-                    <i class="fas fa-smile-beam"></i>
-                  </span>
-                  <span>posicionamento atitudinal positivo</span>
-                </span> -->
               </div>
-              <address>
-                CEP {{ place.endereco.cep }}<br>
-                {{ place.endereco.cidade }}, {{ place.endereco.estado }}<br>
-                Bairro {{ place.endereco.bairro }}<br>
-                {{ place.endereco.logradouro }} {{ place.endereco.numero }}{{ place.endereco.complemento ? ', ' + place.endereco.complemento : '' }}
-              </address>
             </div>
             <footer class="card-footer">
               <a [routerLink]="'/' + place.id" class="card-footer-item">
@@ -168,12 +197,20 @@
                   <b>Ver</b>
                 </span>
               </a>
-              <a [routerLink]="'/' + place.id + '/avaliar'" class="card-footer-item">
+              <a *ngIf="place.status === 'pendente'" (click)="approvePlace(place.id, index)" class="card-footer-item has-text-success-dark">
                 <span class="icon">
-                  <i class="fas fa-star"></i>
+                  <i class="fas fa-thumbs-up"></i>
                 </span>
                 <span>
-                  <b>Avaliar</b>
+                  <b>Aprovar</b>
+                </span>
+              </a>
+              <a (click)="deletePlace(place.id, index)"class="card-footer-item has-text-danger-dark">
+                <span class="icon">
+                  <i class="fas fa-trash"></i>
+                </span>
+                <span>
+                  <b>Excluir</b>
                 </span>
               </a>
             </footer>

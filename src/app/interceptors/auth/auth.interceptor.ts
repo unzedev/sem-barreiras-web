@@ -33,6 +33,7 @@ export class AuthInterceptor implements HttpInterceptor {
           return;
         }
         this.toastr.error('Entre novamente!', 'Erro');
+        this.authService.clearAuth();
         this.router.navigateByUrl('login');
       }
     }));

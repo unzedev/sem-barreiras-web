@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   menuIsActive = false;
   navbarIsTransparent = false;
   userIsLogged = false;
+  userIsAdmin = false;
 
   constructor(
     private config: NgSelectConfig,
@@ -29,25 +30,16 @@ export class AppComponent implements OnInit {
     this.menuIsActive = !this.menuIsActive;
   }
 
-  @HostListener('window:scroll', ['$event'])
-  setNavbarTransparency(event): any {
-    const doc = document.documentElement;
-    const top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
-    if (top === 0) {
-      this.navbarIsTransparent = true;
-    } else {
-      this.navbarIsTransparent = false;
-    }
-  }
-
   ngOnInit(): void {
-    this.setNavbarTransparency(0);
     this.checkIfUserIsLogged();
   }
 
   checkIfUserIsLogged(): void {
     if (this.authService.getAuthToken()) {
       this.userIsLogged = true;
+    }
+    if (this.authService.getAuthPermission() === 'administrador') {
+      this.userIsAdmin = true;
     }
   }
 

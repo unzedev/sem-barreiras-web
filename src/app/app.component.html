@@ -1,13 +1,10 @@
-<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation" [class]="{ 'is-transparent': navbarIsTransparent }">
+<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="container">
     <div class="navbar-brand">
       <a class="navbar-item" routerLink="/">
         <span class="title is-4">
           <span class="icon">
-            <!-- <i class="fas fa-blind"></i> -->
             <i class="fab fa-accessible-icon"></i>
-            <!-- <i class="fas fa-dove"></i> -->
-            <!-- <i class="fab fa-balloon"></i> -->
           </span>
           <span>
             Sem Barreiras
@@ -23,15 +20,35 @@
     </div>
     <div class="navbar-menu" [class]="{ 'is-active': menuIsActive }">
       <div class="navbar-start">
-        <a routerLink="/" routerLinkActive="is-active" class="navbar-item">
-          Estabelecimentos
+        <a class="navbar-item" routerLink="/adicionar" routerLinkActive="is-active">
+          Adicionar estabelecimento
         </a>
+        <div class="navbar-item has-dropdown is-hoverable" *ngIf="userIsLogged && userIsAdmin">
+          <a class="navbar-link">
+            Administração
+          </a>
+          <div class="navbar-dropdown">
+            <a routerLink="/admin/estabelecimentos" class="navbar-item">
+              Estabelecimentos
+            </a>
+            <a routerLink="/admin/avaliacoes" class="navbar-item">
+              Avaliações
+            </a>
+          </div>
+        </div>
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
-          <a *ngIf="userIsLogged" (click)="logout()" class="button is-primary is-outlined" [class]="{ 'is-inverted': navbarIsTransparent }">
-            Sair
-          </a>
+          <div class="buttons" *ngIf="userIsLogged">
+            <a (click)="logout()" class="button is-primary is-outlined">
+              <span>
+                Sair
+              </span>
+              <span class="icon">
+                <i class="fas fa-sign-out-alt"></i>
+              </span>
+            </a>
+          </div>
           <div class="buttons" *ngIf="!userIsLogged">
             <a routerLink="/cadastrar" routerLinkActive="is-active" class="button is-primary">
               <strong>Cadastrar</strong>

@@ -1,11 +1,11 @@
+<!-- [style]="{ 'background': place.foto ? 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.1) 100%), url(' + place.foto + ')' : '' }" -->
 <ng-container *ngIf="place">
-  <section class="hero is-medium is-primary"
-    [style]="{ 'background': place.foto ? 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.1) 100%), url(' + place.foto + ')' : '' }">
+  <section class="hero is-primary">
     <div class="hero-body">
       <div class="container">
         <h1 class="title is-1">{{ place.titulo }}</h1>
         <p class="subtitle mb-0">{{ place.tipo }}</p>
-        <bar-rating [(rate)]="place.avaliacao_media" [theme]="'stars'" [readOnly]="true"></bar-rating>
+        <bar-rating [(rate)]="place.avaliacao_media" theme="stars" [readOnly]="true"></bar-rating>
       </div>
     </div>
   </section>
@@ -62,20 +62,38 @@
         <div class="column">
           <h2 class="title is-4">Avaliações</h2>
           <p *ngIf="ratings.length === 0" class="has-text-grey">Ninguém avaliou este lugar ainda.</p>
-          <div class="box" *ngFor="let rating of ratings">
-            <h3 class="title is-5 mb-3">{{ rating.titulo }}</h3>
-            <bar-rating [(rate)]="rating.nota" [theme]="'stars'" [readOnly]="true"></bar-rating>
-            <p>{{ rating.comentario }}</p>
-            <br>
-            <small>{{ rating.user }}</small>
+          <div class="card rating-card no-footer" *ngFor="let rating of ratings">
+            <div class="card-content">
+              <h3 class="title is-5 mb-3">{{ rating.titulo }}</h3>
+              <bar-rating [(rate)]="rating.nota" [theme]="'stars'" [readOnly]="true"></bar-rating>
+              <p>{{ rating.comentario }}</p>
+              <br>
+              <small>{{ rating.usuario }}</small>  
+            </div>
           </div>
+          <br>
           <button class="button is-light is-fullwidth"
             (click)="loadMoreRatings()"
-            *ngIf="ratingsPagination.total > ratingsPagination.offset + 1">
-            Carregar mais
+            *ngIf="ratingsPagination.total > ratingsPagination.offset + ratingsPagination.limite">
+            <span class="icon">
+              <i class="fas fa-plus"></i>
+            </span>
+            <span>
+              Carregar mais
+            </span>
           </button>
         </div>
       </div>
     </div>
   </section>
 </ng-container>
+<section class="hero is-fullheight is-primary" *ngIf="!place">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title is-1">404</h1>
+      <p class="subtitle mb-0">Não encontramos esta página!</p>
+      <br>
+      <a [routerLink]="'/'" class="button is-white">Ver estabelecimentos</a>
+    </div>
+  </div>
+</section>

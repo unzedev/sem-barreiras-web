@@ -38,9 +38,10 @@ export class PlaceComponent implements OnInit {
     const params = {
       estabelecimento_id: this.route.snapshot.paramMap.get('id'),
       offset: this.ratingsPagination.offset,
+      status: 'aprovado',
     };
     this.ratingsService.getRatings(params).subscribe((res) => {
-      this.ratings = [...this.ratings, ...res.dados.filter((item) => item.status === 'aprovada')];
+      this.ratings = [...this.ratings, ...res.dados];
       this.ratingsPagination = res.paginacao;
     });
   }

@@ -23,4 +23,12 @@ export class RatingsService {
   public postRating(body: any): Observable<any> {
     return this.http.post(this.apiUrl, body);
   }
+
+  public putRating(id: any, body: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, body);
+  }
+
+  public deleteRating(id: any): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

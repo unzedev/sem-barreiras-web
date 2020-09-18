@@ -1,0 +1,116 @@
+<section class="hero is-info">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title is-1">Avaliações</h1>
+      <p class="subtitle">Aqui você pode ver, aprovar e excluir avaliações</p>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="box over-top-box">
+      <h3 class="title is-5">Buscar</h3>
+      <div class="columns is-multiline">
+        <div class="column is-12">
+          <div class="field">
+            <label for="status">Situação</label>
+            <div class="control">
+              <div class="select">
+                <select [(ngModel)]="filter.status" class="input" name="status" id="status">
+                  <option value="">Selecione...</option>
+                  <option value="pendente">Pendente</option>
+                  <option value="aprovado">Aprovado</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column is-12">
+          <div class="buttons is-right">
+            <button class="button is-light" type="button" (click)="cleanFiltersAndSearch()">
+              Limpar
+            </button>
+            <button class="button is-link" type="button" (click)="pagination.offset = 0; getRatings()">
+              Buscar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p *ngIf="ratings.length === 0" class="has-text-grey has-text-centered">Não encontramos nenhum resultado.</p>
+    <div *ngIf="ratings.length > 0">
+      <div class="columns is-multiline">
+        <div class="column is-6" *ngFor="let rating of ratings; let index = index">
+          <div class="card rating-card">
+            <div class="card-content">
+              <p><span class="tag" [class]="{ 'is-success': rating.status === 'aprovado', 'is-warning': rating.status === 'pendente' }">{{ rating.status }}</span></p>
+              <h3 class="title is-5 mb-3 mt-3">{{ rating.titulo }}</h3>
+              <bar-rating [(rate)]="rating.nota" [theme]="'stars'" [readOnly]="true"></bar-rating>
+              <p>{{ rating.comentario }}</p>
+              <br>
+              <small>{{ rating.usuario }}</small>
+            </div>
+            <footer class="card-footer">
+              <a [routerLink]="'/' + rating.estabelecimento_id" class="card-footer-item">
+                <span class="icon">
+                  <i class="fas fa-eye"></i>
+                </span>
+                <span>
+                  <b>Ver estabelecimento</b>
+                </span>
+              </a>
+              <a *ngIf="rating.status === 'pendente'" (click)="approvePlace(rating.id, index)" class="card-footer-item has-text-success-dark">
+                <span class="icon">
+                  <i class="fas fa-thumbs-up"></i>
+                </span>
+                <span>
+                  <b>Aprovar</b>
+                </span>
+              </a>
+              <a (click)="deletePlace(rating.id, index)"class="card-footer-item has-text-danger-dark">
+                <span class="icon">
+                  <i class="fas fa-trash"></i>
+                </span>
+                <span>
+                  <b>Excluir</b>
+                </span>
+              </a>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><br>
+    <nav class="pagination is-centered" role="navigation" aria-label="paginação">
+      <button class="pagination-previous"
+        (click)="this.pagination.offset = pagination.offset - this.pagination.limite; getRatings()"
+        [disabled]="pagination.offset === 0">
+        <span class="icon">
+          <i class="fas fa-chevron-left"></i>
+        </span>
+        <span>
+          Anterior
+        </span>
+      </button>
+      <button class="pagination-next"
+        (click)="this.pagination.offset = pagination.offset + this.pagination.limite; getRatings()"
+        [disabled]="pagination.total <= pagination.offset + this.pagination.limite">
+        <span>
+          Próxima
+        </span>
+        <span class="icon">
+          <i class="fas fa-chevron-right"></i>
+        </span>
+      </button>
+      <ul class="pagination-list">
+        <li>
+          <a class="pagination-link is-current"
+            [attr.aria-label]="'Página ' + ((pagination.offset + this.pagination.limite) / this.pagination.limite)"
+            aria-current="página">
+            Página {{ (pagination.offset + this.pagination.limite) / this.pagination.limite }}
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</section>

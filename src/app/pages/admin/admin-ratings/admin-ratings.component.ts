@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { PlacesService } from '../../services/places/places.service';
-import { PublicDataService } from '../../services/public-data/public-data.service';
+import { ToastrService } from 'ngx-toastr';
+import { RatingsService } from '../../../services/ratings/ratings.service';
 
 @Component({
-  selector: 'app-places',
-  templateUrl: './places.component.html',
-  styleUrls: ['./places.component.scss']
+  selector: 'app-admin-ratings',
+  templateUrl: './admin-ratings.component.html',
+  styleUrls: ['./admin-ratings.component.scss']
 })
-export class PlacesComponent implements OnInit {
+export class AdminRatingsComponent implements OnInit {
 
-  places: any[] = [];
+  ratings: any[] = [];
   pagination: any = {
     limite: 20,
     offset: 0,
-    total: 100,
+    total: 0,
   };
   filter: any = {
     titulo: '',
@@ -23,34 +22,22 @@ export class PlacesComponent implements OnInit {
     estado: '',
   };
 
-  cities: Observable<any[]>;
-
   constructor(
-    private placesService: PlacesService,
+    private ratingsService: RatingsService,
     private route: ActivatedRoute,
     private router: Router,
-    private publicDataService: PublicDataService,
-  ) { }
+    private toastr: ToastrService,
+    ) { }
 
   ngOnInit(): void {
     this.fetchUrlParams();
-    this.getPlaces();
-  }
-
-  getCities(): void {
-    this.cities = this.publicDataService.getCities(this.filter.estado);
+    this.getRatings();
   }
 
   fetchUrlParams(): void {
     this.route.queryParamMap.subscribe(p => {
       if (p.get('offset')) { this.pagination.offset = p.get('offset'); }
       if (p.get('titulo')) { this.filter.titulo = p.get('titulo'); }
-      if (p.get('tipo')) { this.filter.tipo = p.get('tipo'); }
-      if (p.get('estado')) {
-        this.filter.estado = p.get('estado');
-        this.getCities();
-      }
-      if (p.get('cidade')) { this.filter.cidade = p.get('cidade'); }
     }).unsubscribe();
   }
 
@@ -62,10 +49,10 @@ export class PlacesComponent implements OnInit {
       estado: '',
       cidade: '',
     };
-    this.getPlaces();
+    this.getRatings();
   }
 
-  getPlaces(): void {
+  getRatings(): void {
     const filter = {...this.filter};
     for (const el in filter) {
       if (filter[el].length === 0){
@@ -81,14 +68,32 @@ export class PlacesComponent implements OnInit {
       queryParamsHandling: 'merge',
     });
 
-    this.placesService.getPlaces({
+    this.ratingsService.getRatings({
       offset: this.pagination.offset,
-      status: 'aprovado',
       ...filter,
     }).subscribe((res) => {
-      this.places = res.dados;
+      this.ratings = res.dados;
       this.pagination = res.paginacao;
     });
+  }
+
+  approvePlace(id: string, index: number): void {
+    const body = {
+      status: 'aprovado',
+    };
+    this.ratingsService.putRating(id, body).subscribe((res) => {
+      this.ratings[index].status = 'aprovada';
+      this.toastr.success('Avaliação aprovada');
+    });
+  }
+
+  deletePlace(id: string, index: number): void {
+    if (window.confirm('Tem certeza que deseja excluir este avaliação?').valueOf()) {
+      this.ratingsService.deleteRating(id).subscribe((res) => {
+        this.ratings.splice(index, 1);
+        this.toastr.success('Avaliação excluída');
+      });
+    }
   }
 
 }

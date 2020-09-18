@@ -27,4 +27,8 @@ export class PlacesService {
   public postPlace(body: any): Observable<any> {
     return this.http.post(this.apiUrl, body);
   }
+
+  public deletePlace(id: any): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

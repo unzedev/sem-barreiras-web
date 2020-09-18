@@ -17,6 +17,8 @@ import { SigninComponent } from './pages/signin/signin.component';
 import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
 import { NewPlaceComponent } from './pages/new-place/new-place.component';
 import { NewRatingComponent } from './pages/new-rating/new-rating.component';
+import { AdminPlacesComponent } from './pages/admin/admin-places/admin-places.component';
+import { AdminRatingsComponent } from './pages/admin/admin-ratings/admin-ratings.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { NewRatingComponent } from './pages/new-rating/new-rating.component';
     SigninComponent,
     NewPlaceComponent,
     NewRatingComponent,
+    AdminPlacesComponent,
+    AdminRatingsComponent,
   ],
   imports: [
     BrowserModule,
