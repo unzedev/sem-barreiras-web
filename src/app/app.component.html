@@ -1,8 +1,8 @@
 <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="container">
-    <div class="navbar-brand">
-      <a class="navbar-item" routerLink="/">
-        <span class="title is-4">
+    <div class="navbar-brand is-relative">
+      <a class="navbar-item" routerLink="/" tabindex="0">
+        <span class="title is-4 has-cs-subtitle">
           <span class="icon">
             <i class="fab fa-accessible-icon"></i>
           </span>
@@ -11,7 +11,10 @@
           </span>
         </span>
       </a>
-  
+      <span class="navbar-item pl-0 no-focus" tabindex="-1">
+        <img src="../assets/img/un-logo.png" alt="Logo Acessibilidade ONU">
+      </span>
+        
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" (click)="toggleMenu()">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -19,19 +22,22 @@
       </a>
     </div>
     <div class="navbar-menu" [class]="{ 'is-active': menuIsActive }">
-      <div class="navbar-start">
-        <a class="navbar-item" routerLink="/adicionar" routerLinkActive="is-active">
+      <div class="navbar-start" *ngIf="userIsLogged">
+        <a class="navbar-item" routerLink="/estabelecimentos" routerLinkActive="is-active" tabindex="0">
+          Estabelecimentos
+        </a>
+        <a class="navbar-item" routerLink="/estabelecimentos/adicionar" routerLinkActive="is-active" tabindex="0" *ngIf="userIsPlace || userIsAdmin">
           Adicionar estabelecimento
         </a>
-        <div class="navbar-item has-dropdown is-hoverable" *ngIf="userIsLogged && userIsAdmin">
-          <a class="navbar-link">
+        <div class="navbar-item has-dropdown is-hoverable" *ngIf="userIsAdmin">
+          <a class="navbar-link" tabindex="0">
             Administração
           </a>
           <div class="navbar-dropdown">
-            <a routerLink="/admin/estabelecimentos" class="navbar-item">
+            <a routerLink="/admin/estabelecimentos" class="navbar-item" tabindex="0">
               Estabelecimentos
             </a>
-            <a routerLink="/admin/avaliacoes" class="navbar-item">
+            <a routerLink="/admin/avaliacoes" class="navbar-item" tabindex="0">
               Avaliações
             </a>
           </div>
@@ -40,7 +46,7 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons" *ngIf="userIsLogged">
-            <a (click)="logout()" class="button is-primary is-outlined">
+            <a (click)="logout()" class="button is-primary is-outlined" tabindex="0">
               <span>
                 Sair
               </span>
@@ -50,10 +56,10 @@
             </a>
           </div>
           <div class="buttons" *ngIf="!userIsLogged">
-            <a routerLink="/cadastrar" routerLinkActive="is-active" class="button is-primary">
+            <a routerLink="/cadastrar" routerLinkActive="is-active" class="button is-primary" tabindex="0">
               <strong>Cadastrar</strong>
             </a>
-            <a routerLink="/entrar" routerLinkActive="is-active" class="button is-primary is-outlined" [class]="{ 'is-inverted': navbarIsTransparent }">
+            <a routerLink="/entrar" routerLinkActive="is-active" class="button is-primary is-outlined" [class]="{ 'is-inverted': navbarIsTransparent }" tabindex="0">
               Entrar
             </a>
           </div>
@@ -65,7 +71,11 @@
 <router-outlet></router-outlet>
 <footer class="footer has-text-centered">
   <div class="container">
-    <p>OSC Conexão Solidária - CNPJ 24.236.775/0001-29</p>
+    <p>
+      OSC Conexão Solidária - CNPJ 24.236.775/0001-29
+      <br>
+      <a href="mailto:conexaosolidaria@rsconexaosolidaria.org">conexaosolidaria@rsconexaosolidaria.org</a>
+    </p>
     <hr>
     <p>Desenvolvido por <a href="https://unze.com.br" target="_blank">Unze</a></p>
   </div>

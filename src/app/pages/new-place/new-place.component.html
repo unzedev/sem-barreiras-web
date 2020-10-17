@@ -14,49 +14,58 @@
           <div class="column is-8">
             <h2 class="title">Informações Principais</h2>
             <div class="columns is-multiline">
-              <div class="column is-6">
+              <div class="column is-8">
                 <div class="field">
-                  <label for="titulo">Título</label>
+                  <label for="estabelecimento">Nome do estabelecimento</label>
                   <div class="control">
                     <input
                       type="text"
                       class="input"
-                      name="titulo"
-                      id="titulo"
+                      name="estabelecimento"
+                      id="estabelecimento"
                       required
                       [(ngModel)]="place.titulo">
                   </div>
                 </div>
               </div>
-              <div class="column is-6">
+              <div class="column is-4">
                 <div class="field">
                   <label for="tipo">Tipo</label>
-                  <div class="control">
-                    <input
-                      type="text"
-                      class="input"
-                      name="tipo"
-                      id="tipo"
-                      required
-                      [(ngModel)]="place.tipo">
+                  <div class="control select">
+                    <select [(ngModel)]="place.tipo" class="input" name="tipo" id="tipo">
+                      <option value="">Selecione...</option>
+                      <option value="Restaurante">Restaurante</option>
+                      <option value="Academia">Academia</option>
+                      <option value="Mercado">Mercado</option>
+                      <option value="Super Mercado">Super Mercado</option>
+                      <option value="Salão de Beleza">Salão de Beleza</option>
+                      <option value="Banco">Banco</option>
+                      <option value="Loja">Loja</option>
+                      <option value="Escola">Escola</option>
+                      <option value="Faculdade">Faculdade</option>
+                      <option value="Hotel">Hotel</option>
+                      <option value="Motel">Motel</option>
+                      <option value="Clínica">Clínica</option>
+                      <option value="Hospital">Hospital</option>
+                    </select>
                   </div>
                 </div>
               </div>
-              <div class="column is-12">
+              <div class="column is-4">
                 <div class="field">
-                  <label for="descricao">Descrição</label>
+                  <label for="cnpj">CNPJ</label>
                   <div class="control">
                     <input
                       type="text"
                       class="input"
-                      name="descricao"
-                      id="descricao"
+                      name="cnpj"
+                      id="cnpj"
                       required
-                      [(ngModel)]="place.descricao">
+                      [(ngModel)]="place.cnpj">
                   </div>
                 </div>
               </div>
-              <div class="column is-6">
+              <div class="column is-4">
                 <div class="field">
                   <label for="telefone">Telefone <small>(opcional)</small></label>
                   <div class="control">
@@ -69,7 +78,7 @@
                   </div>
                 </div>
               </div>
-              <div class="column is-6">
+              <div class="column is-4">
                 <div class="field">
                   <label for="link">URL <small>(opcional)</small></label>
                   <div class="control">
@@ -114,6 +123,12 @@
               <label class="checkbox">
                 <input type="checkbox" [(ngModel)]="place.sinalizacao" name="sinalizacao">
                 Sinalização
+              </label>
+            </div>
+            <div class="field">
+              <label class="checkbox">
+                <input type="checkbox" [(ngModel)]="place.pap" name="pap">
+                Posicionamento atitudinal positivo
               </label>
             </div>
           </div>

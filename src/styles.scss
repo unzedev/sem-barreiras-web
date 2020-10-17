@@ -106,3 +106,7 @@ button, a {
 body {
   margin-top: 56px;
 }
+
+.no-focus:focus {
+  outline: none;
+}

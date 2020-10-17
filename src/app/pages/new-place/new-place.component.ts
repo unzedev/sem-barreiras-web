@@ -53,7 +53,7 @@ export class NewPlaceComponent implements OnInit {
   registerPlace(): void {
     this.placesService.postPlace(this.place).subscribe((res) => {
       this.toastr.success('Estabelecimento adicionado');
-      this.router.navigateByUrl(`/${res.id}`);
+      this.router.navigateByUrl(`/estabelecimentos/${res.id}`);
     });
   }
 

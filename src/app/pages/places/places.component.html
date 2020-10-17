@@ -1,8 +1,7 @@
 <section class="hero is-primary">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title is-1">Estabelecimentos</h1>
-      <p class="subtitle">Encontre estabelecimentos acessíveis{{ filter.cidade ? ' em ' + filter.cidade : '' }}</p>
+      <h1 class="title is-3">Encontre estabelecimentos acessíveis</h1>
     </div>
   </div>
 </section>
@@ -13,7 +12,7 @@
       <div class="columns is-multiline">
         <div class="column is-3">
           <div class="field">
-            <label for="estabelecimento">Nome</label>
+            <label for="estabelecimento">Nome do estabelecimento</label>
             <div class="control">
               <input [(ngModel)]="filter.titulo" class="input" type="text" id="estabelecimento" name="estabelecimento">
             </div>
@@ -22,61 +21,65 @@
         <div class="column is-3">
           <div class="field">
             <label for="tipo">Tipo</label>
-            <div class="control">
-              <div class="select">
-                <select [(ngModel)]="filter.tipo" class="input" name="tipo" id="tipo">
-                  <option value="">Selecione...</option>
-                  <option value="restaurante">Restaurante</option>
-                  <option value="academia">Academia</option>
-                  <option value="mercado">Mercado</option>
-                  <option value="salao_de_beleza">Salão de Beleza</option>
-                  <option value="banco">Banco</option>
-                </select>
-              </div>
+            <div class="control select">
+              <select [(ngModel)]="filter.tipo" class="input" name="tipo" id="tipo">
+                <option value="">Selecione...</option>
+                <option value="Restaurante">Restaurante</option>
+                <option value="Academia">Academia</option>
+                <option value="Mercado">Mercado</option>
+                <option value="Super Mercado">Super Mercado</option>
+                <option value="Salão de Beleza">Salão de Beleza</option>
+                <option value="Banco">Banco</option>
+                <option value="Loja">Loja</option>
+                <option value="Escola">Escola</option>
+                <option value="Faculdade">Faculdade</option>
+                <option value="Hotel">Hotel</option>
+                <option value="Motel">Motel</option>
+                <option value="Clínica">Clínica</option>
+                <option value="Hospital">Hospital</option>
+              </select>
             </div>
           </div>
         </div>
         <div class="column is-3">
           <div class="field">
             <label for="estado">Estado</label>
-            <div class="control">
-              <div class="select">
-                <select (change)="getCities()"
-                  [(ngModel)]="filter.estado"
-                  class="input"
-                  name="estado"
-                  id="estado">
-                  <option value="">Selecione...</option>
-                  <option value="AC">Acre</option>
-                  <option value="AL">Alagoas</option>
-                  <option value="AP">Amapá</option>
-                  <option value="AM">Amazonas</option>
-                  <option value="BA">Bahia</option>
-                  <option value="CE">Ceará</option>
-                  <option value="DF">Distrito Federal</option>
-                  <option value="ES">Espírito Santo</option>
-                  <option value="GO">Goiás</option>
-                  <option value="MA">Maranhão</option>
-                  <option value="MT">Mato Grosso</option>
-                  <option value="MS">Mato Grosso do Sul</option>
-                  <option value="MG">Minas Gerais</option>
-                  <option value="PA">Pará</option>
-                  <option value="PB">Paraíba</option>
-                  <option value="PR">Paraná</option>
-                  <option value="PE">Pernambuco</option>
-                  <option value="PI">Piauí</option>
-                  <option value="RJ">Rio de Janeiro</option>
-                  <option value="RN">Rio Grande do Norte</option>
-                  <option value="RS">Rio Grande do Sul</option>
-                  <option value="RO">Rondônia</option>
-                  <option value="RR">Roraima</option>
-                  <option value="SC">Santa Catarina</option>
-                  <option value="SP">São Paulo</option>
-                  <option value="SE">Sergipe</option>
-                  <option value="TO">Tocantins</option>
-                  <option value="EX">Estrangeiro</option>
-                </select>
-              </div>
+            <div class="control select">
+              <select (change)="getCities()"
+                [(ngModel)]="filter.estado"
+                class="input"
+                name="estado"
+                id="estado">
+                <option value="">Selecione...</option>
+                <option value="AC">Acre</option>
+                <option value="AL">Alagoas</option>
+                <option value="AP">Amapá</option>
+                <option value="AM">Amazonas</option>
+                <option value="BA">Bahia</option>
+                <option value="CE">Ceará</option>
+                <option value="DF">Distrito Federal</option>
+                <option value="ES">Espírito Santo</option>
+                <option value="GO">Goiás</option>
+                <option value="MA">Maranhão</option>
+                <option value="MT">Mato Grosso</option>
+                <option value="MS">Mato Grosso do Sul</option>
+                <option value="MG">Minas Gerais</option>
+                <option value="PA">Pará</option>
+                <option value="PB">Paraíba</option>
+                <option value="PR">Paraná</option>
+                <option value="PE">Pernambuco</option>
+                <option value="PI">Piauí</option>
+                <option value="RJ">Rio de Janeiro</option>
+                <option value="RN">Rio Grande do Norte</option>
+                <option value="RS">Rio Grande do Sul</option>
+                <option value="RO">Rondônia</option>
+                <option value="RR">Roraima</option>
+                <option value="SC">Santa Catarina</option>
+                <option value="SP">São Paulo</option>
+                <option value="SE">Sergipe</option>
+                <option value="TO">Tocantins</option>
+                <option value="EX">Estrangeiro</option>
+              </select>
             </div>
           </div>
         </div>
@@ -145,12 +148,12 @@
                   </span>
                   <span>sinalização</span>
                 </span>
-                <!-- <span class="tag" *ngIf="place.">
+                <span class="tag" *ngIf="place.pap">
                   <span class="icon">
                     <i class="fas fa-smile-beam"></i>
                   </span>
                   <span>posicionamento atitudinal positivo</span>
-                </span> -->
+                </span>
               </div>
               <address>
                 CEP {{ place.endereco.cep }}<br>
@@ -160,7 +163,7 @@
               </address>
             </div>
             <footer class="card-footer">
-              <a [routerLink]="'/' + place.id" class="card-footer-item">
+              <a [routerLink]="'/estabelecimentos/' + place.id" class="card-footer-item">
                 <span class="icon">
                   <i class="fas fa-eye"></i>
                 </span>
@@ -168,7 +171,7 @@
                   <b>Ver</b>
                 </span>
               </a>
-              <a [routerLink]="'/' + place.id + '/avaliar'" class="card-footer-item">
+              <a [routerLink]="'/estabelecimentos/' + place.id + '/avaliar'" class="card-footer-item">
                 <span class="icon">
                   <i class="fas fa-star"></i>
                 </span>

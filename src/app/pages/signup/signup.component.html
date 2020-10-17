@@ -22,7 +22,13 @@
                 </div>
               </div>
               <div class="field">
-                <label for="deficiency">Deficiência ou deficiência do parente</label>
+                <label for="celular">Celular</label>
+                <div class="control">
+                  <input type="tel" class="input" name="celular" id="celular" required [(ngModel)]="register.celular">
+                </div>
+              </div>
+              <div class="field">
+                <label for="deficiency">Deficiência</label>
                 <div class="control">
                   <div class="select is-fullwidth">
                     <select class="input" name="deficiency" id="deficiency" [(ngModel)]="register.deficiencia">
@@ -30,11 +36,9 @@
                       <option value="física">Física</option>
                       <option value="auditiva">Auditiva</option>
                       <option value="visual">Visual</option>
-                      <option value="mental">Mental</option>
+                      <option value="intelectual">Intelectual</option>
                       <option value="múltipla">Múltipla</option>
-                      <optgroup title="Outros">
-                        <option value="nenhuma">Nenhuma</option>
-                      </optgroup>
+                      <option value="nenhuma">Nenhuma</option>
                     </select>
                   </div>
                 </div>

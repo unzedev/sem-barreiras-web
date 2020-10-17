@@ -38,4 +38,16 @@ export class AuthService {
     return localStorage.clear();
   }
 
+  public postForgot(body: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/recuperar`, body);
+  }
+
+  public getForgot(params: any = null): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/recuperar`, {params});
+  }
+
+  public putNewPassword(body: any, headers: any): Observable<any> {
+    return this.http.put(`${environment.apiUrl}/mudar_senha`, body, {headers});
+  }
+
 }

@@ -15,10 +15,12 @@ import { PlaceComponent } from './pages/place/place.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
+import { RouteGuard } from './guards/route.guard';
 import { NewPlaceComponent } from './pages/new-place/new-place.component';
 import { NewRatingComponent } from './pages/new-rating/new-rating.component';
 import { AdminPlacesComponent } from './pages/admin/admin-places/admin-places.component';
 import { AdminRatingsComponent } from './pages/admin/admin-ratings/admin-ratings.component';
+import { ForgotPasswordOneComponent } from './pages/forgot-password-one/forgot-password-one.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { AdminRatingsComponent } from './pages/admin/admin-ratings/admin-ratings
     NewRatingComponent,
     AdminPlacesComponent,
     AdminRatingsComponent,
+    ForgotPasswordOneComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import { AdminRatingsComponent } from './pages/admin/admin-ratings/admin-ratings
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    RouteGuard,
   ],
   bootstrap: [AppComponent],
 })

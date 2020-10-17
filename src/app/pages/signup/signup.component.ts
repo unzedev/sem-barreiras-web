@@ -12,7 +12,8 @@ export class SignupComponent implements OnInit {
   register: any = {
     nome: '',
     email: '',
-    password: ''
+    celular: '',
+    password: '',
   };
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -34,7 +35,7 @@ export class SignupComponent implements OnInit {
       if (this.authService.getAuthPermission() === 'administrador') {
         this.router.navigateByUrl('/admin');
       } else {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/estabelecimentos');
       }
     }
   }

@@ -33,7 +33,7 @@ export class SigninComponent implements OnInit {
       if (this.authService.getAuthPermission() === 'administrador') {
         this.router.navigateByUrl('/admin');
       } else {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/estabelecimentos');
       }
     }
   }

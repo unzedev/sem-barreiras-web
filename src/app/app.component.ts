@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   navbarIsTransparent = false;
   userIsLogged = false;
   userIsAdmin = false;
+  userIsPlace = false;
 
   constructor(
     private config: NgSelectConfig,
@@ -40,6 +41,9 @@ export class AppComponent implements OnInit {
     }
     if (this.authService.getAuthPermission() === 'administrador') {
       this.userIsAdmin = true;
+    }
+    if (this.authService.getAuthPermission() === 'estabelecimento') {
+      this.userIsPlace = true;
     }
   }
 

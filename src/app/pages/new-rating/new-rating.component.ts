@@ -42,7 +42,7 @@ export class NewRatingComponent implements OnInit {
   registerRating(): void {
     this.ratingsService.postRating(this.rating).subscribe((res) => {
       this.toastr.success('Avaliação criada');
-      this.router.navigateByUrl(`/${res.estabelecimento_id}`);
+      this.router.navigateByUrl(`/estabelecimentos/${res.estabelecimento_id}`);
     });
   }
 
