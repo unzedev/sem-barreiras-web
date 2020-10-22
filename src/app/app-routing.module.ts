@@ -10,6 +10,7 @@ import { NewRatingComponent } from './pages/new-rating/new-rating.component';
 import { AdminPlacesComponent } from './pages/admin/admin-places/admin-places.component';
 import { AdminRatingsComponent } from './pages/admin/admin-ratings/admin-ratings.component';
 import { ForgotPasswordOneComponent } from './pages/forgot-password-one/forgot-password-one.component';
+import { AdminUsersComponent } from './pages/admin/admin-users/admin-users.component';
 
 
 const routes: Routes = [
@@ -46,6 +47,10 @@ const routes: Routes = [
       {
         path: 'avaliacoes',
         component: AdminRatingsComponent,
+      },
+      {
+        path: 'usuarios',
+        component: AdminUsersComponent,
       },
     ],
   },
