@@ -18,7 +18,7 @@
               <div class="field">
                 <label for="email">E-mail</label>
                 <div class="control">
-                  <input type="email" class="input" name="email" id="email" required [(ngModel)]="register.email">
+                  <input type="email" class="input" autocomplete="email" name="email" id="email" required [(ngModel)]="register.email">
                 </div>
               </div>
               <div class="field">
@@ -46,8 +46,15 @@
               <div class="field">
                 <label for="password">Senha</label>
                 <div class="control">
-                  <input type="password" class="input" name="password" id="password" required [(ngModel)]="register.password">
+                  <input type="password" class="input" autocomplete="new-password" name="password" id="password" required [(ngModel)]="register.password">
                 </div>
+              </div>
+              <br>
+              <div class="field">
+                <label class="checkbox">
+                  <input type="checkbox" [(ngModel)]="newUserIsPlace" name="permission">
+                  Quero cadastrar estabelecimentos
+                </label>
               </div>
               <br>
               <div class="field">

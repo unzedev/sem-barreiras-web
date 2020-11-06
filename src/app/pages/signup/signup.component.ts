@@ -16,6 +16,8 @@ export class SignupComponent implements OnInit {
     password: '',
   };
 
+  newUserIsPlace = false;
+
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -23,6 +25,9 @@ export class SignupComponent implements OnInit {
   }
 
   signup(): void {
+    if (this.newUserIsPlace) {
+      this.register.permissao = 'estabelecimento';
+    }
     this.authService.postRegister(this.register).subscribe((res) => {
       this.authService.setAuthToken(res.token);
       this.authService.setAuthPermission(res.permissao);
