@@ -34,9 +34,12 @@ export class NewPlaceComponent implements OnInit {
     entrada_facilitada: false,
     estacionamento: false,
     sinalizacao: false,
+    pap: false,
   };
 
   cities: Observable<any[]>;
+
+  imageToUpload: File = null;
 
   constructor(
     private placesService: PlacesService,
@@ -50,8 +53,12 @@ export class NewPlaceComponent implements OnInit {
     this.redirectUser();
   }
 
+  handleImageInput(files: FileList): void {
+    this.imageToUpload = files.item(0);
+}
+
   registerPlace(): void {
-    this.placesService.postPlace(this.place).subscribe((res) => {
+    this.placesService.postPlace(this.place, this.imageToUpload).subscribe((res) => {
       this.toastr.success('Estabelecimento adicionado');
       this.router.navigateByUrl(`/estabelecimentos/${res.id}`);
     });

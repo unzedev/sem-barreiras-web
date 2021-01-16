@@ -40,15 +40,39 @@
     <p *ngIf="ratings.length === 0" class="has-text-grey has-text-centered">Não encontramos nenhum resultado.</p>
     <div *ngIf="ratings.length > 0">
       <div class="columns is-multiline">
-        <div class="column is-6" *ngFor="let rating of ratings; let index = index">
+        <div class="column is-12" *ngFor="let rating of ratings; let index = index">
           <div class="card rating-card">
             <div class="card-content">
               <p><span class="tag" [class]="{ 'is-success': rating.status === 'aprovado', 'is-warning': rating.status === 'pendente' }">{{ rating.status }}</span></p>
+              
               <h3 class="title is-5 mb-3 mt-3">{{ rating.titulo }}</h3>
+              
               <bar-rating [(rate)]="rating.nota" [theme]="'stars'" [readOnly]="true"></bar-rating>
+              
+              <label><b>Comentário:</b></label><br>
               <p>{{ rating.comentario }}</p>
               <br>
-              <small>{{ rating.usuario }}</small>
+
+              <div class="columns">
+                <div class="column">
+                  <label><b>Pontos positivos:</b></label><br>
+                  <p>{{ rating.pontos_positivos }}</p>
+                  <br>
+                  <label><b>Pontos negativos:</b></label><br>
+                  <p>{{ rating.pontos_negativos }}</p>    
+                </div>
+                <div class="column">
+                  <ul>
+                    <li><b>Banheiro acessível: </b>{{ rating.banheiro_acessivel }}</li>
+                    <li><b>Circulação interna: </b>{{ rating.circulacao_interna }}</li>
+                    <li><b>Entrada facilitada: </b>{{ rating.entrada_facilitada }}</li>
+                    <li><b>Estacionamento: </b>{{ rating.estacionamento }}</li>
+                    <li><b>Sinalização: </b>{{ rating.sinalizacao }}</li>
+                    <li><b>Posicionamento atitudinal positivo: </b>{{ rating.pap }}</li>
+                  </ul>
+                </div>
+              </div>              
+              <small>Avaliação por {{ rating.usuario }}</small>
             </div>
             <footer class="card-footer">
               <a [routerLink]="'/estabelecimentos/' + rating.estabelecimento_id" class="card-footer-item">

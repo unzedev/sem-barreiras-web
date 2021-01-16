@@ -24,8 +24,15 @@ export class PlacesService {
     return this.http.put(`${this.apiUrl}/${id}`, body);
   }
 
-  public postPlace(body: any): Observable<any> {
-    return this.http.post(this.apiUrl, body);
+  public postPlace(body: any, imageToUpload?: File): Observable<any> {
+    const formData: FormData = new FormData();
+    if (imageToUpload) formData.append('arquivo', imageToUpload, imageToUpload.name);
+    for (let key in body) {
+      formData.append(key, body[key]);
+    }
+    const endereco = JSON.stringify(body.endereco);
+    formData.set('endereco', endereco);
+    return this.http.post(this.apiUrl, formData);
   }
 
   public deletePlace(id: any): Observable<any> {

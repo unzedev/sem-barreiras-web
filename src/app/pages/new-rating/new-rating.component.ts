@@ -17,8 +17,16 @@ export class NewRatingComponent implements OnInit {
   rating: any = {
     titulo: '',
     comentario: '',
+    pontos_positivos: '',
+    pontos_negativos: '',
     nota: 0,
     estabelecimento_id: null,
+    banheiro_acessivel: null,
+    circulacao_interna: null,
+    entrada_facilitada: null,
+    estacionamento: null,
+    sinalizacao: null,
+    pap: null,
   };
 
   place: any = null;

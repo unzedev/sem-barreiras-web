@@ -92,6 +92,28 @@
                   </div>
                 </div>
               </div>
+              <div class="column is-12">
+                <label for="image">Imagem <small>(opcional)</small></label>
+                <div class="file is-fullwidth" [class.has-name]="imageToUpload?.name">
+                  <label class="file-label">
+                    <input class="file-input"
+                      id="image"
+                      type="file" name="image"
+                      (change)="handleImageInput($event.target.files)">
+                    <span class="file-cta">
+                      <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                      </span>
+                      <span class="file-label">
+                        Selecione uma imagem...
+                      </span>
+                    </span>
+                    <span class="file-name" *ngIf="imageToUpload?.name">
+                      {{ imageToUpload?.name }}
+                    </span>
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
           <div class="column is-4">

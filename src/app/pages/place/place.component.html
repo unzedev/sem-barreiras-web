@@ -69,12 +69,35 @@
           <h2 class="title is-4">Avaliações</h2>
           <p *ngIf="ratings.length === 0" class="has-text-grey">Ninguém avaliou este lugar ainda.</p>
           <div class="card rating-card no-footer" *ngFor="let rating of ratings">
-            <div class="card-content">
+            <div class="card-content">              
               <h3 class="title is-5 mb-3">{{ rating.titulo }}</h3>
+              
               <bar-rating [(rate)]="rating.nota" [theme]="'stars'" [readOnly]="true"></bar-rating>
+              
+              <label><b>Comentário:</b></label><br>
               <p>{{ rating.comentario }}</p>
               <br>
-              <small>{{ rating.usuario }}</small>  
+
+              <div class="columns">
+                <div class="column">
+                  <label><b>Pontos positivos:</b></label><br>
+                  <p>{{ rating.pontos_positivos }}</p>
+                  <br>
+                  <label><b>Pontos negativos:</b></label><br>
+                  <p>{{ rating.pontos_negativos }}</p>    
+                </div>
+                <div class="column">
+                  <ul>
+                    <li><b>Banheiro acessível: </b>{{ rating.banheiro_acessivel }}</li>
+                    <li><b>Circulação interna: </b>{{ rating.circulacao_interna }}</li>
+                    <li><b>Entrada facilitada: </b>{{ rating.entrada_facilitada }}</li>
+                    <li><b>Estacionamento: </b>{{ rating.estacionamento }}</li>
+                    <li><b>Sinalização: </b>{{ rating.sinalizacao }}</li>
+                    <li><b>Posicionamento atitudinal positivo: </b>{{ rating.pap }}</li>
+                  </ul>
+                </div>
+              </div>              
+              <small>Avaliação por {{ rating.usuario }}</small>
             </div>
           </div>
           <br>

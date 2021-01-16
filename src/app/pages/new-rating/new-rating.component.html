@@ -14,7 +14,7 @@
         <form (submit)="registerRating()" ngNativeValidate>
           <h2 class="title">Nova Avaliação</h2>
           <div class="columns is-multiline">
-            <div class="column is-6">
+            <div class="column is-9">
               <div class="field">
                 <label for="titulo">Título</label>
                 <div class="control">
@@ -28,7 +28,7 @@
                 </div>
               </div>
             </div>
-            <div class="column is-6">
+            <div class="column is-3">
               <div class="field">
                 <label for="nota">
                     Nota <bar-rating name="rating" theme="stars" [(ngModel)]="rating.nota" [max]="5" required class="input-stars"></bar-rating>
@@ -50,10 +50,97 @@
               <div class="field">
                 <label for="comentario">Comentário</label>
                 <div class="control">
-                  <textarea class="textarea" name="comentario" id="comentario" rows="5"
+                  <textarea class="textarea" name="comentario" id="comentario" rows="2"
                   required
                   [(ngModel)]="rating.comentario"></textarea>
                 </div>
+              </div>
+            </div>
+            <div class="column is-6">
+              <div class="field">
+                <label for="pontos_positivos">Pontos positivos</label>
+                <div class="control">
+                  <textarea class="textarea" name="pontos_positivos" id="pontos_positivos" rows="2"
+                  [(ngModel)]="rating.pontos_positivos"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="column is-6">
+              <div class="field">
+                <label for="pontos_negativos">Pontos negativos</label>
+                <div class="control">
+                  <textarea class="textarea" name="pontos_negativos" id="pontos_negativos" rows="2"
+                  [(ngModel)]="rating.pontos_negativos"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="column is-12">
+              <h3 class="title is-4">Acessibilidades</h3>
+            </div>
+            <div class="column is-3">
+              <div class="field">
+                <label><b>Banheiro acessível</b></label><br>
+                <input type="radio" id="ba_e" name="banheiro_acessivel" value="encontrei" [(ngModel)]="rating.banheiro_acessivel" required>
+                <label for="ba_e">Encontrei</label><br>
+                <input type="radio" id="ba_ne" name="banheiro_acessivel" value="não encontrei" [(ngModel)]="rating.banheiro_acessivel">
+                <label for="ba_ne">Não encontrei</label><br>
+                <input type="radio" id="ba_ns" name="banheiro_acessivel" value="não sei" [(ngModel)]="rating.banheiro_acessivel">
+                <label for="ba_ns">Não sei</label>
+              </div>
+            </div>
+            <div class="column is-3">
+              <div class="field">
+                <label><b>Circulação interna</b></label><br>
+                <input type="radio" id="ci_e" name="circulacao_interna" value="encontrei" [(ngModel)]="rating.circulacao_interna" required>
+                <label for="ci_e">Encontrei</label><br>
+                <input type="radio" id="ci_ne" name="circulacao_interna" value="não encontrei" [(ngModel)]="rating.circulacao_interna">
+                <label for="ci_ne">Não encontrei</label><br>
+                <input type="radio" id="ci_ns" name="circulacao_interna" value="não sei" [(ngModel)]="rating.circulacao_interna">
+                <label for="ci_ns">Não sei</label>
+              </div>
+            </div>
+            <div class="column is-3">
+              <div class="field">
+                <label><b>Entrada facilitada</b></label><br>
+                <input type="radio" id="ef_e" name="entrada_facilitada" value="encontrei" [(ngModel)]="rating.entrada_facilitada" required>
+                <label for="ef_e">Encontrei</label><br>
+                <input type="radio" id="ef_ne" name="entrada_facilitada" value="não encontrei" [(ngModel)]="rating.entrada_facilitada">
+                <label for="ef_ne">Não encontrei</label><br>
+                <input type="radio" id="ef_ns" name="entrada_facilitada" value="não sei" [(ngModel)]="rating.entrada_facilitada">
+                <label for="ef_ns">Não sei</label>
+              </div>
+            </div>
+            <div class="column is-3">
+              <div class="field">
+                <label><b>Estacionamento</b></label><br>
+                <input type="radio" id="e_e" name="estacionamento" value="encontrei" [(ngModel)]="rating.estacionamento" required>
+                <label for="e_e">Encontrei</label><br>
+                <input type="radio" id="e_ne" name="estacionamento" value="não encontrei" [(ngModel)]="rating.estacionamento">
+                <label for="e_ne">Não encontrei</label><br>
+                <input type="radio" id="e_ns" name="estacionamento" value="não sei" [(ngModel)]="rating.estacionamento">
+                <label for="e_ns">Não sei</label>
+              </div>
+            </div>
+            <div class="column is-3">
+              <div class="field">
+                <label><b>Sinalização</b></label><br>
+                <input type="radio" id="s_e" name="sinalizacao" value="encontrei" [(ngModel)]="rating.sinalizacao" required>
+                <label for="s_e">Encontrei</label><br>
+                <input type="radio" id="s_ne" name="sinalizacao" value="não encontrei" [(ngModel)]="rating.sinalizacao">
+                <label for="s_ne">Não encontrei</label><br>
+                <input type="radio" id="s_ns" name="sinalizacao" value="não sei" [(ngModel)]="rating.sinalizacao">
+                <label for="s_ns">Não sei</label>
+              </div>
+            </div>
+            <div class="column is-4">
+              <div class="field">
+                <label><b>Posicionamento atitudinal positivo</b></label><br>
+                <input type="radio" id="pap_e" name="pap" value="encontrei" [(ngModel)]="rating.pap" required>
+                <label for="pap_e">Encontrei</label><br>
+                <input type="radio" id="pap_ne" name="pap" value="não encontrei" [(ngModel)]="rating.pap">
+                <label for="pap_ne">Não encontrei</label><br>
+                <input type="radio" id="pap_ns" name="pap" value="não sei" [(ngModel)]="rating.pap">
+                <label for="pap_ns">Não sei</label>
               </div>
             </div>
           </div>
