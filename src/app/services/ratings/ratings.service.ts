@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 })
 export class RatingsService {
 
-  private apiUrl = `${environment.apiUrl}/avaliacoes`;
+  private apiUrl = `${environment.apiUrl}/reviews`;
 
   constructor(private http: HttpClient) { }
 
@@ -30,5 +30,9 @@ export class RatingsService {
 
   public deleteRating(id: any): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  public approveRating(id: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/${id}/approval`, {});
   }
 }

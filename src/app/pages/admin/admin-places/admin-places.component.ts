@@ -14,14 +14,15 @@ export class AdminPlacesComponent implements OnInit {
 
   places: any[] = [];
   pagination: any = {
-    limite: 20,
+    limit: 20,
     offset: 0,
     total: 0,
   };
   filter: any = {
-    titulo: '',
-    tipo: '',
-    estado: '',
+    title: '',
+    type: '',
+    state: '',
+    city: '',
   };
 
   cities: Observable<any[]>;
@@ -40,29 +41,29 @@ export class AdminPlacesComponent implements OnInit {
   }
 
   getCities(): void {
-    this.cities = this.publicDataService.getCities(this.filter.estado);
+    this.cities = this.publicDataService.getCities(this.filter.state);
   }
 
   fetchUrlParams(): void {
     this.route.queryParamMap.subscribe(p => {
-      if (p.get('offset')) { this.pagination.offset = p.get('offset'); }
-      if (p.get('titulo')) { this.filter.titulo = p.get('titulo'); }
-      if (p.get('tipo')) { this.filter.tipo = p.get('tipo'); }
+      // if (p.get('offset')) { this.pagination.offset = p.get('offset'); }
+      if (p.get('title')) { this.filter.title = p.get('title'); }
+      if (p.get('type')) { this.filter.type = p.get('type'); }
       if (p.get('estado')) {
         this.filter.estado = p.get('estado');
         this.getCities();
       }
-      if (p.get('cidade')) { this.filter.cidade = p.get('cidade'); }
+      if (p.get('city')) { this.filter.city = p.get('city'); }
     }).unsubscribe();
   }
 
   cleanFiltersAndSearch(): void {
     this.pagination.offset = 0;
     this.filter = {
-      titulo: '',
-      tipo: '',
-      estado: '',
-      cidade: '',
+      title: '',
+      type: '',
+      state: '',
+      city: '',
     };
     this.getPlaces();
   }
@@ -77,27 +78,27 @@ export class AdminPlacesComponent implements OnInit {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {
-        offset: this.pagination.offset,
+        // offset: this.pagination.offset,
         ...filter,
       },
       queryParamsHandling: 'merge',
     });
 
     this.placesService.getPlaces({
-      offset: this.pagination.offset,
+      // offset: this.pagination.offset,
       ...filter,
     }).subscribe((res) => {
-      this.places = res.dados;
-      this.pagination = res.paginacao;
+      this.places = res;
+      // this.pagination = res.paginacao;
     });
   }
 
   approvePlace(id: string, index: number): void {
     const body = {
-      status: 'aprovado',
+      status: 'approved',
     };
-    this.placesService.putPlace(id, body).subscribe((res) => {
-      this.places[index].status = 'aprovado';
+    this.placesService.approvePlace(id).subscribe((res) => {
+      this.places[index].status = 'approved';
       this.toastr.success('Estabelecimento aprovado');
     });
   }
@@ -109,6 +110,11 @@ export class AdminPlacesComponent implements OnInit {
         this.toastr.success('Estabelecimento excluído');
       });
     }
+  }
+
+  checkIfAccessibiltyExists(place: any, accessibilityName: string) {
+    const accessibilty = place.accessibilities.filter(e => e.Name === accessibilityName);
+    return accessibilty.length > 0 && accessibilty[0].has;
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
   selector: 'app-signup',
@@ -10,34 +11,40 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class SignupComponent implements OnInit {
 
   register: any = {
-    nome: '',
+    name: '',
     email: '',
-    celular: '',
+    phone: '',
+    deficiency: '',
     password: '',
+    role: 'user',
   };
-
-  newUserIsPlace = false;
-
-  constructor(private authService: AuthService, private router: Router) { }
-
+  
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private usersService: UsersService
+  ) { }
+  
   ngOnInit(): void {
     this.redirectUser();
   }
 
   signup(): void {
-    if (this.newUserIsPlace) {
-      this.register.permissao = 'estabelecimento';
-    }
-    this.authService.postRegister(this.register).subscribe((res) => {
-      this.authService.setAuthToken(res.token);
-      this.authService.setAuthPermission(res.permissao);
-      this.redirectUser();
+    this.usersService.createUser(this.register).subscribe(() => {
+      this.usersService.loginUser({
+          email: this.register.email,
+          password: this.register.password,
+        }).subscribe((res) => {
+        this.authService.setAuthToken(res.token);
+        this.authService.setAuthPermission(res.user.role);
+        this.redirectUser();
+      });
     });
   }
 
   redirectUser(): void {
     if (this.authService.getAuthToken()) {
-      if (this.authService.getAuthPermission() === 'administrador') {
+      if (this.authService.getAuthPermission() === 'administrator') {
         this.router.navigateByUrl('/admin');
       } else {
         this.router.navigateByUrl('/estabelecimentos');

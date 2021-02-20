@@ -12,7 +12,7 @@
               <div class="field">
                 <label for="name">Nome</label>
                 <div class="control">
-                  <input type="text" class="input" name="name" id="name" required [(ngModel)]="register.nome">
+                  <input type="text" class="input" name="name" id="name" required [(ngModel)]="register.name">
                 </div>
               </div>
               <div class="field">
@@ -22,23 +22,23 @@
                 </div>
               </div>
               <div class="field">
-                <label for="celular">Celular</label>
+                <label for="phone">Celular</label>
                 <div class="control">
-                  <input type="tel" class="input" name="celular" id="celular" required [(ngModel)]="register.celular">
+                  <input type="tel" class="input" name="phone" id="phone" required [(ngModel)]="register.phone">
                 </div>
               </div>
               <div class="field">
                 <label for="deficiency">Deficiência</label>
                 <div class="control">
                   <div class="select is-fullwidth">
-                    <select class="input" name="deficiency" id="deficiency" [(ngModel)]="register.deficiencia">
+                    <select class="input" name="deficiency" id="deficiency" [(ngModel)]="register.deficiency">
                       <option value="">Selecione...</option>
-                      <option value="física">Física</option>
-                      <option value="auditiva">Auditiva</option>
+                      <option value="physical">Física</option>
+                      <option value="hearing">Auditiva</option>
                       <option value="visual">Visual</option>
-                      <option value="intelectual">Intelectual</option>
-                      <option value="múltipla">Múltipla</option>
-                      <option value="nenhuma">Nenhuma</option>
+                      <option value="intellectual">Intelectual</option>
+                      <option value="multiple">Múltipla</option>
+                      <option value="none">Nenhuma</option>
                     </select>
                   </div>
                 </div>
@@ -48,13 +48,6 @@
                 <div class="control">
                   <input type="password" class="input" autocomplete="new-password" name="password" id="password" required [(ngModel)]="register.password">
                 </div>
-              </div>
-              <br>
-              <div class="field">
-                <label class="checkbox">
-                  <input type="checkbox" [(ngModel)]="newUserIsPlace" name="permission">
-                  Quero cadastrar estabelecimentos
-                </label>
               </div>
               <br>
               <div class="field">

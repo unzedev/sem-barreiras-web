@@ -15,12 +15,16 @@ import { RatingsService } from 'src/app/services/ratings/ratings.service';
 export class NewRatingComponent implements OnInit {
 
   rating: any = {
-    titulo: '',
-    comentario: '',
-    pontos_positivos: '',
-    pontos_negativos: '',
-    nota: 0,
-    estabelecimento_id: null,
+    establishment: null,
+    title: '',
+    comment: '',
+    strengths: '',
+    weaknesses: '',
+    rating: 0,
+    accessibilities: [],
+  };
+
+  accessibilities = {
     banheiro_acessivel: null,
     circulacao_interna: null,
     entrada_facilitada: null,
@@ -48,9 +52,16 @@ export class NewRatingComponent implements OnInit {
   }
 
   registerRating(): void {
+    if (this.accessibilities.banheiro_acessivel) this.rating.accessibilities.push({ name: 'Banheiro acessível', review: this.accessibilities.banheiro_acessivel });
+    if (this.accessibilities.circulacao_interna) this.rating.accessibilities.push({ name: 'Circulação interna', review: this.accessibilities.circulacao_interna });
+    if (this.accessibilities.entrada_facilitada) this.rating.accessibilities.push({ name: 'Entrada facilitada', review: this.accessibilities.entrada_facilitada });
+    if (this.accessibilities.estacionamento) this.rating.accessibilities.push({ name: 'Estacionamento', review: this.accessibilities.estacionamento });
+    if (this.accessibilities.sinalizacao) this.rating.accessibilities.push({ name: 'Sinalização', review: this.accessibilities.sinalizacao });
+    if (this.accessibilities.pap) this.rating.accessibilities.push({ name: 'Posicionamento atitudinal positivo', review: this.accessibilities.pap });
+
     this.ratingsService.postRating(this.rating).subscribe((res) => {
       this.toastr.success('Avaliação criada');
-      this.router.navigateByUrl(`/estabelecimentos/${res.estabelecimento_id}`);
+      this.router.navigateByUrl(`/estabelecimentos/${res.establishment}`);
     });
   }
 
@@ -63,7 +74,7 @@ export class NewRatingComponent implements OnInit {
   getPlace(): void {
     this.placesService.getPlace(this.route.snapshot.paramMap.get('id')).subscribe((res) => {
       this.place = res;
-      this.rating.estabelecimento_id = res.id;
+      this.rating.establishment = res.id;
     });
   }
 

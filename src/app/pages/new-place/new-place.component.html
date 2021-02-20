@@ -24,15 +24,15 @@
                       name="estabelecimento"
                       id="estabelecimento"
                       required
-                      [(ngModel)]="place.titulo">
+                      [(ngModel)]="place.title">
                   </div>
                 </div>
               </div>
               <div class="column is-4">
                 <div class="field">
-                  <label for="tipo">Tipo</label>
+                  <label for="type">Tipo</label>
                   <div class="control select">
-                    <select [(ngModel)]="place.tipo" class="input" name="tipo" id="tipo">
+                    <select [(ngModel)]="place.type" class="input" name="type" id="type">
                       <option value="">Selecione...</option>
                       <option value="Restaurante">Restaurante</option>
                       <option value="Academia">Academia</option>
@@ -68,14 +68,14 @@
               </div>
               <div class="column is-4">
                 <div class="field">
-                  <label for="telefone">Telefone <small>(opcional)</small></label>
+                  <label for="phone">Telefone <small>(opcional)</small></label>
                   <div class="control">
                     <input
                       type="tel"
                       class="input"
-                      name="telefone"
-                      id="telefone"
-                      [(ngModel)]="place.telefone">
+                      name="phone"
+                      id="phone"
+                      [(ngModel)]="place.phone">
                   </div>
                 </div>
               </div>
@@ -120,37 +120,37 @@
             <h2 class="title">Acessibilidades</h2>
             <div class="field">
               <label class="checkbox">
-                <input type="checkbox" [(ngModel)]="place.banheiro_acessivel" name="banheiro_acessivel">
+                <input type="checkbox" [(ngModel)]="accessibilities.banheiro_acessivel" name="banheiro_acessivel">
                 Banheiro acessível
               </label>
             </div>
             <div class="field">
               <label class="checkbox">
-                <input type="checkbox" [(ngModel)]="place.circulacao_interna" name="circulacao_interna">
+                <input type="checkbox" [(ngModel)]="accessibilities.circulacao_interna" name="circulacao_interna">
                 Circulação interna
               </label>
             </div>
             <div class="field">
               <label class="checkbox">
-                <input type="checkbox" [(ngModel)]="place.entrada_facilitada" name="entrada_facilitada">
+                <input type="checkbox" [(ngModel)]="accessibilities.entrada_facilitada" name="entrada_facilitada">
                 Entrada facilitada
               </label>
             </div>
             <div class="field">
               <label class="checkbox">
-                <input type="checkbox" [(ngModel)]="place.estacionamento" name="estacionamento">
+                <input type="checkbox" [(ngModel)]="accessibilities.estacionamento" name="estacionamento">
                 Estacionamento
               </label>
             </div>
             <div class="field">
               <label class="checkbox">
-                <input type="checkbox" [(ngModel)]="place.sinalizacao" name="sinalizacao">
+                <input type="checkbox" [(ngModel)]="accessibilities.sinalizacao" name="sinalizacao">
                 Sinalização
               </label>
             </div>
             <div class="field">
               <label class="checkbox">
-                <input type="checkbox" [(ngModel)]="place.pap" name="pap">
+                <input type="checkbox" [(ngModel)]="accessibilities.pap" name="pap">
                 Posicionamento atitudinal positivo
               </label>
             </div>
@@ -160,98 +160,98 @@
           </div>
           <div class="column is-3">
             <div class="field">
-              <label for="cep">CEP</label>
+              <label for="zipcode">CEP</label>
               <div class="control">
                 <input
                   type="tel"
                   class="input"
-                  name="cep"
-                  id="cep"
+                  name="zipcode"
+                  id="zipcode"
                   required
-                  [(ngModel)]="place.endereco.cep">
+                  [(ngModel)]="place.address.zipCode">
               </div>
             </div>
           </div>
           <div class="column is-2">
             <div class="field">
-              <label for="estado">Estado</label>
+              <label for="state">Estado</label>
               <div class="control">
                 <input
                   type="text"
                   class="input"
-                  name="estado"
-                  id="estado"
+                  name="state"
+                  id="state"
                   required
-                  [(ngModel)]="place.endereco.estado">
+                  [(ngModel)]="place.address.state">
               </div>
             </div>
           </div>
           <div class="column is-4">
             <div class="field">
-              <label for="cidade">Cidade</label>
+              <label for="city">Cidade</label>
               <div class="control">
                 <input
                   type="text"
                   class="input"
-                  name="cidade"
-                  id="cidade"
+                  name="city"
+                  id="city"
                   required
-                  [(ngModel)]="place.endereco.cidade">
+                  [(ngModel)]="place.address.city">
               </div>
             </div>
           </div>
           <div class="column is-3">
             <div class="field">
-              <label for="bairro">Bairro</label>
+              <label for="neighborhood">Bairro</label>
               <div class="control">
                 <input
                   type="text"
                   class="input"
-                  name="bairro"
-                  id="bairro"
+                  name="neighborhood"
+                  id="neighborhood"
                   required
-                  [(ngModel)]="place.endereco.bairro">
+                  [(ngModel)]="place.address.neighborhood">
               </div>
             </div>
           </div>
           <div class="column is-5">
             <div class="field">
-              <label for="logradouro">Logradouro</label>
+              <label for="street">Logradouro</label>
               <div class="control">
                 <input
                   type="text"
                   class="input"
-                  name="logradouro"
-                  id="logradouro"
+                  name="street"
+                  id="street"
                   required
-                  [(ngModel)]="place.endereco.logradouro">
+                  [(ngModel)]="place.address.street">
               </div>
             </div>
           </div>
           <div class="column is-2">
             <div class="field">
-              <label for="numero">Número</label>
+              <label for="number">Número</label>
               <div class="control">
                 <input
                   type="tel"
                   class="input"
-                  name="numero"
-                  id="numero"
+                  name="number"
+                  id="number"
                   required
-                  [(ngModel)]="place.endereco.numero">
+                  [(ngModel)]="place.address.number">
               </div>
             </div>
           </div>
           <div class="column is-5">
             <div class="field">
-              <label for="complemento">Complemento <small>(opcional)</small></label>
+              <label for="complement">Complemento <small>(opcional)</small></label>
               <div class="control">
                 <input
                   type="text"
                   class="input"
-                  name="complemento"
-                  id="complemento"
-                  [(ngModel)]="place.endereco.complemento">
+                  name="complement"
+                  id="complement"
+                  [(ngModel)]="place.address.complement">
               </div>
             </div>
           </div>

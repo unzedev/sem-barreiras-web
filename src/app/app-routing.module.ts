@@ -9,14 +9,14 @@ import { NewPlaceComponent } from './pages/new-place/new-place.component';
 import { NewRatingComponent } from './pages/new-rating/new-rating.component';
 import { AdminPlacesComponent } from './pages/admin/admin-places/admin-places.component';
 import { AdminRatingsComponent } from './pages/admin/admin-ratings/admin-ratings.component';
-import { ForgotPasswordOneComponent } from './pages/forgot-password-one/forgot-password-one.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { AdminUsersComponent } from './pages/admin/admin-users/admin-users.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/entrar',
+    redirectTo: '/estabelecimentos',
     pathMatch: 'full',
   },
   {
@@ -29,7 +29,25 @@ const routes: Routes = [
   },
   {
     path: 'recuperar',
-    component: ForgotPasswordOneComponent,
+    component: ForgotPasswordComponent,
+  },
+  {
+    path: 'estabelecimentos',
+    component: PlacesComponent,
+  },
+  {
+    path: 'estabelecimentos/adicionar',
+    component: NewPlaceComponent,
+    canActivate: [RouteGuard],
+  },
+  {
+    path: 'estabelecimentos/:id',
+    component: PlaceComponent,
+  },
+  {
+    path: 'estabelecimentos/:id/avaliar',
+    component: NewRatingComponent,
+    canActivate: [RouteGuard],
   },
   {
     path: 'admin',
@@ -51,28 +69,6 @@ const routes: Routes = [
       {
         path: 'usuarios',
         component: AdminUsersComponent,
-      },
-    ],
-  },
-  {
-    path: 'estabelecimentos',
-    canActivate: [RouteGuard],
-    children: [
-      {
-        path: '',
-        component: PlacesComponent,
-      },
-      {
-        path: 'adicionar',
-        component: NewPlaceComponent,
-      },
-      {
-        path: ':id',
-        component: PlaceComponent,
-      },
-      {
-        path: ':id/avaliar',
-        component: NewRatingComponent,
       },
     ],
   },

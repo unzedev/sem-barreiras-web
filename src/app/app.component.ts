@@ -16,7 +16,6 @@ export class AppComponent implements OnInit, OnDestroy {
   navbarIsTransparent = false;
   userIsLogged = false;
   userIsAdmin = false;
-  userIsPlace = false;
 
   subscription: Subscription;
 
@@ -49,8 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   checkIfUserIsLogged(): void {
     this.userIsLogged = this.authService.getAuthToken() ? true : false;
-    this.userIsAdmin = this.authService.getAuthPermission() === 'administrador' ? true : false;
-    this.userIsPlace = this.authService.getAuthPermission() === 'estabelecimento' ? true : false;
+    this.userIsAdmin = this.authService.getAuthPermission() === 'administrator' ? true : false;
   }
 
   logout(): void {

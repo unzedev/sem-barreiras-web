@@ -18,8 +18,8 @@
               <div class="select">
                 <select [(ngModel)]="filter.status" class="input" name="status" id="status">
                   <option value="">Selecione...</option>
-                  <option value="pendente">Pendente</option>
-                  <option value="aprovado">Aprovado</option>
+                  <option value="pending">Pendente</option>
+                  <option value="approved">Aprovado</option>
                 </select>
               </div>
             </div>
@@ -43,47 +43,49 @@
         <div class="column is-12" *ngFor="let rating of ratings; let index = index">
           <div class="card rating-card">
             <div class="card-content">
-              <p><span class="tag" [class]="{ 'is-success': rating.status === 'aprovado', 'is-warning': rating.status === 'pendente' }">{{ rating.status }}</span></p>
+              <p>
+                <span class="tag" [class]="{ 'is-success': rating.status === 'approved', 'is-warning': rating.status === 'pending' }">
+                  {{ rating.status == 'approved' ? 'Aprovada' : 'Pendente' }}
+                </span>
+              </p>
               
-              <h3 class="title is-5 mb-3 mt-3">{{ rating.titulo }}</h3>
+              <h3 class="title is-5 mb-3 mt-3">{{ rating.title }}</h3>
               
-              <bar-rating [(rate)]="rating.nota" [theme]="'stars'" [readOnly]="true"></bar-rating>
+              <bar-rating [(rate)]="rating.rating" [theme]="'stars'" [readOnly]="true"></bar-rating>
               
               <label><b>Comentário:</b></label><br>
-              <p>{{ rating.comentario }}</p>
+              <p>{{ rating.comment }}</p>
               <br>
 
               <div class="columns">
                 <div class="column">
                   <label><b>Pontos positivos:</b></label><br>
-                  <p>{{ rating.pontos_positivos }}</p>
-                  <br>
+                  <p>{{ rating.strengths }}</p>
+                </div>
+                <div class="column">
                   <label><b>Pontos negativos:</b></label><br>
-                  <p>{{ rating.pontos_negativos }}</p>    
+                  <p>{{ rating.weaknesses }}</p>
                 </div>
                 <div class="column">
                   <ul>
-                    <li><b>Banheiro acessível: </b>{{ rating.banheiro_acessivel }}</li>
-                    <li><b>Circulação interna: </b>{{ rating.circulacao_interna }}</li>
-                    <li><b>Entrada facilitada: </b>{{ rating.entrada_facilitada }}</li>
-                    <li><b>Estacionamento: </b>{{ rating.estacionamento }}</li>
-                    <li><b>Sinalização: </b>{{ rating.sinalizacao }}</li>
-                    <li><b>Posicionamento atitudinal positivo: </b>{{ rating.pap }}</li>
+                    <li *ngFor="let a of rating.accessibilities">
+                      <b>{{ a.name }}: </b>{{ a.review }}
+                    </li>
                   </ul>
                 </div>
-              </div>              
-              <small>Avaliação por {{ rating.usuario }}</small>
+              </div>
+              <!-- <small>Avaliação por {{ rating.usuario }}</small> -->
             </div>
             <footer class="card-footer">
-              <a [routerLink]="'/estabelecimentos/' + rating.estabelecimento_id" class="card-footer-item">
+              <a [routerLink]="'/estabelecimentos/' + rating.establishment" class="card-footer-item">
                 <span class="icon">
                   <i class="fas fa-eye"></i>
                 </span>
-                <span>
+                <!-- <span>
                   <b>Ver estabelecimento</b>
-                </span>
+                </span> -->
               </a>
-              <a *ngIf="rating.status === 'pendente'" (click)="approvePlace(rating.id, index)" class="card-footer-item has-text-success-dark">
+              <a *ngIf="rating.status === 'pending'" (click)="approveRating(rating._id, index)" class="card-footer-item has-text-success-dark">
                 <span class="icon">
                   <i class="fas fa-thumbs-up"></i>
                 </span>
@@ -91,13 +93,13 @@
                   <b>Aprovar</b>
                 </span>
               </a>
-              <a (click)="deletePlace(rating.id, index)"class="card-footer-item has-text-danger-dark">
+              <a (click)="deleteRating(rating._id, index)"class="card-footer-item has-text-danger-dark">
                 <span class="icon">
                   <i class="fas fa-trash"></i>
                 </span>
-                <span>
+                <!-- <span>
                   <b>Excluir</b>
-                </span>
+                </span> -->
               </a>
             </footer>
           </div>
@@ -107,7 +109,7 @@
     <br><br>
     <nav class="pagination is-centered" role="navigation" aria-label="paginação">
       <button class="pagination-previous"
-        (click)="this.pagination.offset = pagination.offset - this.pagination.limite; getRatings()"
+        (click)="this.pagination.offset = pagination.offset - this.pagination.limit; getRatings()"
         [disabled]="pagination.offset === 0">
         <span class="icon">
           <i class="fas fa-chevron-left"></i>
@@ -117,8 +119,8 @@
         </span>
       </button>
       <button class="pagination-next"
-        (click)="this.pagination.offset = pagination.offset + this.pagination.limite; getRatings()"
-        [disabled]="pagination.total <= pagination.offset + this.pagination.limite">
+        (click)="this.pagination.offset = pagination.offset + this.pagination.limit; getRatings()"
+        [disabled]="pagination.total <= pagination.offset + this.pagination.limit">
         <span>
           Próxima
         </span>
@@ -129,9 +131,9 @@
       <ul class="pagination-list">
         <li>
           <a class="pagination-link is-current"
-            [attr.aria-label]="'Página ' + ((pagination.offset + this.pagination.limite) / this.pagination.limite)"
+            [attr.aria-label]="'Página ' + ((pagination.offset + this.pagination.limit) / this.pagination.limit)"
             aria-current="página">
-            Página {{ (pagination.offset + this.pagination.limite) / this.pagination.limite }}
+            Página {{ (pagination.offset + this.pagination.limit) / this.pagination.limit }}
           </a>
         </li>
       </ul>

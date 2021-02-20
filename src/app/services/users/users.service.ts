@@ -8,18 +8,28 @@ import { environment } from 'src/environments/environment';
 })
 export class UsersService {
 
+  private apiUrl = `${environment.apiUrl}/users`;
+
   constructor(private http: HttpClient) { }
 
-  public postUsers(body: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/usuarios`, body);
+  public createUser(body: any): Observable<any> {
+    return this.http.post(this.apiUrl, body);
   }
 
   public getUsers(params: any = null): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/usuarios`, {params});
+    return this.http.get(this.apiUrl, {params});
   }
 
-  public putUsers(body: any, headers: any): Observable<any> {
-    return this.http.put(`${environment.apiUrl}/usuarios`, body, {headers});
+  public loginUser(body: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, body);
+  }
+
+  public forgotPassword(body: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/password/forgot`, body);
+  }
+
+  public resetPassword(body: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/password/reset`, body);
   }
 
 }

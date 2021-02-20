@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 })
 export class PlacesService {
 
-  private apiUrl = `${environment.apiUrl}/estabelecimentos`;
+  private apiUrl = `${environment.apiUrl}/establishments`;
 
   constructor(private http: HttpClient) { }
 
@@ -20,22 +20,25 @@ export class PlacesService {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  public putPlace(id: any, body: any): Observable<any> {
+  public updatePlace(id: any, body: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, body);
   }
 
-  public postPlace(body: any, imageToUpload?: File): Observable<any> {
+  public updatePlacePicture(id: any, imageToUpload?: File): Observable<any> {
     const formData: FormData = new FormData();
-    if (imageToUpload) formData.append('arquivo', imageToUpload, imageToUpload.name);
-    for (let key in body) {
-      formData.append(key, body[key]);
-    }
-    const endereco = JSON.stringify(body.endereco);
-    formData.set('endereco', endereco);
-    return this.http.post(this.apiUrl, formData);
+    if (imageToUpload) formData.append('picture', imageToUpload, imageToUpload.name);
+    return this.http.patch(`${this.apiUrl}/${id}/picture`, formData);
+  }
+
+  public createPlace(body: any): Observable<any> {
+    return this.http.post(this.apiUrl, body);
   }
 
   public deletePlace(id: any): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  public approvePlace(id: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/${id}/approval`, {});
   }
 }

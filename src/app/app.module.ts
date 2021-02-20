@@ -21,7 +21,7 @@ import { NewRatingComponent } from './pages/new-rating/new-rating.component';
 import { AdminPlacesComponent } from './pages/admin/admin-places/admin-places.component';
 import { AdminRatingsComponent } from './pages/admin/admin-ratings/admin-ratings.component';
 import { AdminUsersComponent } from './pages/admin/admin-users/admin-users.component';
-import { ForgotPasswordOneComponent } from './pages/forgot-password-one/forgot-password-one.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,7 @@ import { ForgotPasswordOneComponent } from './pages/forgot-password-one/forgot-p
     AdminPlacesComponent,
     AdminRatingsComponent,
     AdminUsersComponent,
-    ForgotPasswordOneComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

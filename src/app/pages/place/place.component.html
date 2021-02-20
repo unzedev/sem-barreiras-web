@@ -1,11 +1,10 @@
-<!-- [style]="{ 'background': place.foto ? 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.1) 100%), url(' + place.foto + ')' : '' }" -->
 <ng-container *ngIf="place">
-  <section class="hero is-primary">
+  <section class="hero is-primary is-medium place-hero" [style]="{ 'background-image': place.pictureUrl ? 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.1) 100%), url(' + place.pictureUrl + ')' : '' }">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title is-1">{{ place.titulo }}</h1>
-        <p class="subtitle mb-0">{{ place.tipo }}</p>
-        <bar-rating [(rate)]="place.avaliacao_media" theme="stars" [readOnly]="true"></bar-rating>
+        <h1 class="title is-1">{{ place.title }}</h1>
+        <p class="subtitle mb-0">{{ place.type }}</p>
+        <bar-rating [(rate)]="place.rating" theme="stars" [readOnly]="true"></bar-rating>
       </div>
     </div>
   </section>
@@ -13,40 +12,40 @@
     <div class="container">
       <div class="columns">
         <div class="column">
-          <div class="box">
+          <div class="box" *ngIf="place.accessibilities.length > 0">
             <h3 class="title is-5 mb-3">Accessibilidades</h3>
             <div class="tags">
-              <span class="tag" *ngIf="place.estacionamento">
+              <span class="tag" *ngIf="checkIfAccessibiltyExists('estacionamento')">
                 <span class="icon">
                   <i class="fas fa-car"></i>
                 </span>
                 <span>estacionamento</span>
               </span>
-              <span class="tag" *ngIf="place.entrada_facilitada">
+              <span class="tag" *ngIf="checkIfAccessibiltyExists('entrada_facilitada')">
                 <span class="icon">    
                   <i class="fas fa-door-open"></i>
                 </span>
                 <span>entrada facilitada</span>
               </span>
-              <span class="tag" *ngIf="place.circulacao_interna">
+              <span class="tag" *ngIf="checkIfAccessibiltyExists('circulacao_interna')">
                 <span class="icon">
                   <i class="fas fa-walking"></i>
                 </span>
                 <span>circulação interna</span>
               </span>
-              <span class="tag" *ngIf="place.banheiro_acessivel">
+              <span class="tag" *ngIf="checkIfAccessibiltyExists('banheiro_acessivel')">
                 <span class="icon">
                   <i class="fas fa-toilet"></i>
                 </span>
                 <span>banheiro acessível</span>
               </span>
-              <span class="tag" *ngIf="place.sinalizacao">
+              <span class="tag" *ngIf="checkIfAccessibiltyExists('sinalizacao')">
                 <span class="icon">
                   <i class="fas fa-map-signs"></i>
                 </span>
                 <span>sinalização</span>
               </span>
-              <span class="tag" *ngIf="place.pap">
+              <span class="tag" *ngIf="checkIfAccessibiltyExists('pap')">
                 <span class="icon">
                   <i class="fas fa-smile-beam"></i>
                 </span>
@@ -54,13 +53,13 @@
               </span>
             </div>
           </div>
-          <div class="box" *ngIf="place.endereco">
+          <div class="box" *ngIf="place.address">
             <h3 class="title is-5 mb-3">Endereço</h3>
             <address>
-              CEP {{ place.endereco.cep }}<br>
-              {{ place.endereco.cidade }}, {{ place.endereco.estado }}<br>
-              Bairro {{ place.endereco.bairro }}<br>
-              {{ place.endereco.logradouro }} {{ place.endereco.numero }}{{ place.endereco.complemento ? ', ' + place.endereco.complemento : '' }}
+              CEP {{ place.address.zipCode }}<br>
+              {{ place.address.city }}, {{ place.address.state }}<br>
+              Bairro {{ place.address.neighborhood }}<br>
+              {{ place.address.street }} {{ place.address.number }}{{ place.address.complement ? ', ' + place.address.complement : '' }}
             </address>
           </div>
         </div>
@@ -70,34 +69,31 @@
           <p *ngIf="ratings.length === 0" class="has-text-grey">Ninguém avaliou este lugar ainda.</p>
           <div class="card rating-card no-footer" *ngFor="let rating of ratings">
             <div class="card-content">              
-              <h3 class="title is-5 mb-3">{{ rating.titulo }}</h3>
+              <h3 class="title is-5 mb-3">{{ rating.title }}</h3>
               
-              <bar-rating [(rate)]="rating.nota" [theme]="'stars'" [readOnly]="true"></bar-rating>
+              <bar-rating [(rate)]="rating.rating" [theme]="'stars'" [readOnly]="true"></bar-rating>
               
               <label><b>Comentário:</b></label><br>
-              <p>{{ rating.comentario }}</p>
+              <p>{{ rating.comment }}</p>
               <br>
 
               <div class="columns">
                 <div class="column">
                   <label><b>Pontos positivos:</b></label><br>
-                  <p>{{ rating.pontos_positivos }}</p>
-                  <br>
-                  <label><b>Pontos negativos:</b></label><br>
-                  <p>{{ rating.pontos_negativos }}</p>    
+                  <p>{{ rating.strengths }}</p>
                 </div>
                 <div class="column">
-                  <ul>
-                    <li><b>Banheiro acessível: </b>{{ rating.banheiro_acessivel }}</li>
-                    <li><b>Circulação interna: </b>{{ rating.circulacao_interna }}</li>
-                    <li><b>Entrada facilitada: </b>{{ rating.entrada_facilitada }}</li>
-                    <li><b>Estacionamento: </b>{{ rating.estacionamento }}</li>
-                    <li><b>Sinalização: </b>{{ rating.sinalizacao }}</li>
-                    <li><b>Posicionamento atitudinal positivo: </b>{{ rating.pap }}</li>
-                  </ul>
+                  <label><b>Pontos negativos:</b></label><br>
+                  <p>{{ rating.weaknesses }}</p>  
                 </div>
-              </div>              
-              <small>Avaliação por {{ rating.usuario }}</small>
+              </div>
+              
+              <ul>
+                <li *ngFor="let a of rating.accessibilities">
+                  <b>{{ a.name }}: </b>{{ a.review }}
+                </li>
+              </ul>
+              <!-- <small>Avaliação por {{ rating.usuario }}</small> -->
             </div>
           </div>
           <br>

@@ -14,14 +14,12 @@ export class AdminUsersComponent implements OnInit {
 
   users: any[] = [];
   pagination: any = {
-    limite: 20,
+    limit: 20,
     offset: 0,
     total: 0,
   };
   filter: any = {
-    titulo: '',
-    tipo: '',
-    estado: '',
+    name: '',
   };
 
   cities: Observable<any[]>;
@@ -45,24 +43,14 @@ export class AdminUsersComponent implements OnInit {
 
   fetchUrlParams(): void {
     this.route.queryParamMap.subscribe(p => {
-      if (p.get('offset')) { this.pagination.offset = p.get('offset'); }
-      if (p.get('titulo')) { this.filter.titulo = p.get('titulo'); }
-      if (p.get('tipo')) { this.filter.tipo = p.get('tipo'); }
-      if (p.get('estado')) {
-        this.filter.estado = p.get('estado');
-        this.getCities();
-      }
-      if (p.get('cidade')) { this.filter.cidade = p.get('cidade'); }
+      // if (p.get('offset')) { this.pagination.offset = p.get('offset'); }
     }).unsubscribe();
   }
 
   cleanFiltersAndSearch(): void {
     this.pagination.offset = 0;
     this.filter = {
-      titulo: '',
-      tipo: '',
-      estado: '',
-      cidade: '',
+      name: '',
     };
     this.getUsers();
   }
@@ -77,18 +65,18 @@ export class AdminUsersComponent implements OnInit {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {
-        offset: this.pagination.offset,
+        // offset: this.pagination.offset,
         ...filter,
       },
       queryParamsHandling: 'merge',
     });
 
     this.usersService.getUsers({
-      offset: this.pagination.offset,
+      // offset: this.pagination.offset,
       ...filter,
     }).subscribe((res) => {
-      this.users = res.dados;
-      this.pagination = res.paginacao;
+      this.users = res;
+      // this.pagination = res.paginacao;
     });
   }
 
