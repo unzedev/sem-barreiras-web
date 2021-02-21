@@ -70,10 +70,14 @@ export class NewPlaceComponent implements OnInit {
     
     this.placesService.createPlace(this.place).subscribe((res) => {
       this.toastr.success('Estabelecimento adicionado');
-      this.placesService.updatePlacePicture(res.id, this.imageToUpload).subscribe(() => {
-        this.toastr.success('Imagem adicionada');
+      if (this.imageToUpload != null) {
+        this.placesService.updatePlacePicture(res.id, this.imageToUpload).subscribe(() => {
+          this.toastr.success('Imagem adicionada');
+          this.router.navigateByUrl(`/estabelecimentos/${res.id}`);
+        });
+      } else {
         this.router.navigateByUrl(`/estabelecimentos/${res.id}`);
-      });
+      }
     });
   }
   

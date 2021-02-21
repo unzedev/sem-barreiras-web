@@ -93,11 +93,12 @@
                 </div>
               </div>
               <div class="column is-12">
-                <label for="image">Imagem <small>(opcional)</small></label>
+                <label for="image">Imagem <small>(Banner 3x1)</small></label>
                 <div class="file is-fullwidth" [class.has-name]="imageToUpload?.name">
                   <label class="file-label">
                     <input class="file-input"
                       id="image"
+                      required
                       type="file" name="image"
                       (change)="handleImageInput($event.target.files)">
                     <span class="file-cta">

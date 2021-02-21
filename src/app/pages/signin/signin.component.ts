@@ -35,7 +35,7 @@ export class SigninComponent implements OnInit {
 
   redirectUser(): void {
     if (this.authService.getAuthToken()) {
-      if (this.authService.getAuthPermission() === 'admin') {
+      if (this.authService.getAuthPermission() === 'administrator') {
         this.router.navigateByUrl('/admin');
       } else {
         this.router.navigateByUrl('/estabelecimentos');

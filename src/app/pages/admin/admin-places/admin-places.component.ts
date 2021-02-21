@@ -46,11 +46,11 @@ export class AdminPlacesComponent implements OnInit {
 
   fetchUrlParams(): void {
     this.route.queryParamMap.subscribe(p => {
-      // if (p.get('offset')) { this.pagination.offset = p.get('offset'); }
+      if (p.get('offset')) { this.pagination.offset = p.get('offset'); }
       if (p.get('title')) { this.filter.title = p.get('title'); }
       if (p.get('type')) { this.filter.type = p.get('type'); }
-      if (p.get('estado')) {
-        this.filter.estado = p.get('estado');
+      if (p.get('state')) {
+        this.filter.state = p.get('state');
         this.getCities();
       }
       if (p.get('city')) { this.filter.city = p.get('city'); }
@@ -71,25 +71,34 @@ export class AdminPlacesComponent implements OnInit {
   getPlaces(): void {
     const filter = {...this.filter};
     for (const el in filter) {
-      if (filter[el].length === 0){
-        delete filter[el];
+      if (!filter[el]){
+        filter[el] = null;
       }
     }
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {
-        // offset: this.pagination.offset,
+        offset: this.pagination.offset,
         ...filter,
       },
       queryParamsHandling: 'merge',
     });
+    for (const el in filter) {
+      if (!filter[el]){
+        delete filter[el];
+      }
+    }
 
     this.placesService.getPlaces({
-      // offset: this.pagination.offset,
+      offset: this.pagination.offset,
       ...filter,
     }).subscribe((res) => {
-      this.places = res;
-      // this.pagination = res.paginacao;
+      this.places = res.establishments;
+      this.pagination = {
+        limit: res.limit,
+        offset: res.offset,
+        total: res.total,
+      };
     });
   }
 

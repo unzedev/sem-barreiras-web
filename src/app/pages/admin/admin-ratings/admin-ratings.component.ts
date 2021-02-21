@@ -34,7 +34,7 @@ export class AdminRatingsComponent implements OnInit {
 
   fetchUrlParams(): void {
     this.route.queryParamMap.subscribe(p => {
-      // if (p.get('offset')) { this.pagination.offset = p.get('offset'); }
+      if (p.get('offset')) { this.pagination.offset = p.get('offset'); }
       if (p.get('status')) { this.filter.status = p.get('status'); }
     }).unsubscribe();
   }
@@ -50,25 +50,34 @@ export class AdminRatingsComponent implements OnInit {
   getRatings(): void {
     const filter = {...this.filter};
     for (const el in filter) {
-      if (filter[el].length === 0){
-        delete filter[el];
+      if (!filter[el]){
+        filter[el] = null;
       }
     }
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {
-        // offset: this.pagination.offset,
+        offset: this.pagination.offset,
         ...filter,
       },
       queryParamsHandling: 'merge',
     });
+    for (const el in filter) {
+      if (!filter[el]){
+        delete filter[el];
+      }
+    }
 
     this.ratingsService.getRatings({
-      // offset: this.pagination.offset,
+      offset: this.pagination.offset,
       ...filter,
     }).subscribe((res) => {
-      this.ratings = res;
-      // this.pagination = res.paginacao;
+      this.ratings = res.reviews;
+      this.pagination = {
+        limit: res.limit,
+        offset: res.offset,
+        total: res.total,
+      };
     });
   }
 

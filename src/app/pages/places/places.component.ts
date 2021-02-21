@@ -69,26 +69,35 @@ export class PlacesComponent implements OnInit {
   getPlaces(): void {
     const filter = {...this.filter};
     for (const el in filter) {
-      if (filter[el].length === 0){
-        delete filter[el];
+      if (!filter[el]){
+        filter[el] = null;
       }
     }
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {
-        // offset: this.pagination.offset,
+        offset: this.pagination.offset,
         ...filter,
       },
       queryParamsHandling: 'merge',
     });
+    for (const el in filter) {
+      if (!filter[el]){
+        delete filter[el];
+      }
+    }
 
     this.placesService.getPlaces({
-      // offset: this.pagination.offset,
+      offset: this.pagination.offset,
       status: 'approved',
       ...filter,
     }).subscribe((res) => {
-      this.places = res;
-      // this.pagination = res.paginacao;
+      this.places = res.establishments;
+      this.pagination = {
+        limit: res.limit,
+        offset: res.offset,
+        total: res.total,
+      };
     });
   }
 

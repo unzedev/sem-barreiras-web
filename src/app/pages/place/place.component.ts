@@ -37,12 +37,16 @@ export class PlaceComponent implements OnInit {
   getRatings(): void {
     const params = {
       establishment: this.route.snapshot.paramMap.get('id'),
-      // offset: this.ratingsPagination.offset,
+      offset: this.ratingsPagination.offset,
       status: 'approved',
     };
     this.ratingsService.getRatings(params).subscribe((res) => {
-      this.ratings = [...this.ratings, ...res];
-      // this.ratingsPagination = res.paginacao;
+      this.ratings = [...this.ratings, ...res.reviews];
+      this.ratingsPagination = {
+        limit: res.limit,
+        offset: res.offset,
+        total: res.total,
+      };;
     });
   }
 
@@ -52,7 +56,7 @@ export class PlaceComponent implements OnInit {
   }
 
   checkIfAccessibiltyExists(accessibilityName: string) {
-    const accessibilty = this.place.accessibilities.filter(e => e.Name === accessibilityName);
+    const accessibilty = this.place.accessibilities.filter(e => e.name === accessibilityName);
     return accessibilty.length > 0 && accessibilty[0].has;
   }
 
