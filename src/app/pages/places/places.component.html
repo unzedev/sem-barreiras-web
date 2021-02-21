@@ -14,15 +14,15 @@
           <div class="field">
             <label for="estabelecimento">Nome do estabelecimento</label>
             <div class="control">
-              <input [(ngModel)]="filter.titulo" class="input" type="text" id="estabelecimento" name="estabelecimento">
+              <input [(ngModel)]="filter.title" class="input" type="text" id="estabelecimento" name="estabelecimento">
             </div>
           </div>
         </div>
         <div class="column is-3">
           <div class="field">
-            <label for="tipo">Tipo</label>
+            <label for="type">Tipo</label>
             <div class="control select">
-              <select [(ngModel)]="filter.tipo" class="input" name="tipo" id="tipo">
+              <select [(ngModel)]="filter.type" class="input" name="type" id="type">
                 <option value="">Selecione...</option>
                 <option value="Restaurante">Restaurante</option>
                 <option value="Academia">Academia</option>
@@ -44,13 +44,13 @@
         </div>
         <div class="column is-3">
           <div class="field">
-            <label for="estado">Estado</label>
+            <label for="state">Estado</label>
             <div class="control select">
               <select (change)="getCities()"
-                [(ngModel)]="filter.estado"
+                [(ngModel)]="filter.state"
                 class="input"
-                name="estado"
-                id="estado">
+                name="state"
+                id="state">
                 <option value="">Selecione...</option>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
@@ -86,13 +86,13 @@
         </div>
         <div class="column is-3">
           <div class="field">
-            <label for="cidade">Cidade</label>
+            <label for="city">Cidade</label>
             <ng-select class="custom" [items]="cities | async"
               [virtualScroll]="true"
               bindLabel="nome"
               bindValue="nome"
-              id="cidade"
-              [(ngModel)]="filter.cidade">
+              id="city"
+              [(ngModel)]="filter.city">
             </ng-select>
           </div>
         </div>
@@ -113,54 +113,54 @@
       <div class="columns is-multiline">
         <div class="column is-4" *ngFor="let place of places">
           <div class="card place-card">
-            <div class="card-image has-background-primary"></div>
+            <div class="card-image has-background-primary" [style]="{ 'background-image': place.pictureUrl ? 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.1) 100%), url(' + place.pictureUrl + ')' : '' }"></div>
             <div class="card-content">
-              <h3 class="title is-4">{{ place.titulo }}</h3>
-              <p class="subtitle is-6 mb-0">{{ place.tipo }}</p>
-              <bar-rating [(rate)]="place.avaliacao_media" theme="stars" [readOnly]="true"></bar-rating>
+              <h3 class="title is-4">{{ place.title }}</h3>
+              <p class="subtitle is-6 mb-0">{{ place.type }}</p>
+              <bar-rating [(rate)]="place.rating" theme="stars" [readOnly]="true"></bar-rating>
               <div class="tags">
-                <span class="tag" *ngIf="place.estacionamento">
+                <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'estacionamento')">
                   <span class="icon">
                     <i class="fas fa-car"></i>
                   </span>
                   <span>estacionamento</span>
                 </span>
-                <span class="tag" *ngIf="place.entrada_facilitada">
+                <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'entrada_facilitada')">
                   <span class="icon">    
                     <i class="fas fa-door-open"></i>
                   </span>
                   <span>entrada facilitada</span>
                 </span>
-                <span class="tag" *ngIf="place.circulacao_interna">
+                <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'circulacao_interna')">
                   <span class="icon">
                     <i class="fas fa-walking"></i>
                   </span>
                   <span>circulação interna</span>
                 </span>
-                <span class="tag" *ngIf="place.banheiro_acessivel">
+                <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'banheiro_acessivel')">
                   <span class="icon">
                     <i class="fas fa-toilet"></i>
                   </span>
                   <span>banheiro acessível</span>
                 </span>
-                <span class="tag" *ngIf="place.sinalizacao">
+                <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'sinalizacao')">
                   <span class="icon">
                     <i class="fas fa-map-signs"></i>
                   </span>
                   <span>sinalização</span>
                 </span>
-                <span class="tag" *ngIf="place.pap">
+                <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'pap')">
                   <span class="icon">
                     <i class="fas fa-smile-beam"></i>
                   </span>
                   <span>posicionamento atitudinal positivo</span>
                 </span>
               </div>
-              <address *ngIf="place.endereco">
-                CEP {{ place.endereco.cep }}<br>
-                {{ place.endereco.cidade }}, {{ place.endereco.estado }}<br>
-                Bairro {{ place.endereco.bairro }}<br>
-                {{ place.endereco.logradouro }} {{ place.endereco.numero }}{{ place.endereco.complemento ? ', ' + place.endereco.complemento : '' }}
+              <address *ngIf="place.address">
+                CEP {{ place.address.zipCode }}<br>
+                {{ place.address.city }}, {{ place.address.state }}<br>
+                Bairro {{ place.address.neighborhood }}<br>
+                {{ place.address.street }} {{ place.address.number }}{{ place.address.complement ? ', ' + place.address.complement : '' }}
               </address>
             </div>
             <footer class="card-footer">
@@ -188,7 +188,7 @@
     <br><br>
     <nav class="pagination is-centered" role="navigation" aria-label="paginação">
       <button class="pagination-previous"
-        (click)="this.pagination.offset = pagination.offset - this.pagination.limite; getPlaces()"
+        (click)="this.pagination.offset = pagination.offset - this.pagination.limit; getPlaces()"
         [disabled]="pagination.offset === 0">
         <span class="icon">
           <i class="fas fa-chevron-left"></i>
@@ -198,8 +198,8 @@
         </span>
       </button>
       <button class="pagination-next"
-        (click)="this.pagination.offset = pagination.offset + this.pagination.limite; getPlaces()"
-        [disabled]="pagination.total <= pagination.offset + this.pagination.limite">
+        (click)="this.pagination.offset = pagination.offset + this.pagination.limit; getPlaces()"
+        [disabled]="pagination.total <= pagination.offset + this.pagination.limit">
         <span>
           Próxima
         </span>
@@ -210,9 +210,9 @@
       <ul class="pagination-list">
         <li>
           <a class="pagination-link is-current"
-            [attr.aria-label]="'Página ' + ((pagination.offset + this.pagination.limite) / this.pagination.limite)"
+            [attr.aria-label]="'Página ' + ((pagination.offset + this.pagination.limit) / this.pagination.limit)"
             aria-current="página">
-            Página {{ (pagination.offset + this.pagination.limite) / this.pagination.limite }}
+            Página {{ (pagination.offset + this.pagination.limit) / this.pagination.limit }}
           </a>
         </li>
       </ul>

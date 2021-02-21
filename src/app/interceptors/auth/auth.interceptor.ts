@@ -14,7 +14,11 @@ import { ToastrService } from 'ngx-toastr';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = this.authService.getAuthToken();
@@ -34,7 +38,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }
         this.toastr.error('Entre novamente!', 'Erro');
         this.authService.clearAuth();
-        this.router.navigateByUrl('login');
+        this.router.navigateByUrl('/entrar');
       }
     }));
   }

@@ -36,19 +36,28 @@ export class PlaceComponent implements OnInit {
 
   getRatings(): void {
     const params = {
-      estabelecimento_id: this.route.snapshot.paramMap.get('id'),
+      establishment: this.route.snapshot.paramMap.get('id'),
       offset: this.ratingsPagination.offset,
-      status: 'aprovado',
+      status: 'approved',
     };
     this.ratingsService.getRatings(params).subscribe((res) => {
-      this.ratings = [...this.ratings, ...res.dados];
-      this.ratingsPagination = res.paginacao;
+      this.ratings = [...this.ratings, ...res.reviews];
+      this.ratingsPagination = {
+        limit: res.limit,
+        offset: res.offset,
+        total: res.total,
+      };;
     });
   }
 
   loadMoreRatings(): void {
     this.ratingsPagination.offset += 20;
     this.getRatings();
+  }
+
+  checkIfAccessibiltyExists(accessibilityName: string) {
+    const accessibilty = this.place.accessibilities.filter(e => e.name === accessibilityName);
+    return accessibilty.length > 0 && accessibilty[0].has;
   }
 
 }

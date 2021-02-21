@@ -132,17 +132,17 @@
         <th>Permissão</th>
       </tr>
       <tr *ngFor="let user of users; let index = index">
-        <td>{{ user.nome }}</td>
+        <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
-        <td>{{ user.celular }}</td>
-        <td>{{ user.deficiencia }}</td>
-        <td>{{ user.permissao }}</td>
+        <td>{{ user.phone }}</td>
+        <td>{{ user.deficiency }}</td>
+        <td>{{ user.role }}</td>
       </tr>
     </table>
     <!-- <br><br>
     <nav class="pagination is-centered" role="navigation" aria-label="paginação">
       <button class="pagination-previous"
-        (click)="this.pagination.offset = pagination.offset - this.pagination.limite; getUsers()"
+        (click)="this.pagination.offset = pagination.offset - this.pagination.limit; getUsers()"
         [disabled]="pagination.offset === 0">
         <span class="icon">
           <i class="fas fa-chevron-left"></i>
@@ -152,8 +152,8 @@
         </span>
       </button>
       <button class="pagination-next"
-        (click)="this.pagination.offset = pagination.offset + this.pagination.limite; getUsers()"
-        [disabled]="pagination.total <= pagination.offset + this.pagination.limite">
+        (click)="this.pagination.offset = pagination.offset + this.pagination.limit; getUsers()"
+        [disabled]="pagination.total <= pagination.offset + this.pagination.limit">
         <span>
           Próxima
         </span>
@@ -164,9 +164,9 @@
       <ul class="pagination-list">
         <li>
           <a class="pagination-link is-current"
-            [attr.aria-label]="'Página ' + ((pagination.offset + this.pagination.limite) / this.pagination.limite)"
+            [attr.aria-label]="'Página ' + ((pagination.offset + this.pagination.limit) / this.pagination.limit)"
             aria-current="página">
-            Página {{ (pagination.offset + this.pagination.limite) / this.pagination.limite }}
+            Página {{ (pagination.offset + this.pagination.limit) / this.pagination.limit }}
           </a>
         </li>
       </ul>

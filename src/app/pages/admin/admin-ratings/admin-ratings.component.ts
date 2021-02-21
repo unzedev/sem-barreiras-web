@@ -12,14 +12,12 @@ export class AdminRatingsComponent implements OnInit {
 
   ratings: any[] = [];
   pagination: any = {
-    limite: 20,
+    limit: 20,
     offset: 0,
     total: 0,
   };
   filter: any = {
-    titulo: '',
-    tipo: '',
-    estado: '',
+    status: '',
   };
 
   constructor(
@@ -37,17 +35,14 @@ export class AdminRatingsComponent implements OnInit {
   fetchUrlParams(): void {
     this.route.queryParamMap.subscribe(p => {
       if (p.get('offset')) { this.pagination.offset = p.get('offset'); }
-      if (p.get('titulo')) { this.filter.titulo = p.get('titulo'); }
+      if (p.get('status')) { this.filter.status = p.get('status'); }
     }).unsubscribe();
   }
 
   cleanFiltersAndSearch(): void {
     this.pagination.offset = 0;
     this.filter = {
-      titulo: '',
-      tipo: '',
-      estado: '',
-      cidade: '',
+      status: '',
     };
     this.getRatings();
   }
@@ -55,8 +50,8 @@ export class AdminRatingsComponent implements OnInit {
   getRatings(): void {
     const filter = {...this.filter};
     for (const el in filter) {
-      if (filter[el].length === 0){
-        delete filter[el];
+      if (!filter[el]){
+        filter[el] = null;
       }
     }
     this.router.navigate([], {
@@ -67,27 +62,36 @@ export class AdminRatingsComponent implements OnInit {
       },
       queryParamsHandling: 'merge',
     });
+    for (const el in filter) {
+      if (!filter[el]){
+        delete filter[el];
+      }
+    }
 
     this.ratingsService.getRatings({
       offset: this.pagination.offset,
       ...filter,
     }).subscribe((res) => {
-      this.ratings = res.dados;
-      this.pagination = res.paginacao;
+      this.ratings = res.reviews;
+      this.pagination = {
+        limit: res.limit,
+        offset: res.offset,
+        total: res.total,
+      };
     });
   }
 
-  approvePlace(id: string, index: number): void {
+  approveRating(id: string, index: number): void {
     const body = {
-      status: 'aprovado',
+      status: 'approved',
     };
-    this.ratingsService.putRating(id, body).subscribe((res) => {
-      this.ratings[index].status = 'aprovada';
+    this.ratingsService.approveRating(id).subscribe((res) => {
+      this.ratings[index].status = 'approved';
       this.toastr.success('Avaliação aprovada');
     });
   }
 
-  deletePlace(id: string, index: number): void {
+  deleteRating(id: string, index: number): void {
     if (window.confirm('Tem certeza que deseja excluir este avaliação?').valueOf()) {
       this.ratingsService.deleteRating(id).subscribe((res) => {
         this.ratings.splice(index, 1);

@@ -85,7 +85,14 @@ button, a {
 }
 
 .place-card {
-  border-top: 5px solid $primary;
+  // border-top: 5px solid $primary;
+  .card-image {
+    border-radius: 6px 6px 0 0;
+    height: 200px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 }
 
 .rating-card {
@@ -109,4 +116,10 @@ body {
 
 .no-focus:focus {
   outline: none;
+}
+
+.place-hero {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
