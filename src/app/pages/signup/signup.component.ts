@@ -30,7 +30,11 @@ export class SignupComponent implements OnInit {
   }
 
   signup(): void {
-    this.usersService.createUser(this.register).subscribe(() => {
+    const request = this.register;
+    if (request.phone.length == 0) {
+      delete request.phone;
+    }
+    this.usersService.createUser(request).subscribe(() => {
       this.usersService.loginUser({
           email: this.register.email,
           password: this.register.password,

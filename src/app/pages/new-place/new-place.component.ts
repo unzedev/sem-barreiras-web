@@ -61,6 +61,11 @@ export class NewPlaceComponent implements OnInit {
   }
 
   registerPlace(): void {
+    const request = this.place;
+    if (request.cnpj.length == 0) {
+      delete request.cnpj;
+    }
+
     if (this.accessibilities.banheiro_acessivel) this.place.accessibilities.push({ name: 'banheiro_acessivel', has: true });
     if (this.accessibilities.circulacao_interna) this.place.accessibilities.push({ name: 'circulacao_interna', has: true });
     if (this.accessibilities.entrada_facilitada) this.place.accessibilities.push({ name: 'entrada_facilitada', has: true });
@@ -68,7 +73,7 @@ export class NewPlaceComponent implements OnInit {
     if (this.accessibilities.sinalizacao) this.place.accessibilities.push({ name: 'sinalizacao', has: true });
     if (this.accessibilities.pap) this.place.accessibilities.push({ name: 'pap', has: true });
     
-    this.placesService.createPlace(this.place).subscribe((res) => {
+    this.placesService.createPlace(request).subscribe((res) => {
       this.toastr.success('Estabelecimento adicionado');
       if (this.imageToUpload != null) {
         this.placesService.updatePlacePicture(res.id, this.imageToUpload).subscribe(() => {
