@@ -8,6 +8,11 @@
 
 * {
   font-family: 'Quicksand', sans-serif;
+
+  &:focus-visible {
+    border: 2px solid #ffffff !important;
+    outline: 2px solid rgba(0, 125, 250, 0.6) !important;
+  }
 }
 
 .title {
