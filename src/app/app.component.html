@@ -14,12 +14,13 @@
       <span class="navbar-item pl-0 no-focus" tabindex="-1">
         <img src="../assets/img/un-logo.png" alt="Logo Acessibilidade ONU">
       </span>
-        
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" (click)="toggleMenu()">
+
+      <button class="navbar-burger burger" aria-expanded="false" (click)="toggleMenu()">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
-      </a>
+        <span class="screen-reader-only">menu</span>
+      </button>
     </div>
     <div class="navbar-menu" [class]="{ 'is-active': menuIsActive }">
       <div class="navbar-start" *ngIf="userIsLogged">

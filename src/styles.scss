@@ -8,6 +8,23 @@
 
 * {
   font-family: 'Quicksand', sans-serif;
+
+  &:focus-visible {
+    border: 2px solid #ffffff !important;
+    outline: 2px solid rgba(0, 125, 250, 0.6) !important;
+  }
+}
+
+.screen-reader-only {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  -webkit-clip-path: inset(0px 0px 99.9% 99.9%);
+  clip-path: inset(0px 0px 99.9% 99.9%);
+  overflow: hidden;
+  height: 1px;
+  width: 1px;
+  padding: 0;
+  border: 0;
 }
 
 .title {
