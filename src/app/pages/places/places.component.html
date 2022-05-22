@@ -87,15 +87,17 @@
         <div class="column is-3">
           <div class="field">
             <label for="city">Cidade</label>
-            <ng-select class="custom" [items]="cities | async"
-              [virtualScroll]="true"
-              bindLabel="nome"
-              bindValue="nome"
-              id="city"
-              [(ngModel)]="filter.city">
-            </ng-select>
+            <div class="control select">
+              <select [(ngModel)]="filter.city" class="input" name="city" id="city">
+                <option value="">Selecione...</option>
+                <option *ngFor="let city of cities | async" value="{{city.nome}}">
+                  {{ city.nome }}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
+
         <div class="column is-12">
           <div class="buttons is-right">
             <button class="button is-light" type="button" (click)="cleanFiltersAndSearch()">
