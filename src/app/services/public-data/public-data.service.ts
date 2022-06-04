@@ -12,4 +12,8 @@ export class PublicDataService {
   public getCities(uf: string): Observable<any> {
     return this.http.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`);
   }
+
+  public getAddress(cep: string): Observable<any> {
+    return this.http.get(`https://viacep.com.br/ws/${cep}/json/`);
+  }
 }

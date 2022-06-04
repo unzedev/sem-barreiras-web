@@ -72,7 +72,7 @@ export class NewPlaceComponent implements OnInit {
     if (this.accessibilities.estacionamento) this.place.accessibilities.push({ name: 'estacionamento', has: true });
     if (this.accessibilities.sinalizacao) this.place.accessibilities.push({ name: 'sinalizacao', has: true });
     if (this.accessibilities.pap) this.place.accessibilities.push({ name: 'pap', has: true });
-    
+
     this.placesService.createPlace(request).subscribe((res) => {
       this.toastr.success('Estabelecimento adicionado');
       if (this.imageToUpload != null) {
@@ -85,7 +85,7 @@ export class NewPlaceComponent implements OnInit {
       }
     });
   }
-  
+
   getCities(): void {
     this.cities = this.publicDataService.getCities(this.place.address.state);
   }
@@ -96,4 +96,12 @@ export class NewPlaceComponent implements OnInit {
     }
   }
 
+  getAddress(): void {
+    this.publicDataService.getAddress(this.place.address.zipCode).subscribe((res) => {
+      this.place.address.state = res.uf;
+      this.place.address.city = res.localidade;
+      this.place.address.neighborhood = res.bairro;
+      this.place.address.street = res.logradouro;
+    })
+  }
 }
