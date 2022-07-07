@@ -151,7 +151,7 @@
       <div class="columns is-multiline">
         <div class="column is-4" *ngFor="let place of places; let index = index">
           <div class="card place-card">
-            <div class="card-image has-background-primary" [style]="{ 'background-image': place.pictureUrl ? 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.1) 100%), url(' + place.pictureUrl + ')' : '' }"></div>
+            <div class="card-image has-background-primary" [style]="{ 'background-image': place.pictureUrl ? 'url(' + place.pictureUrl + ')' : '' }"></div>
             <div class="card-content">
               <h3 class="title is-4">{{ place.title }}</h3>
               <p class="subtitle is-6 mb-0">{{ place.type }}</p>
