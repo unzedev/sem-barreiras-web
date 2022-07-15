@@ -30,6 +30,7 @@ export class NewRatingComponent implements OnInit {
     entrada_facilitada: null,
     estacionamento: null,
     sinalizacao: null,
+    site_acessivel: null,
     pap: null,
   };
 
@@ -57,6 +58,7 @@ export class NewRatingComponent implements OnInit {
     if (this.accessibilities.entrada_facilitada) this.rating.accessibilities.push({ name: 'Entrada facilitada', review: this.accessibilities.entrada_facilitada });
     if (this.accessibilities.estacionamento) this.rating.accessibilities.push({ name: 'Estacionamento', review: this.accessibilities.estacionamento });
     if (this.accessibilities.sinalizacao) this.rating.accessibilities.push({ name: 'Sinalização', review: this.accessibilities.sinalizacao });
+    if (this.accessibilities.site_acessivel) this.rating.accessibilities.push({ name: 'Site acessível', review: this.accessibilities.site_acessivel });
     if (this.accessibilities.pap) this.rating.accessibilities.push({ name: 'Posicionamento atitudinal positivo', review: this.accessibilities.pap });
 
     this.ratingsService.postRating(this.rating).subscribe((res) => {

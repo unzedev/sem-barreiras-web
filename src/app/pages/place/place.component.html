@@ -26,7 +26,7 @@
                 <span>estacionamento</span>
               </span>
               <span class="tag" *ngIf="checkIfAccessibiltyExists('entrada_facilitada')">
-                <span class="icon">    
+                <span class="icon">
                   <i class="fas fa-door-open"></i>
                 </span>
                 <span>entrada facilitada</span>
@@ -49,6 +49,12 @@
                 </span>
                 <span>sinalização</span>
               </span>
+              <span class="tag" *ngIf="checkIfAccessibiltyExists('site_acessivel')">
+                <span class="icon">
+                  <i class="fas fa-desktop"></i>
+                </span>
+                <span>site acessível</span>
+              </span>
               <span class="tag" *ngIf="checkIfAccessibiltyExists('pap')">
                 <span class="icon">
                   <i class="fas fa-smile-beam"></i>
@@ -67,16 +73,16 @@
             </address>
           </div>
         </div>
-  
+
         <div class="column">
           <h2 class="title is-4">Avaliações</h2>
           <p *ngIf="ratings.length === 0" class="has-text-grey">Ninguém avaliou este lugar ainda.</p>
           <div class="card rating-card no-footer" *ngFor="let rating of ratings">
-            <div class="card-content">              
+            <div class="card-content">
               <h3 class="title is-5 mb-3">{{ rating.title }}</h3>
-              
+
               <bar-rating [(rate)]="rating.rating" [theme]="'stars'" [readOnly]="true"></bar-rating>
-              
+
               <label><b>Comentário:</b></label><br>
               <p>{{ rating.comment }}</p>
               <br>
@@ -88,10 +94,10 @@
                 </div>
                 <div class="column">
                   <label><b>Pontos negativos:</b></label><br>
-                  <p>{{ rating.weaknesses }}</p>  
+                  <p>{{ rating.weaknesses }}</p>
                 </div>
               </div>
-              
+
               <ul>
                 <li *ngFor="let a of rating.accessibilities">
                   <b>{{ a.name }}: </b>{{ a.review }}

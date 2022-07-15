@@ -158,6 +158,12 @@
                   </span>
                   <span>sinalização</span>
                 </span>
+                <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'site_acessivel')">
+                  <span class="icon">
+                    <i class="fas fa-desktop"></i>
+                  </span>
+                  <span>site acessível</span>
+                </span>
                 <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'pap')">
                   <span class="icon">
                     <i class="fas fa-smile-beam"></i>

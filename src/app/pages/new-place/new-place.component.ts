@@ -37,6 +37,7 @@ export class NewPlaceComponent implements OnInit {
     entrada_facilitada: false,
     estacionamento: false,
     sinalizacao: false,
+    site_acessivel: false,
     pap: false,
   };
 
@@ -71,6 +72,7 @@ export class NewPlaceComponent implements OnInit {
     if (this.accessibilities.entrada_facilitada) this.place.accessibilities.push({ name: 'entrada_facilitada', has: true });
     if (this.accessibilities.estacionamento) this.place.accessibilities.push({ name: 'estacionamento', has: true });
     if (this.accessibilities.sinalizacao) this.place.accessibilities.push({ name: 'sinalizacao', has: true });
+    if (this.accessibilities.site_acessivel) this.place.accessibilities.push({ name: 'site_acessivel', has: true });
     if (this.accessibilities.pap) this.place.accessibilities.push({ name: 'pap', has: true });
 
     this.placesService.createPlace(request).subscribe((res) => {

@@ -132,6 +132,17 @@
                 <label for="s_ns">Não sei</label>
               </div>
             </div>
+            <div class="column is-3">
+              <div class="field">
+                <label><b>Site acessível</b></label><br>
+                <input type="radio" id="ba_e" name="site_acessivel" value="Encontrei" [(ngModel)]="accessibilities.site_acessivel" required>
+                <label for="ba_e">Encontrei</label><br>
+                <input type="radio" id="ba_ne" name="site_acessivel" value="Não encontrei" [(ngModel)]="accessibilities.site_acessivel">
+                <label for="ba_ne">Não Encontrei</label><br>
+                <input type="radio" id="ba_ns" name="site_acessivel" value="Não sei" [(ngModel)]="accessibilities.site_acessivel">
+                <label for="ba_ns">Não sei</label>
+              </div>
+            </div>
             <div class="column is-4">
               <div class="field">
                 <label><b>Posicionamento atitudinal positivo</b></label><br>
