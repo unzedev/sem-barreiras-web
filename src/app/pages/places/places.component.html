@@ -121,82 +121,84 @@
     <div *ngIf="places.length > 0">
       <div class="columns is-multiline">
         <div class="column is-4" *ngFor="let place of places">
-          <div class="card place-card">
-            <div class="card-image has-background-primary" [style]="{ 'background-image': place.pictureUrl ? 'url(' + place.pictureUrl + ')' : '' }"></div>
-            <div class="card-content">
-              <h3 class="title is-4">{{ place.title }}</h3>
-              <p class="subtitle is-6 mb-0">{{ place.type }}</p>
-              <bar-rating [(rate)]="place.rating" theme="stars" [readOnly]="true"></bar-rating>
-              <div class="tags">
-                <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'estacionamento')">
-                  <span class="icon">
-                    <i class="fas fa-car"></i>
+          <a [routerLink]="'/estabelecimentos/' + place.id">
+            <div class="card place-card">
+              <div class="card-image has-background-primary" [style]="{ 'background-image': place.pictureUrl ? 'url(' + place.pictureUrl + ')' : '' }"></div>
+              <div class="card-content">
+                <h3 class="title is-4">{{ place.title }}</h3>
+                <p class="subtitle is-6 mb-0">{{ place.type }}</p>
+                <bar-rating [(rate)]="place.rating" theme="stars" [readOnly]="true"></bar-rating>
+                <div class="tags">
+                  <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'estacionamento')">
+                    <span class="icon">
+                      <i class="fas fa-car"></i>
+                    </span>
+                    <span>estacionamento</span>
                   </span>
-                  <span>estacionamento</span>
-                </span>
-                <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'entrada_facilitada')">
-                  <span class="icon">
-                    <i class="fas fa-door-open"></i>
+                  <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'entrada_facilitada')">
+                    <span class="icon">
+                      <i class="fas fa-door-open"></i>
+                    </span>
+                    <span>entrada facilitada</span>
                   </span>
-                  <span>entrada facilitada</span>
-                </span>
-                <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'circulacao_interna')">
-                  <span class="icon">
-                    <i class="fas fa-walking"></i>
+                  <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'circulacao_interna')">
+                    <span class="icon">
+                      <i class="fas fa-walking"></i>
+                    </span>
+                    <span>circulação interna</span>
                   </span>
-                  <span>circulação interna</span>
-                </span>
-                <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'banheiro_acessivel')">
-                  <span class="icon">
-                    <i class="fas fa-toilet"></i>
+                  <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'banheiro_acessivel')">
+                    <span class="icon">
+                      <i class="fas fa-toilet"></i>
+                    </span>
+                    <span>banheiro acessível</span>
                   </span>
-                  <span>banheiro acessível</span>
-                </span>
-                <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'sinalizacao')">
-                  <span class="icon">
-                    <i class="fas fa-map-signs"></i>
+                  <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'sinalizacao')">
+                    <span class="icon">
+                      <i class="fas fa-map-signs"></i>
+                    </span>
+                    <span>sinalização</span>
                   </span>
-                  <span>sinalização</span>
-                </span>
-                <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'site_acessivel')">
-                  <span class="icon">
-                    <i class="fas fa-desktop"></i>
+                  <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'site_acessivel')">
+                    <span class="icon">
+                      <i class="fas fa-desktop"></i>
+                    </span>
+                    <span>site acessível</span>
                   </span>
-                  <span>site acessível</span>
-                </span>
-                <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'pap')">
-                  <span class="icon">
-                    <i class="fas fa-smile-beam"></i>
+                  <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'pap')">
+                    <span class="icon">
+                      <i class="fas fa-smile-beam"></i>
+                    </span>
+                    <span>posicionamento atitudinal positivo</span>
                   </span>
-                  <span>posicionamento atitudinal positivo</span>
-                </span>
+                </div>
+                <address *ngIf="place.address">
+                  CEP {{ place.address.zipCode }}<br>
+                  {{ place.address.city }}, {{ place.address.state }}<br>
+                  Bairro {{ place.address.neighborhood }}<br>
+                  {{ place.address.street }} {{ place.address.number }}{{ place.address.complement ? ', ' + place.address.complement : '' }}
+                </address>
               </div>
-              <address *ngIf="place.address">
-                CEP {{ place.address.zipCode }}<br>
-                {{ place.address.city }}, {{ place.address.state }}<br>
-                Bairro {{ place.address.neighborhood }}<br>
-                {{ place.address.street }} {{ place.address.number }}{{ place.address.complement ? ', ' + place.address.complement : '' }}
-              </address>
+              <footer class="card-footer">
+                <!-- <a [routerLink]="'/estabelecimentos/' + place.id" class="card-footer-item">
+                  <span class="icon">
+                    <i class="fas fa-eye"></i>
+                  </span>
+                  <span>
+                    <b>Ver</b>
+                  </span>
+                </a> -->
+                <a [routerLink]="'/estabelecimentos/' + place.id + '/avaliar'" class="card-footer-item">
+                  <span class="icon">
+                    <i class="fas fa-star"></i>
+                  </span>
+                  <span>
+                    <b>Avaliar</b>
+                  </span>
+                </a>
+              </footer>
             </div>
-            <footer class="card-footer">
-              <a [routerLink]="'/estabelecimentos/' + place.id" class="card-footer-item">
-                <span class="icon">
-                  <i class="fas fa-eye"></i>
-                </span>
-                <span>
-                  <b>Ver</b>
-                </span>
-              </a>
-              <a [routerLink]="'/estabelecimentos/' + place.id + '/avaliar'" class="card-footer-item">
-                <span class="icon">
-                  <i class="fas fa-star"></i>
-                </span>
-                <span>
-                  <b>Avaliar</b>
-                </span>
-              </a>
-            </footer>
-          </div>
+          </a>
         </div>
       </div>
     </div>
