@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { PlacesService } from '../../services/places/places.service';
 import { PublicDataService } from '../../services/public-data/public-data.service';
 
@@ -31,6 +32,7 @@ export class PlacesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private publicDataService: PublicDataService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -104,6 +106,15 @@ export class PlacesComponent implements OnInit {
   checkIfAccessibiltyExists(place: any, accessibilityName: string) {
     const accessibilty = place.accessibilities.filter(e => e.Name === accessibilityName);
     return accessibilty.length > 0 && accessibilty[0].has;
+  }
+
+  redirectUser(id: string, event: any): void {
+    if (!this.authService.getAuthToken()) {
+      this.router.navigateByUrl('/entrar');
+    }
+    else {
+      this.router.navigateByUrl('/estabelecimentos/' + id + '/avaliar');
+    }
   }
 
 }

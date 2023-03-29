@@ -127,7 +127,7 @@
               <div class="card-content">
                 <h3 class="title is-4">{{ place.title }}</h3>
                 <p class="subtitle is-6 mb-0">{{ place.type }}</p>
-                <bar-rating [(rate)]="place.rating" theme="stars" [readOnly]="true"></bar-rating>
+                <bar-rating [(rate)]="place.rating" theme="stars" [readOnly]="false" (rateChange)="redirectUser(place.id, $event)"></bar-rating>
                 <div class="tags">
                   <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'estacionamento')">
                     <span class="icon">
@@ -179,16 +179,6 @@
                   {{ place.address.street }} {{ place.address.number }}{{ place.address.complement ? ', ' + place.address.complement : '' }}
                 </address>
               </div>
-              <!-- <footer class="card-footer">
-                <a [routerLink]="'/estabelecimentos/' + place.id + '/avaliar'" class="card-footer-item">
-                  <span class="icon">
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span>
-                    <b>Avaliar</b>
-                  </span>
-                </a>
-              </footer> -->
             </div>
           </a>
         </div>
