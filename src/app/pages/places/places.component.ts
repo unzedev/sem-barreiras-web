@@ -14,9 +14,9 @@ export class PlacesComponent implements OnInit {
 
   places: any[] = [];
   pagination: any = {
-    limit: 20,
+    limit: 9,
     offset: 0,
-    total: 100,
+    total: 0,
   };
   filter: any = {
     title: '',
@@ -54,10 +54,12 @@ export class PlacesComponent implements OnInit {
         this.getCities();
       }
       if (p.get('city')) { this.filter.city = p.get('city'); }
+      if (p.get('perPage')) { this.filter.limit = p.get('perPage'); }
     }).unsubscribe();
   }
 
   cleanFiltersAndSearch(): void {
+    this.pagination.total = 0;
     this.pagination.offset = 0;
     this.filter = {
       title: '',
@@ -92,14 +94,24 @@ export class PlacesComponent implements OnInit {
     this.placesService.getPlaces({
       offset: this.pagination.offset,
       status: 'approved',
+      limit: this.pagination.limit,
       ...filter,
     }).subscribe((res) => {
       this.places = res.establishments;
+      if (res.establishments.length > 0){
       this.pagination = {
         limit: res.limit,
         offset: res.offset,
         total: res.total,
       };
+      }else{
+        this.pagination = {
+          limit: res.limit,
+          offset: 0,
+          total: 0,
+        };
+      }
+
     });
   }
 
@@ -115,6 +127,11 @@ export class PlacesComponent implements OnInit {
     else {
       this.router.navigateByUrl('/estabelecimentos/' + id + '/avaliar');
     }
+  }
+
+  numPages(): Array<number> {
+    //return Array(Math.ceil(this.pagination.total/this.pagination.limit));
+    return Array(Math.ceil(this.pagination.total/this.pagination.limit));
   }
 
 }
