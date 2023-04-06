@@ -97,21 +97,12 @@ export class PlacesComponent implements OnInit {
       limit: this.pagination.limit,
       ...filter,
     }).subscribe((res) => {
-      this.places = res.establishments;
-      if (res.establishments.length > 0){
+      this.places = res.establishments;      
       this.pagination = {
         limit: res.limit,
         offset: res.offset,
         total: res.total,
       };
-      }else{
-        this.pagination = {
-          limit: res.limit,
-          offset: 0,
-          total: 0,
-        };
-      }
-
     });
   }
 
