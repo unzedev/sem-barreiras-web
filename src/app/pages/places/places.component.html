@@ -224,7 +224,7 @@
         <div class="field">
           <label for="perPage">Estabelecimentos por página</label>
           <div class="control select">
-            <select (change)="getPlaces()" [(ngModel)]="this.pagination.limit" class="input" name="perPage" [disabled]="pagination.total == 0"
+            <select (change)="getPlacesPerPage()" [(ngModel)]="this.pagination.limit" class="input" name="perPage" [disabled]="pagination.total == 0"
               id="perPage">
               <option value="9">9</option>
               <option value="18">18</option>

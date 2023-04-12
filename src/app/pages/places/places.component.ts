@@ -120,8 +120,13 @@ export class PlacesComponent implements OnInit {
     }
   }
 
+  getPlacesPerPage(){
+    //reset offset
+    this.pagination.offset = 0;
+    this.getPlaces();
+  }
+
   numPages(): Array<number> {
-    //return Array(Math.ceil(this.pagination.total/this.pagination.limit));
     return Array(Math.ceil(this.pagination.total/this.pagination.limit));
   }
 
