@@ -27,6 +27,7 @@ export class NewPlaceComponent implements OnInit {
       street: '',
       number: '',
       complement: '',
+      descricao: '',
     },
     accessibilities: [],
   };
@@ -104,6 +105,7 @@ export class NewPlaceComponent implements OnInit {
       this.place.address.city = res.localidade;
       this.place.address.neighborhood = res.bairro;
       this.place.address.street = res.logradouro;
+      this.place.address.descricao = res.descricao;
     })
   }
 }
