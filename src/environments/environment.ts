@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://sembarreiras-api.up.railway.app',
+  //apiUrl: 'https://sembarreiras-api.up.railway.app',
+  apiUrl: 'http://localhost:8080',
 };
 
 /*
