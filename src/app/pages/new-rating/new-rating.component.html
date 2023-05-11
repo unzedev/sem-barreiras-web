@@ -31,11 +31,12 @@
             <div class="column is-3">
               <div class="field">
                 <label for="rating">
-                    Nota <bar-rating name="rating" theme="stars" [(ngModel)]="rating.rating" [max]="5" required class="input-stars"></bar-rating>
+                    Acessibilidade
                 </label>
-                <div class="control">
+                <div class="control mt-2">
+                  <bar-rating name="rating" theme="stars" [(ngModel)]="rating.rating" [max]="5" required class="input-stars"></bar-rating>
                   <input
-                    type="number"
+                    type="hidden"
                     max="5"
                     min="1"
                     class="input"
