@@ -92,12 +92,21 @@ export class AdminRatingsComponent implements OnInit {
   }
 
   deleteRating(id: string, index: number): void {
-    if (window.confirm('Tem certeza que deseja excluir este avaliação?').valueOf()) {
-      this.ratingsService.deleteRating(id).subscribe((res) => {
-        this.ratings.splice(index, 1);
-        this.toastr.success('Avaliação excluída');
-      });
-    }
+    this.closeModal();    
+    this.ratingsService.deleteRating(id).subscribe((res) => {
+      this.ratings.splice(index, 1);
+      this.toastr.success('Avaliação excluída');        
+    });    
+  }
+
+  openModal() {
+    // Add is-active class on the modal
+    document.getElementById("modal1").classList.add("is-active");
+  }
+
+  // Function to close the modal
+  closeModal() {
+    document.getElementById("modal1").classList.remove("is-active");
   }
 
 }

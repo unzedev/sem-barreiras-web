@@ -93,7 +93,7 @@
                   <b>Aprovar</b>
                 </span>
               </a>
-              <a (click)="deleteRating(rating._id, index)"class="card-footer-item has-text-danger-dark">
+              <a (click)="openModal()"class="card-footer-item has-text-danger-dark">
                 <span class="icon">
                   <i class="fas fa-trash"></i>
                 </span>
@@ -102,6 +102,22 @@
                 </span> -->
               </a>
             </footer>
+            <div id="modal1" class="modal">
+              <div class="modal-background"></div>
+              <div class="modal-card">
+                <header class="modal-card-head">
+                  <p class="modal-card-title"></p>
+                  <button (click)="closeModal()" class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                  Tem certeza que deseja excluir esta avaliação?
+                </section>
+                <footer class="modal-card-foot">
+                  <button (click)="deleteRating(rating._id, index)" class="button is-success">Sim</button>
+                  <button (click)="closeModal()" class="button">Não</button>
+                </footer>
+              </div>
+            </div>              
           </div>
         </div>
       </div>
