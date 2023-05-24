@@ -12,7 +12,7 @@ export class AdminRatingsComponent implements OnInit {
 
   ratings: any[] = [];
   pagination: any = {
-    limit: 20,
+    limit: 8,
     offset: 0,
     total: 0,
   };
@@ -36,10 +36,12 @@ export class AdminRatingsComponent implements OnInit {
     this.route.queryParamMap.subscribe(p => {
       if (p.get('offset')) { this.pagination.offset = p.get('offset'); }
       if (p.get('status')) { this.filter.status = p.get('status'); }
+      if (p.get('perPage')) { this.filter.limit = p.get('perPage'); }
     }).unsubscribe();
   }
 
   cleanFiltersAndSearch(): void {
+    this.pagination.total = 0;
     this.pagination.offset = 0;
     this.filter = {
       status: '',
@@ -70,6 +72,7 @@ export class AdminRatingsComponent implements OnInit {
 
     this.ratingsService.getRatings({
       offset: this.pagination.offset,
+      limit: this.pagination.limit,
       ...filter,
     }).subscribe((res) => {
       this.ratings = res.reviews;
@@ -97,6 +100,16 @@ export class AdminRatingsComponent implements OnInit {
       this.ratings.splice(index, 1);
       this.toastr.success('Avaliação excluída');        
     });    
+  }
+
+  getRatingsPerPage() {
+    //reset offset
+    this.pagination.offset = 0;
+    this.getRatings();
+  }
+
+  numPages(): Array<number> {
+    return Array(Math.ceil(this.pagination.total / this.pagination.limit));
   }
 
   openModal() {
