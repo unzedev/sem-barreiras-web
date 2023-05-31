@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BarRatingModule } from 'ngx-bar-rating';
@@ -43,6 +43,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
     BarRatingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     NgSelectModule,
     NgxUiLoaderModule,
     NgxUiLoaderRouterModule,
