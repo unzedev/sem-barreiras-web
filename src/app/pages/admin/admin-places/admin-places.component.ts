@@ -33,7 +33,7 @@ export class AdminPlacesComponent implements OnInit {
     private router: Router,
     private publicDataService: PublicDataService,
     private toastr: ToastrService,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.fetchUrlParams();
@@ -71,9 +71,9 @@ export class AdminPlacesComponent implements OnInit {
   }
 
   getPlaces(): void {
-    const filter = {...this.filter};
+    const filter = { ...this.filter };
     for (const el in filter) {
-      if (!filter[el]){
+      if (!filter[el]) {
         filter[el] = null;
       }
     }
@@ -86,7 +86,7 @@ export class AdminPlacesComponent implements OnInit {
       queryParamsHandling: 'merge',
     });
     for (const el in filter) {
-      if (!filter[el]){
+      if (!filter[el]) {
         delete filter[el];
       }
     }
@@ -115,13 +115,12 @@ export class AdminPlacesComponent implements OnInit {
     });
   }
 
-  deletePlace(id: string, index: number): void {
-    if (window.confirm('Tem certeza que deseja excluir este estabelecimento?').valueOf()) {
-      this.placesService.deletePlace(id).subscribe((res) => {
-        this.places.splice(index, 1);
-        this.toastr.success('Estabelecimento excluído');
-      });
-    }
+  deletePlace(id: string, index: number): void { 
+    this.closeModal();   
+    this.placesService.deletePlace(id).subscribe((res) => {
+      this.places.splice(index, 1);
+      this.toastr.success('Estabelecimento excluído');
+    });      
   }
 
   checkIfAccessibiltyExists(place: any, accessibilityName: string) {
@@ -129,14 +128,24 @@ export class AdminPlacesComponent implements OnInit {
     return accessibilty.length > 0 && accessibilty[0].has;
   }
 
-  getPlacesPerPage(){
+  getPlacesPerPage() {
     //reset offset
     this.pagination.offset = 0;
     this.getPlaces();
   }
 
   numPages(): Array<number> {
-    return Array(Math.ceil(this.pagination.total/this.pagination.limit));
+    return Array(Math.ceil(this.pagination.total / this.pagination.limit));
   }
 
+  openModal() {
+    // Add is-active class on the modal
+    document.getElementById("modal1").classList.add("is-active");
+  }
+
+  // Function to close the modal
+  closeModal() {
+    document.getElementById("modal1").classList.remove("is-active");
+  }
+ 
 }
