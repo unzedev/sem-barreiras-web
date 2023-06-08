@@ -20,6 +20,8 @@ export class AdminUsersComponent implements OnInit {
   };
   filter: any = {
     name: '',
+    email: '',
+    role: '',
   };
 
   constructor(
@@ -38,6 +40,9 @@ export class AdminUsersComponent implements OnInit {
   fetchUrlParams(): void {
     this.route.queryParamMap.subscribe(p => {
       if (p.get('offset')) { this.pagination.offset = p.get('offset'); }
+      if (p.get('name')) { this.filter.name = p.get('name'); }
+      if (p.get('email')) { this.filter.email = p.get('email'); }
+      if (p.get('role')) { this.filter.role = p.get('role'); } 
       if (p.get('perPage')) { this.filter.limit = p.get('perPage'); }
     }).unsubscribe();
   }
@@ -47,6 +52,8 @@ export class AdminUsersComponent implements OnInit {
     this.pagination.offset = 0;
     this.filter = {
       name: '',
+      email: '',
+      role: '',      
     };
     this.getUsers();
   }
