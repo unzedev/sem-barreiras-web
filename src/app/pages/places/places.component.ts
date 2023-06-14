@@ -107,7 +107,7 @@ export class PlacesComponent implements OnInit {
   }
 
   checkIfAccessibiltyExists(place: any, accessibilityName: string) {
-    const accessibilty = place.accessibilities.filter(e => e.Name === accessibilityName);
+    const accessibilty = place.accessibilities.filter(e => e.name === accessibilityName);
     return accessibilty.length > 0 && accessibilty[0].has;
   }
 
