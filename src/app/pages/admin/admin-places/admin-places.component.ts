@@ -116,7 +116,7 @@ export class AdminPlacesComponent implements OnInit {
   }
 
   deletePlace(id: string, index: number): void { 
-    this.closeModal();   
+    this.closeModal(id);   
     this.placesService.deletePlace(id).subscribe((res) => {
       this.places.splice(index, 1);
       this.toastr.success('Estabelecimento excluído');
@@ -138,14 +138,14 @@ export class AdminPlacesComponent implements OnInit {
     return Array(Math.ceil(this.pagination.total / this.pagination.limit));
   }
 
-  openModal() {
+  openModal(id: string) {
     // Add is-active class on the modal
-    document.getElementById("modal1").classList.add("is-active");
+    document.getElementById("modal-" + id).classList.add("is-active");
   }
 
   // Function to close the modal
-  closeModal() {
-    document.getElementById("modal1").classList.remove("is-active");
+  closeModal(id: string) {
+    document.getElementById("modal-" + id).classList.remove("is-active");
   }
  
 }

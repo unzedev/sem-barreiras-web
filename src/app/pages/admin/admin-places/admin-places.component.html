@@ -227,28 +227,29 @@
                   <b>Aprovar</b>
                 </span>
               </a>
-              <a (click)="openModal()" class="card-footer-item has-text-danger-dark">
+              <a (click)="openModal(place.id)" class="card-footer-item has-text-danger-dark">
                 <span class="icon">
                   <i class="fas fa-trash"></i>
                 </span>
               </a>                                
             </footer>
-            <div id="modal1" class="modal">
+            <div id="modal-{{ place.id }}" class="modal">
               <div class="modal-background"></div>
               <div class="modal-card">
                 <header class="modal-card-head">
                   <p class="modal-card-title"></p>
-                  <button (click)="closeModal()" class="delete" aria-label="close"></button>
+                  <button (click)="closeModal(place.id)" class="delete" aria-label="close"></button>
                 </header>
                 <section class="modal-card-body">
                   Tem certeza que deseja excluir este estabelecimento?
                 </section>
                 <footer class="modal-card-foot">
                   <button (click)="deletePlace(place.id, index)" class="button is-success">Sim</button>
-                  <button (click)="closeModal()" class="button">Não</button>
+                  <button (click)="closeModal(place.id)" class="button">Não</button>
                 </footer>
               </div>
-            </div>          </div>
+            </div>          
+          </div>
         </div>
       </div>
     </div>
