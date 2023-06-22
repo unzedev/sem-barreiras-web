@@ -237,11 +237,11 @@
               <div class="modal-background"></div>
               <div class="modal-card">
                 <header class="modal-card-head">
-                  <p class="modal-card-title"></p>
+                  <p class="modal-card-title">Confirma a exclusão do estabelecimento ?</p>
                   <button (click)="closeModal(place.id)" class="delete" aria-label="close"></button>
                 </header>
                 <section class="modal-card-body">
-                  Tem certeza que deseja excluir este estabelecimento?
+                  {{ place.title }}
                 </section>
                 <footer class="modal-card-foot">
                   <button (click)="deletePlace(place.id, index)" class="button is-success">Sim</button>
