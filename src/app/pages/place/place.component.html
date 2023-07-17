@@ -1,5 +1,6 @@
 <ng-container *ngIf="place">
-  <section class="hero is-primary is-medium place-hero" [style]="{ 'background-image': place.pictureUrl ? 'url(' + place.pictureUrl + ')' : '' }">
+  <section class="hero is-primary is-medium place-hero"
+    [style]="{ 'background-image': place.pictureUrl ? 'url(' + place.pictureUrl + ')' : '' }">
     <div class="hero-body">
     </div>
   </section>
@@ -70,7 +71,8 @@
               {{ place.address.city }}, {{ place.address.state }}<br>
               Bairro {{ place.address.neighborhood }}<br>
               Descrição: {{place.address.descricao}} <br>
-              {{ place.address.street }} {{ place.address.number }}{{ place.address.complement ? ', ' + place.address.complement : '' }}
+              {{ place.address.street }} {{ place.address.number }}{{ place.address.complement ? ', ' +
+              place.address.complement : '' }}
             </address>
           </div>
         </div>
@@ -108,8 +110,7 @@
             </div>
           </div>
           <br>
-          <button class="button is-light is-fullwidth"
-            (click)="loadMoreRatings()"
+          <button class="button is-light is-fullwidth" (click)="loadMoreRatings()"
             *ngIf="ratingsPagination.total > ratingsPagination.offset + ratingsPagination.limite">
             <span class="icon">
               <i class="fas fa-plus"></i>
@@ -123,5 +124,13 @@
     </div>
   </section>
 </ng-container>
-<section class="hero is-fullheight is-primary" *ngIf="!place">
+<section class="hero is-fullheight is-primary" *ngIf="!loading && !place">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title is-1">404</h1>
+      <p class="subtitle mb-0">Não encontramos esta página!</p>
+      <br>
+      <a [routerLink]="'/'" class="button is-white">Ver estabelecimentos</a>
+    </div>
+  </div>
 </section>
