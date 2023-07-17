@@ -8,19 +8,21 @@
             <p class="subtitle has-text-dark">
               Insira seus dados para cadastrar sua conta
             </p>
-            <form [formGroup]="formulario" (submit)="signup()">
+            <form [formGroup]="form" (submit)="signup()">
               <div class="field">
                 <label for="name">Nome</label>
                 <div class="control">
                   <input type="text" class="input" formControlName="name" id="name">
-                  <small *ngIf="submitted && formulario.controls.name?.errors">Nome obrigatório</small>
+                  <small class="has-text-danger" *ngIf="submitted && form.controls.name?.errors">Nome
+                    obrigatório</small>
                 </div>
               </div>
               <div class="field">
                 <label for="email">E-mail</label>
                 <div class="control">
                   <input type="email" class="input" autocomplete="email" formControlName="email" id="email">
-                  <small *ngIf="submitted && formulario.controls.email?.errors">E-mail inválido</small>
+                  <small class="has-text-danger" *ngIf="submitted && form.controls.email?.errors">E-mail
+                    inválido</small>
                 </div>
               </div>
               <div class="field">
@@ -43,27 +45,22 @@
                       <option value="Nenhuma">Nenhuma</option>
                     </select>
                   </div>
-                  <small *ngIf="submitted && formulario.controls.deficiency?.errors">Selecione uma das opções</small>
+                  <small class="has-text-danger" *ngIf="submitted && form.controls.deficiency?.errors">Selecione uma das
+                    opções</small>
                 </div>
               </div>
               <div class="field">
                 <label for="password">Senha</label>
                 <div class="control">
-                  <input type="password" class="input" autocomplete="new-password" formControlName="password" id="password">
-                  <small *ngIf="submitted && formulario.controls.password?.errors">Senha inválida</small>
-                </div>
-              </div>
-              <div class="field">
-                <label for="password">Confirmar Senha</label>
-                <div class="control">
-                  <input type="password" class="input" autocomplete="new-password" formControlName="password_confirm" id="password_confirm">
-                  <small *ngIf="submitted && formulario.controls.password_confirm?.errors">Confirmação de senha obrigatória</small>
-                  <small *ngIf="submitted && formulario.get('password_confirm').value !== formulario.get('password').value">As senhas devem ser iguais</small>
+                  <input type="password" class="input" autocomplete="new-password" formControlName="password"
+                    id="password">
+                  <small class="has-text-danger" *ngIf="submitted && form.controls.password?.errors">Senha
+                    inválida</small>
                 </div>
               </div>
               <br>
               <div class="field">
-                <button type="submit" class="button is-fullwidth is-primary" [disabled]="!!formulario.get('password_confirm').value && formulario.get('password_confirm').value !== formulario.get('password').value">Cadastrar</button>
+                <button type="submit" class="button is-fullwidth is-primary">Cadastrar</button>
               </div>
               <br>
               <div class="has-text-centered">
