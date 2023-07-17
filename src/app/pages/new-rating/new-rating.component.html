@@ -1,5 +1,6 @@
 <ng-container *ngIf="place">
-  <section class="hero is-primary is-medium place-hero" [style]="{ 'background-image': place.pictureUrl ? 'url(' + place.pictureUrl + ')' : '' }">
+  <section class="hero is-primary is-medium place-hero"
+    [style]="{ 'background-image': place.pictureUrl ? 'url(' + place.pictureUrl + ')' : '' }">
     <div class="hero-body">
       <div class="container">
         <h1 class="title is-1">{{ place.title }}</h1>
@@ -18,31 +19,19 @@
               <div class="field">
                 <label for="title">Título</label>
                 <div class="control">
-                  <input
-                    type="text"
-                    class="input"
-                    name="title"
-                    id="title"
-                    required
-                    [(ngModel)]="rating.title">
+                  <input type="text" class="input" name="title" id="title" required [(ngModel)]="rating.title">
                 </div>
               </div>
             </div>
             <div class="column is-3">
               <div class="field">
                 <label for="rating">
-                    Acessibilidade
+                  Acessibilidade
+                  <bar-rating name="rating" theme="stars" [(ngModel)]="rating.rating" [max]="5" required
+                    class="input-stars"></bar-rating>
                 </label>
-                <div class="control mt-2">
-                  <bar-rating name="rating" theme="stars" [(ngModel)]="rating.rating" [max]="5" required class="input-stars"></bar-rating>
-                  <input
-                    type="hidden"
-                    max="5"
-                    min="1"
-                    class="input"
-                    name="rating"
-                    id="rating"
-                    required
+                <div class="control">
+                  <input type="number" max="5" min="1" class="input" name="rating" id="rating" required
                     [(ngModel)]="rating.rating">
                 </div>
               </div>
@@ -51,9 +40,8 @@
               <div class="field">
                 <label for="comment">Comentário</label>
                 <div class="control">
-                  <textarea class="textarea" name="comment" id="comment" rows="2"
-                  required placeholder="Pontos positivos e Pontos negativos..."
-                  [(ngModel)]="rating.comment"></textarea>
+                  <textarea class="textarea" name="comment" id="comment" rows="2" required
+                    [(ngModel)]="rating.comment"></textarea>
                 </div>
               </div>
             </div>
@@ -62,7 +50,7 @@
                 <label for="strengths">Pontos positivos</label>
                 <div class="control">
                   <textarea class="textarea" name="strengths" id="strengths" rows="2"
-                  [(ngModel)]="rating.strengths"></textarea>
+                    [(ngModel)]="rating.strengths"></textarea>
                 </div>
               </div>
             </div>
@@ -71,7 +59,7 @@
                 <label for="weaknesses">Pontos negativos</label>
                 <div class="control">
                   <textarea class="textarea" name="weaknesses" id="weaknesses" rows="2"
-                  [(ngModel)]="rating.weaknesses"></textarea>
+                    [(ngModel)]="rating.weaknesses"></textarea>
                 </div>
               </div>
             </div>
@@ -80,44 +68,65 @@
             </div>
             <div class="column is-3">
               <div class="field">
-                <input type="checkbox" id="ba_e" name="banheiro_acessivel" value="Banheiro acessível" [(ngModel)]="accessibilities.banheiro_acessivel" required>
-                <label for="ba_e"><b> Banheiro acessível</b></label><br>
+                <label>
+                  <input type="checkbox" name="banheiro_acessivel" value="Banheiro acessível"
+                    [(ngModel)]="accessibilities.banheiro_acessivel" required>
+                  Banheiro acessível
+                </label>
               </div>
             </div>
             <div class="column is-3">
               <div class="field">
-                <input type="checkbox" id="ci_e" name="circulacao_interna" value="Circulação interna" [(ngModel)]="accessibilities.circulacao_interna" required>
-                <label for="ci_e"><b> Circulação interna</b></label><br>
+                <label>
+                  <input type="checkbox" name="circulacao_interna" value="Circulação interna"
+                    [(ngModel)]="accessibilities.circulacao_interna" required>
+                  Circulação interna
+                </label>
               </div>
             </div>
             <div class="column is-3">
               <div class="field">
-                <input type="checkbox" id="ef_e" name="entrada_facilitada" value="Entrada facilitada" [(ngModel)]="accessibilities.entrada_facilitada" required>
-                <label for="ef_e"><b> Entrada facilitada</b></label><br>
+                <label>
+                  <input type="checkbox" name="entrada_facilitada" value="Entrada facilitada"
+                    [(ngModel)]="accessibilities.entrada_facilitada" required>
+                  Entrada facilitada
+                </label>
               </div>
             </div>
             <div class="column is-3">
               <div class="field">
-                <input type="checkbox" id="e_e" name="estacionamento" value="Estacionamento" [(ngModel)]="accessibilities.estacionamento" required>
-                <label for="e_e"><b> Estacionamento</b></label><br>
+                <label>
+                  <input type="checkbox" id="e_e" name="estacionamento" value="Estacionamento"
+                    [(ngModel)]="accessibilities.estacionamento" required>
+                  Estacionamento
+                </label>
               </div>
             </div>
             <div class="column is-3">
               <div class="field">
-                <input type="checkbox" id="s_e" name="sinalizacao" value="Sinalização" [(ngModel)]="accessibilities.sinalizacao" required>
-                <label for="s_e"><b> Sinalização</b></label><br>
+                <label>
+                  <input type="checkbox" name="sinalizacao" value="Sinalização"
+                    [(ngModel)]="accessibilities.sinalizacao" required>
+                  Sinalização
+                </label>
               </div>
             </div>
             <div class="column is-3">
               <div class="field">
-                <input type="checkbox" id="ba_e" name="site_acessivel" value="Site acessível" [(ngModel)]="accessibilities.site_acessivel" required>
-                <label for="ba_e"><b> Site acessível</b></label><br>
+                <label>
+                  <input type="checkbox" name="site_acessivel" value="Site acessível"
+                    [(ngModel)]="accessibilities.site_acessivel" required>
+                  Site acessível
+                </label>
               </div>
             </div>
             <div class="column is-4">
               <div class="field">
-                <input type="checkbox" id="pap_e" name="pap" value="Posicionamento atitudinal positivo" [(ngModel)]="accessibilities.pap" required>
-                <label for="pap_e"><b> Posicionamento atitudinal positivo</b></label><br>
+                <label>
+                  <input type="checkbox" name="pap" value="Posicionamento atitudinal positivo"
+                    [(ngModel)]="accessibilities.pap" required>
+                  Posicionamento atitudinal positivo
+                </label>
               </div>
             </div>
           </div>

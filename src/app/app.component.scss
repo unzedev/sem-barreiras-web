@@ -10,14 +10,19 @@
   }
 }
 
-.center{
-  display: flex;
-  justify-content: center;
-  left: 72px;
-  width: 100%;
-}
-
 .navbar-burger {
   background: transparent;
   border: none;
+}
+
+.supporters {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  height: 50px;
+  img {
+    height: 100%;
+  }
 }

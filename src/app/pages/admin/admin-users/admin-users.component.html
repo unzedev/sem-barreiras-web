@@ -30,7 +30,7 @@
               <input [(ngModel)]="filter.email" class="input" type="text" id="usuario" name="usuario">
             </div>
           </div>
-        </div>        
+        </div>
         <div class="column is-2">
           <div class="field">
             <label for="type">Tipo</label>
@@ -56,7 +56,7 @@
           </div>
         </div>
       </div>
-    </div>    
+    </div>
     <p *ngIf="users.length === 0" class="has-text-grey has-text-centered">Não encontramos nenhum resultado.</p>
     <table class="table is-fullwidth is-striped" *ngIf="users.length > 0">
       <tr>
@@ -123,6 +123,6 @@
           </div>
         </div>
       </div>
-    </div>  
+    </div>
   </div>
 </section>

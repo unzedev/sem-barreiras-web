@@ -8,10 +8,9 @@ import { PublicDataService } from '../../../services/public-data/public-data.ser
 @Component({
   selector: 'app-admin-places',
   templateUrl: './admin-places.component.html',
-  styleUrls: ['./admin-places.component.scss']
+  styleUrls: ['./admin-places.component.scss'],
 })
 export class AdminPlacesComponent implements OnInit {
-
   places: any[] = [];
   pagination: any = {
     limit: 9,
@@ -32,8 +31,8 @@ export class AdminPlacesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private publicDataService: PublicDataService,
-    private toastr: ToastrService,
-  ) { }
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.fetchUrlParams();
@@ -45,17 +44,29 @@ export class AdminPlacesComponent implements OnInit {
   }
 
   fetchUrlParams(): void {
-    this.route.queryParamMap.subscribe(p => {
-      if (p.get('offset')) { this.pagination.offset = p.get('offset'); }
-      if (p.get('title')) { this.filter.title = p.get('title'); }
-      if (p.get('type')) { this.filter.type = p.get('type'); }
-      if (p.get('state')) {
-        this.filter.state = p.get('state');
-        this.getCities();
-      }
-      if (p.get('city')) { this.filter.city = p.get('city'); }
-      if (p.get('perPage')) { this.filter.limit = p.get('perPage'); }
-    }).unsubscribe();
+    this.route.queryParamMap
+      .subscribe((p) => {
+        if (p.get('offset')) {
+          this.pagination.offset = p.get('offset');
+        }
+        if (p.get('title')) {
+          this.filter.title = p.get('title');
+        }
+        if (p.get('type')) {
+          this.filter.type = p.get('type');
+        }
+        if (p.get('state')) {
+          this.filter.state = p.get('state');
+          this.getCities();
+        }
+        if (p.get('city')) {
+          this.filter.city = p.get('city');
+        }
+        if (p.get('perPage')) {
+          this.filter.limit = p.get('perPage');
+        }
+      })
+      .unsubscribe();
   }
 
   cleanFiltersAndSearch(): void {
@@ -91,45 +102,45 @@ export class AdminPlacesComponent implements OnInit {
       }
     }
 
-    this.placesService.getPlaces({
-      offset: this.pagination.offset,
-      limit: this.pagination.limit,
-      ...filter,
-    }).subscribe((res) => {
-      this.places = res.establishments;
-      this.pagination = {
-        limit: res.limit,
-        offset: res.offset,
-        total: res.total,
-      };
-    });
+    this.placesService
+      .getPlaces({
+        offset: this.pagination.offset,
+        limit: this.pagination.limit,
+        ...filter,
+      })
+      .subscribe((res) => {
+        this.places = res.establishments;
+        this.pagination = {
+          limit: res.limit,
+          offset: res.offset,
+          total: res.total,
+        };
+      });
   }
 
   approvePlace(id: string, index: number): void {
-    const body = {
-      status: 'approved',
-    };
     this.placesService.approvePlace(id).subscribe((res) => {
       this.places[index].status = 'approved';
       this.toastr.success('Estabelecimento aprovado');
     });
   }
 
-  deletePlace(id: string, index: number): void { 
-    this.closeModal(id);   
+  deletePlace(id: string, index: number): void {
+    this.closeModal(id);
     this.placesService.deletePlace(id).subscribe((res) => {
       this.places.splice(index, 1);
       this.toastr.success('Estabelecimento excluído');
-    });      
+    });
   }
 
   checkIfAccessibiltyExists(place: any, accessibilityName: string) {
-    const accessibilty = place.accessibilities.filter(e => e.name === accessibilityName);
+    const accessibilty = place.accessibilities.filter(
+      (e) => e.name === accessibilityName
+    );
     return accessibilty.length > 0 && accessibilty[0].has;
   }
 
   getPlacesPerPage() {
-    //reset offset
     this.pagination.offset = 0;
     this.getPlaces();
   }
@@ -138,14 +149,11 @@ export class AdminPlacesComponent implements OnInit {
     return Array(Math.ceil(this.pagination.total / this.pagination.limit));
   }
 
-  openModal(id: string) {
-    // Add is-active class on the modal
-    document.getElementById("modal-" + id).classList.add("is-active");
+  openDeleteModal(id: string) {
+    document.getElementById('modal-' + id).classList.add('is-active');
   }
 
-  // Function to close the modal
   closeModal(id: string) {
-    document.getElementById("modal-" + id).classList.remove("is-active");
+    document.getElementById('modal-' + id).classList.remove('is-active');
   }
- 
 }

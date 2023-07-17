@@ -18,12 +18,7 @@
                 <div class="field">
                   <label for="estabelecimento">Nome do estabelecimento</label>
                   <div class="control">
-                    <input
-                      type="text"
-                      class="input"
-                      name="estabelecimento"
-                      id="estabelecimento"
-                      required
+                    <input type="text" class="input" name="estabelecimento" id="estabelecimento" required
                       [(ngModel)]="place.title">
                   </div>
                 </div>
@@ -63,12 +58,7 @@
                 <div class="field">
                   <label for="cnpj">CNPJ <small>(opcional)</small></label>
                   <div class="control">
-                    <input
-                      type="text"
-                      class="input"
-                      name="cnpj"
-                      id="cnpj"
-                      [(ngModel)]="place.cnpj">
+                    <input type="text" class="input" name="cnpj" id="cnpj" [(ngModel)]="place.cnpj">
                   </div>
                 </div>
               </div>
@@ -76,12 +66,7 @@
                 <div class="field">
                   <label for="phone">Telefone <small>(opcional)</small></label>
                   <div class="control">
-                    <input
-                      type="tel"
-                      class="input"
-                      name="phone"
-                      id="phone"
-                      [(ngModel)]="place.phone">
+                    <input type="tel" class="input" name="phone" id="phone" [(ngModel)]="place.phone">
                   </div>
                 </div>
               </div>
@@ -89,12 +74,15 @@
                 <div class="field">
                   <label for="link">URL <small>(opcional)</small></label>
                   <div class="control">
-                    <input
-                      type="url"
-                      class="input"
-                      name="link"
-                      id="link"
-                      [(ngModel)]="place.link">
+                    <input type="url" class="input" name="link" id="link" [(ngModel)]="place.link">
+                  </div>
+                </div>
+              </div>
+              <div class="column is-12">
+                <div class="field">
+                  <label for="descricao">Descrição <small>(opcional)</small></label>
+                  <div class="control">
+                    <input class="input" name="descricao" id="descricao" [(ngModel)]="place.address.descricao">
                   </div>
                 </div>
               </div>
@@ -102,10 +90,7 @@
                 <label for="image">Imagem <small>(Banner 3x1)</small></label>
                 <div class="file is-fullwidth" [class.has-name]="imageToUpload?.name">
                   <label class="file-label">
-                    <input class="file-input"
-                      id="image"
-                      required
-                      type="file" name="image"
+                    <input class="file-input" id="image" required type="file" name="image"
                       (change)="handleImageInput($event.target.files)">
                     <span class="file-cta">
                       <span class="file-icon">
@@ -168,6 +153,7 @@
               </label>
             </div>
           </div>
+
           <div class="column is-12">
             <h2 class="title">Endereço</h2>
           </div>
@@ -175,29 +161,16 @@
             <div class="field">
               <label for="zipcode">CEP</label>
               <div class="control">
-                <input
-                  type="tel"
-                  (change)="getAddress()"
-                  class="input"
-                  name="zipcode"
-                  id="zipcode"
-                  required
-                  maxlength="8"
-                  [(ngModel)]="place.address.zipCode">
+                <input type="tel" (change)="getAddress()" class="input" name="zipcode" id="zipcode" required
+                  maxlength="8" [(ngModel)]="place.address.zipCode">
               </div>
             </div>
           </div>
-
           <div class="column is-2">
             <div class="field">
               <label for="state">Estado</label>
               <div class="control select">
-                <select
-                  (change)="getCities()"
-                  [(ngModel)]="place.address.state"
-                  class="input"
-                  name="state"
-                  required
+                <select (change)="getCities()" [(ngModel)]="place.address.state" class="input" name="state" required
                   id="state">
                   <option value="">Selecione...</option>
                   <option value="AC">Acre</option>
@@ -236,13 +209,7 @@
             <div class="field">
               <label for="city">Cidade</label>
               <div class="control">
-                <input
-                  type="text"
-                  class="input"
-                  name="city"
-                  id="city"
-                  required
-                  [(ngModel)]="place.address.city">
+                <input type="text" class="input" name="city" id="city" required [(ngModel)]="place.address.city">
               </div>
             </div>
           </div>
@@ -250,12 +217,7 @@
             <div class="field">
               <label for="neighborhood">Bairro</label>
               <div class="control">
-                <input
-                  type="text"
-                  class="input"
-                  name="neighborhood"
-                  id="neighborhood"
-                  required
+                <input type="text" class="input" name="neighborhood" id="neighborhood" required
                   [(ngModel)]="place.address.neighborhood">
               </div>
             </div>
@@ -264,13 +226,7 @@
             <div class="field">
               <label for="street">Logradouro</label>
               <div class="control">
-                <input
-                  type="text"
-                  class="input"
-                  name="street"
-                  id="street"
-                  required
-                  [(ngModel)]="place.address.street">
+                <input type="text" class="input" name="street" id="street" required [(ngModel)]="place.address.street">
               </div>
             </div>
           </div>
@@ -278,13 +234,7 @@
             <div class="field">
               <label for="number">Número</label>
               <div class="control">
-                <input
-                  type="tel"
-                  class="input"
-                  name="number"
-                  id="number"
-                  required
-                  [(ngModel)]="place.address.number">
+                <input type="tel" class="input" name="number" id="number" required [(ngModel)]="place.address.number">
               </div>
             </div>
           </div>
@@ -292,30 +242,12 @@
             <div class="field">
               <label for="complement">Complemento <small>(opcional)</small></label>
               <div class="control">
-                <input
-                  type="text"
-                  class="input"
-                  name="complement"
-                  id="complement"
+                <input type="text" class="input" name="complement" id="complement"
                   [(ngModel)]="place.address.complement">
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-3">
-          <div class="field">
-            <label for="descricao">Descrição </label>
-            <div class="control">
-              <input
-                type="text"
-                class="input"
-                name="descricao"
-                id="descricao"
-                required
-                [(ngModel)]="place.address.descricao">
-            </div>
-          </div>
-        </div> 
         <br>
         <div class="field">
           <button type="submit" class="button is-fullwidth is-primary">Cadastrar</button>

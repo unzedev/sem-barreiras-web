@@ -44,7 +44,8 @@
           <div class="card rating-card">
             <div class="card-content">
               <p>
-                <span class="tag" [class]="{ 'is-success': rating.status === 'approved', 'is-warning': rating.status === 'pending' }">
+                <span class="tag"
+                  [class]="{ 'is-success': rating.status === 'approved', 'is-warning': rating.status === 'pending' }">
                   {{ rating.status == 'approved' ? 'Aprovada' : 'Pendente' }}
                 </span>
               </p>
@@ -85,7 +86,8 @@
                   <b>Ver estabelecimento</b>
                 </span> -->
               </a>
-              <a *ngIf="rating.status === 'pending'" (click)="approveRating(rating._id, index)" class="card-footer-item has-text-success-dark">
+              <a *ngIf="rating.status === 'pending'" (click)="approveRating(rating._id, index)"
+                class="card-footer-item has-text-success-dark">
                 <span class="icon">
                   <i class="fas fa-thumbs-up"></i>
                 </span>
@@ -93,7 +95,7 @@
                   <b>Aprovar</b>
                 </span>
               </a>
-              <a (click)="openModal(rating._id)"class="card-footer-item has-text-danger-dark">
+              <a (click)="openDeleteModal(rating._id)" class="card-footer-item has-text-danger-dark">
                 <span class="icon">
                   <i class="fas fa-trash"></i>
                 </span>
@@ -106,18 +108,19 @@
               <div class="modal-background"></div>
               <div class="modal-card">
                 <header class="modal-card-head">
-                  <p class="modal-card-title">Confirma a exclusão da avaliação ?</p>
+                  <p class="modal-card-title">Excluir avaliação?</p>
                   <button (click)="closeModal(rating._id)" class="delete" aria-label="close"></button>
                 </header>
                 <section class="modal-card-body">
-                  {{ rating.title }}
+                  <p>Deseja mesmo excluir o seguinte estabelecimento?</p>
+                  <p><b>{{ rating.title }}</b></p>
                 </section>
                 <footer class="modal-card-foot">
-                  <button (click)="deleteRating(rating._id, index)" class="button is-success">Sim</button>
-                  <button (click)="closeModal(rating._id)" class="button">Não</button>
+                  <button (click)="closeModal(rating._id)" class="button">Voltar</button>
+                  <button (click)="deleteRating(rating._id, index)" class="button is-danger">Sim, excluir</button>
                 </footer>
               </div>
-            </div>              
+            </div>
           </div>
         </div>
       </div>
