@@ -31,11 +31,12 @@
             <div class="column is-3">
               <div class="field">
                 <label for="rating">
-                    Nota <bar-rating name="rating" theme="stars" [(ngModel)]="rating.rating" [max]="5" required class="input-stars"></bar-rating>
+                    Acessibilidade
                 </label>
-                <div class="control">
+                <div class="control mt-2">
+                  <bar-rating name="rating" theme="stars" [(ngModel)]="rating.rating" [max]="5" required class="input-stars"></bar-rating>
                   <input
-                    type="number"
+                    type="hidden"
                     max="5"
                     min="1"
                     class="input"
@@ -51,7 +52,7 @@
                 <label for="comment">Comentário</label>
                 <div class="control">
                   <textarea class="textarea" name="comment" id="comment" rows="2"
-                  required
+                  required placeholder="Pontos positivos e Pontos negativos..."
                   [(ngModel)]="rating.comment"></textarea>
                 </div>
               </div>
@@ -79,79 +80,44 @@
             </div>
             <div class="column is-3">
               <div class="field">
-                <label><b>Banheiro acessível</b></label><br>
-                <input type="radio" id="ba_e" name="banheiro_acessivel" value="Encontrei" [(ngModel)]="accessibilities.banheiro_acessivel" required>
-                <label for="ba_e">Encontrei</label><br>
-                <input type="radio" id="ba_ne" name="banheiro_acessivel" value="Não encontrei" [(ngModel)]="accessibilities.banheiro_acessivel">
-                <label for="ba_ne">Não Encontrei</label><br>
-                <input type="radio" id="ba_ns" name="banheiro_acessivel" value="Não sei" [(ngModel)]="accessibilities.banheiro_acessivel">
-                <label for="ba_ns">Não sei</label>
+                <input type="checkbox" id="ba_e" name="banheiro_acessivel" value="Banheiro acessível" [(ngModel)]="accessibilities.banheiro_acessivel" required>
+                <label for="ba_e"><b> Banheiro acessível</b></label><br>
               </div>
             </div>
             <div class="column is-3">
               <div class="field">
-                <label><b>Circulação interna</b></label><br>
-                <input type="radio" id="ci_e" name="circulacao_interna" value="Encontrei" [(ngModel)]="accessibilities.circulacao_interna" required>
-                <label for="ci_e">Encontrei</label><br>
-                <input type="radio" id="ci_ne" name="circulacao_interna" value="Não encontrei" [(ngModel)]="accessibilities.circulacao_interna">
-                <label for="ci_ne">Não Encontrei</label><br>
-                <input type="radio" id="ci_ns" name="circulacao_interna" value="Não sei" [(ngModel)]="accessibilities.circulacao_interna">
-                <label for="ci_ns">Não sei</label>
+                <input type="checkbox" id="ci_e" name="circulacao_interna" value="Circulação interna" [(ngModel)]="accessibilities.circulacao_interna" required>
+                <label for="ci_e"><b> Circulação interna</b></label><br>
               </div>
             </div>
             <div class="column is-3">
               <div class="field">
-                <label><b>Entrada facilitada</b></label><br>
-                <input type="radio" id="ef_e" name="entrada_facilitada" value="Encontrei" [(ngModel)]="accessibilities.entrada_facilitada" required>
-                <label for="ef_e">Encontrei</label><br>
-                <input type="radio" id="ef_ne" name="entrada_facilitada" value="Não encontrei" [(ngModel)]="accessibilities.entrada_facilitada">
-                <label for="ef_ne">Não Encontrei</label><br>
-                <input type="radio" id="ef_ns" name="entrada_facilitada" value="Não sei" [(ngModel)]="accessibilities.entrada_facilitada">
-                <label for="ef_ns">Não sei</label>
+                <input type="checkbox" id="ef_e" name="entrada_facilitada" value="Entrada facilitada" [(ngModel)]="accessibilities.entrada_facilitada" required>
+                <label for="ef_e"><b> Entrada facilitada</b></label><br>
               </div>
             </div>
             <div class="column is-3">
               <div class="field">
-                <label><b>Estacionamento</b></label><br>
-                <input type="radio" id="e_e" name="estacionamento" value="Encontrei" [(ngModel)]="accessibilities.estacionamento" required>
-                <label for="e_e">Encontrei</label><br>
-                <input type="radio" id="e_ne" name="estacionamento" value="Não encontrei" [(ngModel)]="accessibilities.estacionamento">
-                <label for="e_ne">Não Encontrei</label><br>
-                <input type="radio" id="e_ns" name="estacionamento" value="Não sei" [(ngModel)]="accessibilities.estacionamento">
-                <label for="e_ns">Não sei</label>
+                <input type="checkbox" id="e_e" name="estacionamento" value="Estacionamento" [(ngModel)]="accessibilities.estacionamento" required>
+                <label for="e_e"><b> Estacionamento</b></label><br>
               </div>
             </div>
             <div class="column is-3">
               <div class="field">
-                <label><b>Sinalização</b></label><br>
-                <input type="radio" id="s_e" name="sinalizacao" value="Encontrei" [(ngModel)]="accessibilities.sinalizacao" required>
-                <label for="s_e">Encontrei</label><br>
-                <input type="radio" id="s_ne" name="sinalizacao" value="Não encontrei" [(ngModel)]="accessibilities.sinalizacao">
-                <label for="s_ne">Não Encontrei</label><br>
-                <input type="radio" id="s_ns" name="sinalizacao" value="Não sei" [(ngModel)]="accessibilities.sinalizacao">
-                <label for="s_ns">Não sei</label>
+                <input type="checkbox" id="s_e" name="sinalizacao" value="Sinalização" [(ngModel)]="accessibilities.sinalizacao" required>
+                <label for="s_e"><b> Sinalização</b></label><br>
               </div>
             </div>
             <div class="column is-3">
               <div class="field">
-                <label><b>Site acessível</b></label><br>
-                <input type="radio" id="ba_e" name="site_acessivel" value="Encontrei" [(ngModel)]="accessibilities.site_acessivel" required>
-                <label for="ba_e">Encontrei</label><br>
-                <input type="radio" id="ba_ne" name="site_acessivel" value="Não encontrei" [(ngModel)]="accessibilities.site_acessivel">
-                <label for="ba_ne">Não Encontrei</label><br>
-                <input type="radio" id="ba_ns" name="site_acessivel" value="Não sei" [(ngModel)]="accessibilities.site_acessivel">
-                <label for="ba_ns">Não sei</label>
+                <input type="checkbox" id="ba_e" name="site_acessivel" value="Site acessível" [(ngModel)]="accessibilities.site_acessivel" required>
+                <label for="ba_e"><b> Site acessível</b></label><br>
               </div>
             </div>
             <div class="column is-4">
               <div class="field">
-                <label><b>Posicionamento atitudinal positivo</b></label><br>
-                <input type="radio" id="pap_e" name="pap" value="Encontrei" [(ngModel)]="accessibilities.pap" required>
-                <label for="pap_e">Encontrei</label><br>
-                <input type="radio" id="pap_ne" name="pap" value="Não encontrei" [(ngModel)]="accessibilities.pap">
-                <label for="pap_ne">Não Encontrei</label><br>
-                <input type="radio" id="pap_ns" name="pap" value="Não sei" [(ngModel)]="accessibilities.pap">
-                <label for="pap_ns">Não sei</label>
+                <input type="checkbox" id="pap_e" name="pap" value="Posicionamento atitudinal positivo" [(ngModel)]="accessibilities.pap" required>
+                <label for="pap_e"><b> Posicionamento atitudinal positivo</b></label><br>
               </div>
             </div>
           </div>

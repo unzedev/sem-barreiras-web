@@ -40,7 +40,7 @@
     <p *ngIf="ratings.length === 0" class="has-text-grey has-text-centered">Não encontramos nenhum resultado.</p>
     <div *ngIf="ratings.length > 0">
       <div class="columns is-multiline">
-        <div class="column is-12" *ngFor="let rating of ratings; let index = index">
+        <div class="column is-6" *ngFor="let rating of ratings; let index = index">
           <div class="card rating-card">
             <div class="card-content">
               <p>
@@ -93,7 +93,7 @@
                   <b>Aprovar</b>
                 </span>
               </a>
-              <a (click)="deleteRating(rating._id, index)"class="card-footer-item has-text-danger-dark">
+              <a (click)="openModal(rating._id)"class="card-footer-item has-text-danger-dark">
                 <span class="icon">
                   <i class="fas fa-trash"></i>
                 </span>
@@ -102,41 +102,76 @@
                 </span> -->
               </a>
             </footer>
+            <div id="modal-{{ rating._id }}" class="modal">
+              <div class="modal-background"></div>
+              <div class="modal-card">
+                <header class="modal-card-head">
+                  <p class="modal-card-title">Confirma a exclusão da avaliação ?</p>
+                  <button (click)="closeModal(rating._id)" class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                  {{ rating.title }}
+                </section>
+                <footer class="modal-card-foot">
+                  <button (click)="deleteRating(rating._id, index)" class="button is-success">Sim</button>
+                  <button (click)="closeModal(rating._id)" class="button">Não</button>
+                </footer>
+              </div>
+            </div>              
           </div>
         </div>
       </div>
     </div>
     <br><br>
-    <nav class="pagination is-centered" role="navigation" aria-label="paginação">
-      <button class="pagination-previous"
-        (click)="this.pagination.offset = pagination.offset - this.pagination.limit; getRatings()"
-        [disabled]="pagination.offset === 0">
-        <span class="icon">
-          <i class="fas fa-chevron-left"></i>
-        </span>
-        <span>
-          Anterior
-        </span>
-      </button>
-      <button class="pagination-next"
-        (click)="this.pagination.offset = pagination.offset + this.pagination.limit; getRatings()"
-        [disabled]="pagination.total <= pagination.offset + this.pagination.limit">
-        <span>
-          Próxima
-        </span>
-        <span class="icon">
-          <i class="fas fa-chevron-right"></i>
-        </span>
-      </button>
-      <ul class="pagination-list">
-        <li>
-          <button class="pagination-link is-current"
-            [attr.aria-label]="'Página ' + ((pagination.offset + this.pagination.limit) / this.pagination.limit)"
-            aria-current="página">
-            Página {{ (pagination.offset + this.pagination.limit) / this.pagination.limit }}
-        </button>
-        </li>
-      </ul>
-    </nav>
+    <div class="level">
+      <div class="level-left">
+        <nav class="pagination is-centered" role="navigation" aria-label="paginação">
+          <button class="pagination-previous"
+            (click)="this.pagination.offset = pagination.offset - this.pagination.limit; getRatings()"
+            [disabled]="pagination.offset === 0">
+            <span class="icon">
+              <i class="fas fa-chevron-left"></i>
+            </span>
+            <span>
+              Anterior
+            </span>
+          </button>
+          <button class="pagination-next"
+            (click)="this.pagination.offset = pagination.offset + this.pagination.limit; getRatings()"
+            [disabled]="pagination.total <= pagination.offset + this.pagination.limit">
+            <span>
+              Próxima
+            </span>
+            <span class="icon">
+              <i class="fas fa-chevron-right"></i>
+            </span>
+          </button>
+          <ul class="pagination-list">
+            <li *ngFor="let n of numPages(); let i = index;">
+              <button class="pagination-link is-current"
+                (click)="this.pagination.offset = i * this.pagination.limit; getRatings()"
+                [attr.aria-label]="'Página ' + ((pagination.offset + this.pagination.limit) / this.pagination.limit)"
+                aria-current="página">
+                Página {{ i+1 }}
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="level-right">
+        <div class="field">
+          <label for="perPage">Avaliações por página</label>
+          <div class="control select">
+            <select (change)="getRatingsPerPage()" [(ngModel)]="this.pagination.limit" class="input" name="perPage"
+              [disabled]="pagination.total == 0" id="perPage">
+              <option value="8">8</option>
+              <option value="16">16</option>
+              <option value="32">32</option>
+              <option value="64">64</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

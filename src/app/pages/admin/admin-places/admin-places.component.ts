@@ -14,7 +14,7 @@ export class AdminPlacesComponent implements OnInit {
 
   places: any[] = [];
   pagination: any = {
-    limit: 20,
+    limit: 9,
     offset: 0,
     total: 0,
   };
@@ -33,7 +33,7 @@ export class AdminPlacesComponent implements OnInit {
     private router: Router,
     private publicDataService: PublicDataService,
     private toastr: ToastrService,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.fetchUrlParams();
@@ -54,10 +54,12 @@ export class AdminPlacesComponent implements OnInit {
         this.getCities();
       }
       if (p.get('city')) { this.filter.city = p.get('city'); }
+      if (p.get('perPage')) { this.filter.limit = p.get('perPage'); }
     }).unsubscribe();
   }
 
   cleanFiltersAndSearch(): void {
+    this.pagination.total = 0;
     this.pagination.offset = 0;
     this.filter = {
       title: '',
@@ -69,9 +71,9 @@ export class AdminPlacesComponent implements OnInit {
   }
 
   getPlaces(): void {
-    const filter = {...this.filter};
+    const filter = { ...this.filter };
     for (const el in filter) {
-      if (!filter[el]){
+      if (!filter[el]) {
         filter[el] = null;
       }
     }
@@ -84,13 +86,14 @@ export class AdminPlacesComponent implements OnInit {
       queryParamsHandling: 'merge',
     });
     for (const el in filter) {
-      if (!filter[el]){
+      if (!filter[el]) {
         delete filter[el];
       }
     }
 
     this.placesService.getPlaces({
       offset: this.pagination.offset,
+      limit: this.pagination.limit,
       ...filter,
     }).subscribe((res) => {
       this.places = res.establishments;
@@ -112,18 +115,37 @@ export class AdminPlacesComponent implements OnInit {
     });
   }
 
-  deletePlace(id: string, index: number): void {
-    if (window.confirm('Tem certeza que deseja excluir este estabelecimento?').valueOf()) {
-      this.placesService.deletePlace(id).subscribe((res) => {
-        this.places.splice(index, 1);
-        this.toastr.success('Estabelecimento excluído');
-      });
-    }
+  deletePlace(id: string, index: number): void { 
+    this.closeModal(id);   
+    this.placesService.deletePlace(id).subscribe((res) => {
+      this.places.splice(index, 1);
+      this.toastr.success('Estabelecimento excluído');
+    });      
   }
 
   checkIfAccessibiltyExists(place: any, accessibilityName: string) {
-    const accessibilty = place.accessibilities.filter(e => e.Name === accessibilityName);
+    const accessibilty = place.accessibilities.filter(e => e.name === accessibilityName);
     return accessibilty.length > 0 && accessibilty[0].has;
   }
 
+  getPlacesPerPage() {
+    //reset offset
+    this.pagination.offset = 0;
+    this.getPlaces();
+  }
+
+  numPages(): Array<number> {
+    return Array(Math.ceil(this.pagination.total / this.pagination.limit));
+  }
+
+  openModal(id: string) {
+    // Add is-active class on the modal
+    document.getElementById("modal-" + id).classList.add("is-active");
+  }
+
+  // Function to close the modal
+  closeModal(id: string) {
+    document.getElementById("modal-" + id).classList.remove("is-active");
+  }
+ 
 }

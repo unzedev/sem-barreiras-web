@@ -206,6 +206,7 @@
                 CEP {{ place.address.zipCode }}<br>
                 {{ place.address.city }}, {{ place.address.state }}<br>
                 Bairro {{ place.address.neighborhood }}<br>
+                Descrição: {{place.address.descricao}} <br>
                 {{ place.address.street }} {{ place.address.number }}{{ place.address.complement ? ', ' + place.address.complement : '' }}
               </address>
             </div>
@@ -226,50 +227,83 @@
                   <b>Aprovar</b>
                 </span>
               </a>
-              <a (click)="deletePlace(place.id, index)"class="card-footer-item has-text-danger-dark">
+              <a (click)="openModal(place.id)" class="card-footer-item has-text-danger-dark">
                 <span class="icon">
                   <i class="fas fa-trash"></i>
                 </span>
-                <!-- <span>
-                  <b>Excluir</b>
-                </span> -->
-              </a>
+              </a>                                
             </footer>
+            <div id="modal-{{ place.id }}" class="modal">
+              <div class="modal-background"></div>
+              <div class="modal-card">
+                <header class="modal-card-head">
+                  <p class="modal-card-title">Confirma a exclusão do estabelecimento ?</p>
+                  <button (click)="closeModal(place.id)" class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                  {{ place.title }}
+                </section>
+                <footer class="modal-card-foot">
+                  <button (click)="deletePlace(place.id, index)" class="button is-success">Sim</button>
+                  <button (click)="closeModal(place.id)" class="button">Não</button>
+                </footer>
+              </div>
+            </div>          
           </div>
         </div>
       </div>
     </div>
     <br><br>
-    <nav class="pagination is-centered" role="navigation" aria-label="paginação">
-      <button class="pagination-previous"
-        (click)="this.pagination.offset = pagination.offset - this.pagination.limit; getPlaces()"
-        [disabled]="pagination.offset === 0">
-        <span class="icon">
-          <i class="fas fa-chevron-left"></i>
-        </span>
-        <span>
-          Anterior
-        </span>
-      </button>
-      <button class="pagination-next"
-        (click)="this.pagination.offset = pagination.offset + this.pagination.limit; getPlaces()"
-        [disabled]="pagination.total <= pagination.offset + this.pagination.limit">
-        <span>
-          Próxima
-        </span>
-        <span class="icon">
-          <i class="fas fa-chevron-right"></i>
-        </span>
-      </button>
-      <ul class="pagination-list">
-        <li>
-          <button class="pagination-link is-current"
-            [attr.aria-label]="'Página ' + ((pagination.offset + this.pagination.limit) / this.pagination.limit)"
-            aria-current="página">
-            Página {{ (pagination.offset + this.pagination.limit) / this.pagination.limit }}
-        </button>
-        </li>
-      </ul>
-    </nav>
+    <div class="level">
+      <div class="level-left">
+        <nav class="pagination is-centered" role="navigation" aria-label="paginação">
+          <button class="pagination-previous"
+            (click)="this.pagination.offset = pagination.offset - this.pagination.limit; getPlaces()"
+            [disabled]="pagination.offset === 0">
+            <span class="icon">
+              <i class="fas fa-chevron-left"></i>
+            </span>
+            <span>
+              Anterior
+            </span>
+          </button>
+          <button class="pagination-next"
+            (click)="this.pagination.offset = pagination.offset + this.pagination.limit; getPlaces()"
+            [disabled]="pagination.total <= pagination.offset + this.pagination.limit">
+            <span>
+              Próxima
+            </span>
+            <span class="icon">
+              <i class="fas fa-chevron-right"></i>
+            </span>
+          </button>
+          <ul class="pagination-list">
+            <li *ngFor="let n of numPages(); let i = index;">
+              <button class="pagination-link is-current"
+                (click)="this.pagination.offset = i * this.pagination.limit; getPlaces()"
+                [attr.aria-label]="'Página ' + ((pagination.offset + this.pagination.limit) / this.pagination.limit)"
+                aria-current="página">
+                Página {{ i+1 }}
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="level-right">
+        <div class="field">
+          <label for="perPage">Estabelecimentos por página</label>
+          <div class="control select">
+            <select (change)="getPlacesPerPage()" [(ngModel)]="this.pagination.limit" class="input" name="perPage"
+              [disabled]="pagination.total == 0" id="perPage">
+              <option value="9">9</option>
+              <option value="18">18</option>
+              <option value="36">36</option>
+              <option value="72">72</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+    
 </section>
