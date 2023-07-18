@@ -6,9 +6,26 @@
   </section>
   <section class="section">
     <div class="container">
-      <h1 class="title is-1">{{ place.title }}</h1>
-      <p class="subtitle mb-0">{{ place.type }}</p>
-      <bar-rating [(rate)]="place.rating" theme="stars" [readOnly]="true"></bar-rating>
+      <div class="level">
+        <div class="level-left">
+          <div>
+            <h1 class="title is-1">{{ place.title }}</h1>
+            <p class="subtitle mb-0">{{ place.type }}</p>
+            <bar-rating [(rate)]="place.rating" theme="stars" [readOnly]="true"></bar-rating>
+          </div>
+        </div>
+        <div class="level-right">
+          <a [routerLink]="'/estabelecimentos/' + place.id + '/avaliar'" class="button"
+            [attr.aria-labelledby]="'Avaliar ' + place.title">
+            <span class="icon" aria-hidden="true">
+              <i class="fas fa-star"></i>
+            </span>
+            <span>
+              <b>Avaliar</b>
+            </span>
+          </a>
+        </div>
+      </div>
       <hr>
       <div class="columns">
         <div class="column">

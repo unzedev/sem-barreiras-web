@@ -140,6 +140,23 @@
         </div>
       </div>
     </div>
+    <div class="level">
+      <div class="level-left"></div>
+      <div class="level-right">
+        <div class="field">
+          <label for="perPage">Por página</label>
+          <div class="control select">
+            <select (change)="getPlacesPerPage()" [(ngModel)]="this.pagination.limit" class="input" name="perPage"
+              [disabled]="pagination.total == 0" id="perPage">
+              <option value="9">9</option>
+              <option value="18">18</option>
+              <option value="36">36</option>
+              <option value="72">72</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
     <p *ngIf="places.length === 0" class="has-text-grey has-text-centered">Não encontramos nenhum resultado.</p>
     <div *ngIf="places.length > 0">
       <div class="columns is-multiline">
@@ -249,57 +266,38 @@
         </div>
       </div>
     </div>
-    <br><br>
-    <div class="level">
-      <div class="level-left">
-        <nav class="pagination is-centered" role="navigation" aria-label="paginação">
-          <button class="pagination-previous"
-            (click)="this.pagination.offset = pagination.offset - this.pagination.limit; getPlaces()"
-            [disabled]="pagination.offset === 0">
-            <span class="icon">
-              <i class="fas fa-chevron-left"></i>
-            </span>
-            <span>
-              Anterior
-            </span>
+    <nav class="pagination is-centered mt-3" role="navigation" aria-label="paginação">
+      <button class="pagination-previous"
+        (click)="this.pagination.offset = pagination.offset - this.pagination.limit; getPlaces()"
+        [disabled]="pagination.offset === 0">
+        <span class="icon">
+          <i class="fas fa-chevron-left"></i>
+        </span>
+        <span>
+          Anterior
+        </span>
+      </button>
+      <button class="pagination-next"
+        (click)="this.pagination.offset = pagination.offset + this.pagination.limit; getPlaces()"
+        [disabled]="pagination.total <= pagination.offset + this.pagination.limit">
+        <span>
+          Próxima
+        </span>
+        <span class="icon">
+          <i class="fas fa-chevron-right"></i>
+        </span>
+      </button>
+      <ul class="pagination-list">
+        <li *ngFor="let n of numPages(); let i = index;">
+          <button class="pagination-link is-current"
+            (click)="this.pagination.offset = i * this.pagination.limit; getPlaces()"
+            [attr.aria-label]="'Página ' + ((pagination.offset + this.pagination.limit) / this.pagination.limit)"
+            aria-current="página">
+            {{ i+1 }}
           </button>
-          <button class="pagination-next"
-            (click)="this.pagination.offset = pagination.offset + this.pagination.limit; getPlaces()"
-            [disabled]="pagination.total <= pagination.offset + this.pagination.limit">
-            <span>
-              Próxima
-            </span>
-            <span class="icon">
-              <i class="fas fa-chevron-right"></i>
-            </span>
-          </button>
-          <ul class="pagination-list">
-            <li *ngFor="let n of numPages(); let i = index;">
-              <button class="pagination-link is-current"
-                (click)="this.pagination.offset = i * this.pagination.limit; getPlaces()"
-                [attr.aria-label]="'Página ' + ((pagination.offset + this.pagination.limit) / this.pagination.limit)"
-                aria-current="página">
-                Página {{ i+1 }}
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <div class="level-right">
-        <div class="field">
-          <label for="perPage">Estabelecimentos por página</label>
-          <div class="control select">
-            <select (change)="getPlacesPerPage()" [(ngModel)]="this.pagination.limit" class="input" name="perPage"
-              [disabled]="pagination.total == 0" id="perPage">
-              <option value="9">9</option>
-              <option value="18">18</option>
-              <option value="36">36</option>
-              <option value="72">72</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
+        </li>
+      </ul>
+    </nav>
   </div>
 
 </section>
