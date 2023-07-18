@@ -9,10 +9,9 @@ import { PublicDataService } from 'src/app/services/public-data/public-data.serv
 @Component({
   selector: 'app-new-place',
   templateUrl: './new-place.component.html',
-  styleUrls: ['./new-place.component.scss']
+  styleUrls: ['./new-place.component.scss'],
 })
 export class NewPlaceComponent implements OnInit {
-
   place: any = {
     title: '',
     cnpj: '',
@@ -27,7 +26,7 @@ export class NewPlaceComponent implements OnInit {
       street: '',
       number: '',
       complement: '',
-      descricao: '',
+      description: '',
     },
     accessibilities: [],
   };
@@ -52,7 +51,7 @@ export class NewPlaceComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private toastr: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.redirectUser();
@@ -68,21 +67,39 @@ export class NewPlaceComponent implements OnInit {
       delete request.cnpj;
     }
 
-    if (this.accessibilities.banheiro_acessivel) this.place.accessibilities.push({ name: 'banheiro_acessivel', has: true });
-    if (this.accessibilities.circulacao_interna) this.place.accessibilities.push({ name: 'circulacao_interna', has: true });
-    if (this.accessibilities.entrada_facilitada) this.place.accessibilities.push({ name: 'entrada_facilitada', has: true });
-    if (this.accessibilities.estacionamento) this.place.accessibilities.push({ name: 'estacionamento', has: true });
-    if (this.accessibilities.sinalizacao) this.place.accessibilities.push({ name: 'sinalizacao', has: true });
-    if (this.accessibilities.site_acessivel) this.place.accessibilities.push({ name: 'site_acessivel', has: true });
-    if (this.accessibilities.pap) this.place.accessibilities.push({ name: 'pap', has: true });
+    if (this.accessibilities.banheiro_acessivel)
+      this.place.accessibilities.push({
+        name: 'banheiro_acessivel',
+        has: true,
+      });
+    if (this.accessibilities.circulacao_interna)
+      this.place.accessibilities.push({
+        name: 'circulacao_interna',
+        has: true,
+      });
+    if (this.accessibilities.entrada_facilitada)
+      this.place.accessibilities.push({
+        name: 'entrada_facilitada',
+        has: true,
+      });
+    if (this.accessibilities.estacionamento)
+      this.place.accessibilities.push({ name: 'estacionamento', has: true });
+    if (this.accessibilities.sinalizacao)
+      this.place.accessibilities.push({ name: 'sinalizacao', has: true });
+    if (this.accessibilities.site_acessivel)
+      this.place.accessibilities.push({ name: 'site_acessivel', has: true });
+    if (this.accessibilities.pap)
+      this.place.accessibilities.push({ name: 'pap', has: true });
 
     this.placesService.createPlace(request).subscribe((res) => {
       this.toastr.success('Estabelecimento adicionado');
       if (this.imageToUpload != null) {
-        this.placesService.updatePlacePicture(res.id, this.imageToUpload).subscribe(() => {
-          this.toastr.success('Imagem adicionada');
-          this.router.navigateByUrl(`/estabelecimentos/${res.id}`);
-        });
+        this.placesService
+          .updatePlacePicture(res.id, this.imageToUpload)
+          .subscribe(() => {
+            this.toastr.success('Imagem adicionada');
+            this.router.navigateByUrl(`/estabelecimentos/${res.id}`);
+          });
       } else {
         this.router.navigateByUrl(`/estabelecimentos/${res.id}`);
       }
@@ -100,12 +117,14 @@ export class NewPlaceComponent implements OnInit {
   }
 
   getAddress(): void {
-    this.publicDataService.getAddress(this.place.address.zipCode).subscribe((res) => {
-      this.place.address.state = res.uf;
-      this.place.address.city = res.localidade;
-      this.place.address.neighborhood = res.bairro;
-      this.place.address.street = res.logradouro;
-      this.place.address.descricao = res.descricao;
-    })
+    this.publicDataService
+      .getAddress(this.place.address.zipCode)
+      .subscribe((res) => {
+        this.place.address.state = res.uf;
+        this.place.address.city = res.localidade;
+        this.place.address.neighborhood = res.bairro;
+        this.place.address.street = res.logradouro;
+        this.place.address.description = res.description;
+      });
   }
 }
