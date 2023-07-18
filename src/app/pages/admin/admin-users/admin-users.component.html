@@ -12,102 +12,37 @@
 </section>
 <section class="section">
   <div class="container">
-    <!-- <div class="box over-top-box">
+    <div class="box over-top-box">
       <h3 class="title is-5">Buscar</h3>
       <div class="columns is-multiline">
         <div class="column is-3">
           <div class="field">
-            <label for="estabelecimento">Nome do estabelecimento</label>
+            <label for="usuario">Nome</label>
             <div class="control">
-              <input [(ngModel)]="filter.titulo" class="input" type="text" id="estabelecimento" name="estabelecimento">
-            </div>
-          </div>
-        </div>
-        <div class="column is-2">
-          <div class="field">
-            <label for="tipo">Tipo</label>
-            <div class="control">
-              <div class="select">
-                <select [(ngModel)]="filter.tipo" class="input" name="tipo" id="tipo">
-                  <option value="">Selecione...</option>
-                  <option value="restaurante">Restaurante</option>
-                  <option value="academia">Academia</option>
-                  <option value="mercado">Mercado</option>
-                  <option value="salao_de_beleza">Salão de Beleza</option>
-                  <option value="banco">Banco</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-2">
-          <div class="field">
-            <label for="status">Situação</label>
-            <div class="control">
-              <div class="select">
-                <select [(ngModel)]="filter.status" class="input" name="status" id="status">
-                  <option value="">Selecione...</option>
-                  <option value="pendente">Pendente</option>
-                  <option value="aprovado">Aprovado</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-2">
-          <div class="field">
-            <label for="estado">Estado</label>
-            <div class="control">
-              <div class="select">
-                <select (change)="getCities()"
-                  [(ngModel)]="filter.estado"
-                  class="input"
-                  name="estado"
-                  id="estado">
-                  <option value="">Selecione...</option>
-                  <option value="AC">Acre</option>
-                  <option value="AL">Alagoas</option>
-                  <option value="AP">Amapá</option>
-                  <option value="AM">Amazonas</option>
-                  <option value="BA">Bahia</option>
-                  <option value="CE">Ceará</option>
-                  <option value="DF">Distrito Federal</option>
-                  <option value="ES">Espírito Santo</option>
-                  <option value="GO">Goiás</option>
-                  <option value="MA">Maranhão</option>
-                  <option value="MT">Mato Grosso</option>
-                  <option value="MS">Mato Grosso do Sul</option>
-                  <option value="MG">Minas Gerais</option>
-                  <option value="PA">Pará</option>
-                  <option value="PB">Paraíba</option>
-                  <option value="PR">Paraná</option>
-                  <option value="PE">Pernambuco</option>
-                  <option value="PI">Piauí</option>
-                  <option value="RJ">Rio de Janeiro</option>
-                  <option value="RN">Rio Grande do Norte</option>
-                  <option value="RS">Rio Grande do Sul</option>
-                  <option value="RO">Rondônia</option>
-                  <option value="RR">Roraima</option>
-                  <option value="SC">Santa Catarina</option>
-                  <option value="SP">São Paulo</option>
-                  <option value="SE">Sergipe</option>
-                  <option value="TO">Tocantins</option>
-                  <option value="EX">Estrangeiro</option>
-                </select>
-              </div>
+              <input [(ngModel)]="filter.name" class="input" type="text" id="usuario" name="usuario">
             </div>
           </div>
         </div>
         <div class="column is-3">
           <div class="field">
-            <label for="cidade">Cidade</label>
-            <ng-select class="custom" [items]="cities | async"
-              [virtualScroll]="true"
-              bindLabel="nome"
-              bindValue="nome"
-              id="cidade"
-              [(ngModel)]="filter.cidade">
-            </ng-select>
+            <label for="usuario">E-mail</label>
+            <div class="control">
+              <input [(ngModel)]="filter.email" class="input" type="text" id="usuario" name="usuario">
+            </div>
+          </div>
+        </div>
+        <div class="column is-2">
+          <div class="field">
+            <label for="type">Tipo</label>
+            <div class="control">
+              <div class="select">
+                <select [(ngModel)]="filter.role" class="input" name="role" id="role">
+                  <option value="">Selecione...</option>
+                  <option value="administrator">administrator</option>
+                  <option value="user">user</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
         <div class="column is-12">
@@ -115,13 +50,30 @@
             <button class="button is-light" type="button" (click)="cleanFiltersAndSearch()">
               Limpar
             </button>
-            <button class="button is-link" type="button" (click)="pagination.offset = 0; getPlaces()">
+            <button class="button is-link" type="button" (click)="pagination.offset = 0; getUsers()">
               Buscar
             </button>
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
+    <div class="level">
+      <div class="level-left"></div>
+      <div class="level-right">
+        <div class="field">
+          <label for="perPage">Por página</label>
+          <div class="control select">
+            <select (change)="getUsersPerPage()" [(ngModel)]="this.pagination.limit" class="input" name="perPage"
+              [disabled]="pagination.total == 0" id="perPage">
+              <option value="9">9</option>
+              <option value="18">18</option>
+              <option value="36">36</option>
+              <option value="72">72</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
     <p *ngIf="users.length === 0" class="has-text-grey has-text-centered">Não encontramos nenhum resultado.</p>
     <table class="table is-fullwidth is-striped" *ngIf="users.length > 0">
       <tr>
@@ -139,7 +91,6 @@
         <td>{{ user.role }}</td>
       </tr>
     </table>
-    <!-- <br><br>
     <nav class="pagination is-centered" role="navigation" aria-label="paginação">
       <button class="pagination-previous"
         (click)="this.pagination.offset = pagination.offset - this.pagination.limit; getUsers()"
@@ -162,14 +113,15 @@
         </span>
       </button>
       <ul class="pagination-list">
-        <li>
-          <a class="pagination-link is-current"
+        <li *ngFor="let n of numPages(); let i = index;">
+          <button class="pagination-link is-current"
+            (click)="this.pagination.offset = i * this.pagination.limit; getUsers()"
             [attr.aria-label]="'Página ' + ((pagination.offset + this.pagination.limit) / this.pagination.limit)"
             aria-current="página">
-            Página {{ (pagination.offset + this.pagination.limit) / this.pagination.limit }}
-          </a>
+            {{ i+1 }}
+          </button>
         </li>
       </ul>
-    </nav> -->
+    </nav>
   </div>
 </section>

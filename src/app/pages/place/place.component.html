@@ -1,13 +1,31 @@
 <ng-container *ngIf="place">
-  <section class="hero is-primary is-medium place-hero" [style]="{ 'background-image': place.pictureUrl ? 'url(' + place.pictureUrl + ')' : '' }">
+  <section class="hero is-primary is-medium place-hero"
+    [style]="{ 'background-image': place.pictureUrl ? 'url(' + place.pictureUrl + ')' : '' }">
     <div class="hero-body">
     </div>
   </section>
   <section class="section">
     <div class="container">
-      <h1 class="title is-1">{{ place.title }}</h1>
-      <p class="subtitle mb-0">{{ place.type }}</p>
-      <bar-rating [(rate)]="place.rating" theme="stars" [readOnly]="true"></bar-rating>
+      <div class="level">
+        <div class="level-left">
+          <div>
+            <h1 class="title is-1">{{ place.title }}</h1>
+            <p class="subtitle mb-0">{{ place.type }}</p>
+            <bar-rating [(rate)]="place.rating" theme="stars" [readOnly]="true"></bar-rating>
+          </div>
+        </div>
+        <div class="level-right">
+          <a [routerLink]="'/estabelecimentos/' + place.id + '/avaliar'" class="button"
+            [attr.aria-labelledby]="'Avaliar ' + place.title">
+            <span class="icon" aria-hidden="true">
+              <i class="fas fa-star"></i>
+            </span>
+            <span>
+              <b>Avaliar</b>
+            </span>
+          </a>
+        </div>
+      </div>
       <hr>
       <div class="columns">
         <div class="column">
@@ -69,7 +87,9 @@
               CEP {{ place.address.zipCode }}<br>
               {{ place.address.city }}, {{ place.address.state }}<br>
               Bairro {{ place.address.neighborhood }}<br>
-              {{ place.address.street }} {{ place.address.number }}{{ place.address.complement ? ', ' + place.address.complement : '' }}
+              Descrição: {{place.address.description}} <br>
+              {{ place.address.street }} {{ place.address.number }}{{ place.address.complement ? ', ' +
+              place.address.complement : '' }}
             </address>
           </div>
         </div>
@@ -107,8 +127,7 @@
             </div>
           </div>
           <br>
-          <button class="button is-light is-fullwidth"
-            (click)="loadMoreRatings()"
+          <button class="button is-light is-fullwidth" (click)="loadMoreRatings()"
             *ngIf="ratingsPagination.total > ratingsPagination.offset + ratingsPagination.limite">
             <span class="icon">
               <i class="fas fa-plus"></i>
@@ -122,7 +141,7 @@
     </div>
   </section>
 </ng-container>
-<section class="hero is-fullheight is-primary" *ngIf="!place">
+<section class="hero is-fullheight is-primary" *ngIf="!loading && !place">
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title is-1">404</h1>

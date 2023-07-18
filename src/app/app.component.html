@@ -63,7 +63,8 @@
             <!-- <a routerLink="/cadastrar" routerLinkActive="is-active" class="button is-primary" tabindex="0">
               <strong>Cadastrar</strong>
             </a> -->
-            <a routerLink="/entrar" routerLinkActive="is-active" class="button is-primary is-outlined" [class]="{ 'is-inverted': navbarIsTransparent }" tabindex="0">
+            <a routerLink="/entrar" routerLinkActive="is-active" class="button is-primary is-outlined"
+              [class]="{ 'is-inverted': navbarIsTransparent }" tabindex="0">
               Entrar
             </a>
           </div>
@@ -75,6 +76,12 @@
 <router-outlet></router-outlet>
 <footer class="footer has-text-centered">
   <div class="container">
+    <p>Apoiadores:</p>
+    <div class="supporters" tabindex="-1">
+      <img src="../assets/img/onu.svg" alt="ONU">
+      <img src="../assets/img/zaffari-logo.jpg" alt="Zaffari">
+      <img src="../assets/img/pucrs.svg" alt="PUCRS">
+    </div>
     <p>
       OSC Conexão Solidária - CNPJ 24.236.775/0001-29
       <br>
@@ -84,9 +91,5 @@
     <p>Desenvolvido por <a href="https://unze.com.br" rel="nofollow" target="_blank">Unze</a></p>
   </div>
 </footer>
-<ngx-ui-loader
-  text="Carregando"
-  fgsColor="#156fe4"
-  pbColor="#156fe4"
-  fgsType="ball-scale-multiple">
+<ngx-ui-loader text="Carregando" fgsColor="#156fe4" pbColor="#156fe4" fgsType="ball-scale-multiple">
 </ngx-ui-loader>

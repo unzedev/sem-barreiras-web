@@ -53,11 +53,7 @@
           <div class="field">
             <label for="state">Estado</label>
             <div class="control select">
-              <select (change)="getCities()"
-                [(ngModel)]="filter.state"
-                class="input"
-                name="state"
-                id="state">
+              <select (change)="getCities()" [(ngModel)]="filter.state" class="input" name="state" id="state">
                 <option value="">Selecione...</option>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
@@ -117,16 +113,35 @@
         </div>
       </div>
     </div>
+    <div class="level">
+      <div class="level-left"></div>
+      <div class="level-right">
+        <div class="field">
+          <label for="perPage">Por página</label>
+          <div class="control select">
+            <select (change)="getPlacesPerPage()" [(ngModel)]="this.pagination.limit" class="input" name="perPage"
+              [disabled]="pagination.total == 0" id="perPage">
+              <option value="9">9</option>
+              <option value="18">18</option>
+              <option value="36">36</option>
+              <option value="72">72</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
     <p *ngIf="places.length === 0" class="has-text-grey has-text-centered">Não encontramos nenhum resultado.</p>
     <div *ngIf="places.length > 0">
       <div class="columns is-multiline">
         <div class="column is-4" *ngFor="let place of places">
           <div class="card place-card">
-            <div class="card-image has-background-primary" [style]="{ 'background-image': place.pictureUrl ? 'url(' + place.pictureUrl + ')' : '' }"></div>
+            <div class="card-image has-background-primary"
+              [style]="{ 'background-image': place.pictureUrl ? 'url(' + place.pictureUrl + ')' : '' }"></div>
             <div class="card-content">
               <h3 class="title is-4">{{ place.title }}</h3>
               <p class="subtitle is-6 mb-0">{{ place.type }}</p>
-              <bar-rating [(rate)]="place.rating" theme="stars" [readOnly]="true"></bar-rating>
+              <bar-rating [(rate)]="place.rating" theme="stars" [readOnly]="false"
+                (rateChange)="redirectUser(place.id, $event)"></bar-rating>
               <div class="tags">
                 <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'estacionamento')">
                   <span class="icon">
@@ -175,20 +190,24 @@
                 CEP {{ place.address.zipCode }}<br>
                 {{ place.address.city }}, {{ place.address.state }}<br>
                 Bairro {{ place.address.neighborhood }}<br>
-                {{ place.address.street }} {{ place.address.number }}{{ place.address.complement ? ', ' + place.address.complement : '' }}
+                Descrição: {{place.address.description}}<br>
+                {{ place.address.street }} {{ place.address.number }}{{ place.address.complement ? ', ' +
+                place.address.complement : '' }}
               </address>
             </div>
             <footer class="card-footer">
-              <a [routerLink]="'/estabelecimentos/' + place.id" class="card-footer-item">
-                <span class="icon">
+              <a [routerLink]="'/estabelecimentos/' + place.id" class="card-footer-item"
+                [attr.aria-labelledby]="'Ver ' + place.title">
+                <span class="icon" aria-hidden="true">
                   <i class="fas fa-eye"></i>
                 </span>
                 <span>
                   <b>Ver</b>
                 </span>
               </a>
-              <a [routerLink]="'/estabelecimentos/' + place.id + '/avaliar'" class="card-footer-item">
-                <span class="icon">
+              <a [routerLink]="'/estabelecimentos/' + place.id + '/avaliar'" class="card-footer-item"
+                [attr.aria-labelledby]="'Avaliar ' + place.title">
+                <span class="icon" aria-hidden="true">
                   <i class="fas fa-star"></i>
                 </span>
                 <span>
@@ -200,8 +219,7 @@
         </div>
       </div>
     </div>
-    <br><br>
-    <nav class="pagination is-centered" role="navigation" aria-label="paginação">
+    <nav class="pagination is-centered mt-3" role="navigation" aria-label="paginação">
       <button class="pagination-previous"
         (click)="this.pagination.offset = pagination.offset - this.pagination.limit; getPlaces()"
         [disabled]="pagination.offset === 0">
@@ -223,12 +241,13 @@
         </span>
       </button>
       <ul class="pagination-list">
-        <li>
+        <li *ngFor="let n of numPages(); let i = index;">
           <button class="pagination-link is-current"
+            (click)="this.pagination.offset = i * this.pagination.limit; getPlaces()"
             [attr.aria-label]="'Página ' + ((pagination.offset + this.pagination.limit) / this.pagination.limit)"
             aria-current="página">
-            Página {{ (pagination.offset + this.pagination.limit) / this.pagination.limit }}
-        </button>
+            {{ i+1 }}
+          </button>
         </li>
       </ul>
     </nav>

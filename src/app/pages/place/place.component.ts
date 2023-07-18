@@ -6,10 +6,10 @@ import { RatingsService } from 'src/app/services/ratings/ratings.service';
 @Component({
   selector: 'app-place',
   templateUrl: './place.component.html',
-  styleUrls: ['./place.component.scss']
+  styleUrls: ['./place.component.scss'],
 })
 export class PlaceComponent implements OnInit {
-
+  loading: boolean = true;
   place: any = null;
   ratings: any = [];
   ratingsPagination: any = {
@@ -20,8 +20,8 @@ export class PlaceComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private placesService: PlacesService,
-    private ratingsService: RatingsService,
-    ) { }
+    private ratingsService: RatingsService
+  ) {}
 
   ngOnInit(): void {
     this.getPlace();
@@ -29,9 +29,18 @@ export class PlaceComponent implements OnInit {
   }
 
   getPlace(): void {
-    this.placesService.getPlace(this.route.snapshot.paramMap.get('id')).subscribe((res) => {
-      this.place = res;
-    });
+    this.placesService
+      .getPlace(this.route.snapshot.paramMap.get('id'))
+      .subscribe(
+        (res) => {
+          this.place = res;
+          this.loading = false;
+        },
+        (error) => {
+          this.loading = false;
+          console.error(error);
+        }
+      );
   }
 
   getRatings(): void {
@@ -46,7 +55,7 @@ export class PlaceComponent implements OnInit {
         limit: res.limit,
         offset: res.offset,
         total: res.total,
-      };;
+      };
     });
   }
 
@@ -56,8 +65,9 @@ export class PlaceComponent implements OnInit {
   }
 
   checkIfAccessibiltyExists(accessibilityName: string) {
-    const accessibilty = this.place.accessibilities.filter(e => e.name === accessibilityName);
+    const accessibilty = this.place.accessibilities.filter(
+      (e) => e.name === accessibilityName
+    );
     return accessibilty.length > 0 && accessibilty[0].has;
   }
-
 }

@@ -8,30 +8,34 @@
             <p class="subtitle has-text-dark">
               Insira seus dados para cadastrar sua conta
             </p>
-            <form (submit)="signup()" ngNativeValidate>
+            <form [formGroup]="form" (submit)="signup()">
               <div class="field">
                 <label for="name">Nome</label>
                 <div class="control">
-                  <input type="text" class="input" name="name" id="name" required [(ngModel)]="register.name">
+                  <input type="text" class="input" formControlName="name" id="name">
+                  <small class="has-text-danger" *ngIf="submitted && form.controls.name?.errors">Nome
+                    obrigatório</small>
                 </div>
               </div>
               <div class="field">
                 <label for="email">E-mail</label>
                 <div class="control">
-                  <input type="email" class="input" autocomplete="email" name="email" id="email" required [(ngModel)]="register.email">
+                  <input type="email" class="input" autocomplete="email" formControlName="email" id="email">
+                  <small class="has-text-danger" *ngIf="submitted && form.controls.email?.errors">E-mail
+                    inválido</small>
                 </div>
               </div>
               <div class="field">
                 <label for="phone">Celular <small>(opcional)</small></label>
                 <div class="control">
-                  <input type="tel" class="input" name="phone" id="phone" [(ngModel)]="register.phone">
+                  <input type="tel" class="input" formControlName="phone" id="phone">
                 </div>
               </div>
               <div class="field">
                 <label for="deficiency">Deficiência</label>
                 <div class="control">
                   <div class="select is-fullwidth">
-                    <select class="input" name="deficiency" id="deficiency" [(ngModel)]="register.deficiency">
+                    <select class="input" formControlName="deficiency" id="deficiency">
                       <option value="">Selecione...</option>
                       <option value="Física">Física</option>
                       <option value="Auditiva">Auditiva</option>
@@ -41,12 +45,17 @@
                       <option value="Nenhuma">Nenhuma</option>
                     </select>
                   </div>
+                  <small class="has-text-danger" *ngIf="submitted && form.controls.deficiency?.errors">Selecione uma das
+                    opções</small>
                 </div>
               </div>
               <div class="field">
                 <label for="password">Senha</label>
                 <div class="control">
-                  <input type="password" class="input" autocomplete="new-password" name="password" id="password" required [(ngModel)]="register.password">
+                  <input type="password" class="input" autocomplete="new-password" formControlName="password"
+                    id="password">
+                  <small class="has-text-danger" *ngIf="submitted && form.controls.password?.errors">Senha
+                    inválida</small>
                 </div>
               </div>
               <br>
