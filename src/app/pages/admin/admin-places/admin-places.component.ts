@@ -13,7 +13,7 @@ import { PublicDataService } from '../../../services/public-data/public-data.ser
 export class AdminPlacesComponent implements OnInit {
   places: any[] = [];
   pagination: any = {
-    limit: 9,
+    limit: 36,
     offset: 0,
     total: 0,
   };

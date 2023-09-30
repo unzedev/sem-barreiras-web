@@ -11,7 +11,7 @@ import { RatingsService } from '../../../services/ratings/ratings.service';
 export class AdminRatingsComponent implements OnInit {
   ratings: any[] = [];
   pagination: any = {
-    limit: 8,
+    limit: 32,
     offset: 0,
     total: 0,
   };

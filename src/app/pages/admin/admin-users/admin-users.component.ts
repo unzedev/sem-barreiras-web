@@ -10,7 +10,7 @@ import { UsersService } from '../../../services/users/users.service';
 export class AdminUsersComponent implements OnInit {
   users: any[] = [];
   pagination: any = {
-    limit: 9,
+    limit: 36,
     offset: 0,
     total: 0,
   };

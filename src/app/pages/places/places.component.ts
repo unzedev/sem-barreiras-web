@@ -13,7 +13,7 @@ import { PublicDataService } from '../../services/public-data/public-data.servic
 export class PlacesComponent implements OnInit {
   places: any[] = [];
   pagination: any = {
-    limit: 9,
+    limit: 36,
     offset: 0,
     total: 0,
   };
