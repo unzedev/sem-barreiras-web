@@ -10,10 +10,9 @@ import { RatingsService } from 'src/app/services/ratings/ratings.service';
 @Component({
   selector: 'app-new-rating',
   templateUrl: './new-rating.component.html',
-  styleUrls: ['./new-rating.component.scss']
+  styleUrls: ['./new-rating.component.scss'],
 })
 export class NewRatingComponent implements OnInit {
-
   rating: any = {
     establishment: null,
     title: '',
@@ -32,6 +31,7 @@ export class NewRatingComponent implements OnInit {
     sinalizacao: null,
     site_acessivel: null,
     pap: null,
+    inclusivo_colaboradores: null,
   };
 
   place: any = null;
@@ -45,7 +45,7 @@ export class NewRatingComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private toastr: ToastrService
-    ) { }
+  ) {}
 
   ngOnInit(): void {
     this.redirectUser();
@@ -53,13 +53,46 @@ export class NewRatingComponent implements OnInit {
   }
 
   registerRating(): void {
-    if (this.accessibilities.banheiro_acessivel) this.rating.accessibilities.push({ name: 'Banheiro acessível', review: this.accessibilities.banheiro_acessivel });
-    if (this.accessibilities.circulacao_interna) this.rating.accessibilities.push({ name: 'Circulação interna', review: this.accessibilities.circulacao_interna });
-    if (this.accessibilities.entrada_facilitada) this.rating.accessibilities.push({ name: 'Entrada facilitada', review: this.accessibilities.entrada_facilitada });
-    if (this.accessibilities.estacionamento) this.rating.accessibilities.push({ name: 'Estacionamento', review: this.accessibilities.estacionamento });
-    if (this.accessibilities.sinalizacao) this.rating.accessibilities.push({ name: 'Sinalização', review: this.accessibilities.sinalizacao });
-    if (this.accessibilities.site_acessivel) this.rating.accessibilities.push({ name: 'Site acessível', review: this.accessibilities.site_acessivel });
-    if (this.accessibilities.pap) this.rating.accessibilities.push({ name: 'Posicionamento atitudinal positivo', review: this.accessibilities.pap });
+    if (this.accessibilities.banheiro_acessivel)
+      this.rating.accessibilities.push({
+        name: 'Banheiro acessível',
+        review: this.accessibilities.banheiro_acessivel,
+      });
+    if (this.accessibilities.circulacao_interna)
+      this.rating.accessibilities.push({
+        name: 'Circulação interna',
+        review: this.accessibilities.circulacao_interna,
+      });
+    if (this.accessibilities.entrada_facilitada)
+      this.rating.accessibilities.push({
+        name: 'Entrada facilitada',
+        review: this.accessibilities.entrada_facilitada,
+      });
+    if (this.accessibilities.estacionamento)
+      this.rating.accessibilities.push({
+        name: 'Estacionamento',
+        review: this.accessibilities.estacionamento,
+      });
+    if (this.accessibilities.sinalizacao)
+      this.rating.accessibilities.push({
+        name: 'Sinalização',
+        review: this.accessibilities.sinalizacao,
+      });
+    if (this.accessibilities.site_acessivel)
+      this.rating.accessibilities.push({
+        name: 'Site acessível',
+        review: this.accessibilities.site_acessivel,
+      });
+    if (this.accessibilities.pap)
+      this.rating.accessibilities.push({
+        name: 'Atendimento receptivo',
+        review: this.accessibilities.pap,
+      });
+    if (this.accessibilities.inclusivo_colaboradores)
+      this.rating.accessibilities.push({
+        name: 'Inclusivo com colaboradores',
+        review: this.accessibilities.inclusivo_colaboradores,
+      });
 
     this.ratingsService.postRating(this.rating).subscribe((res) => {
       this.toastr.success('Avaliação criada');
@@ -74,10 +107,11 @@ export class NewRatingComponent implements OnInit {
   }
 
   getPlace(): void {
-    this.placesService.getPlace(this.route.snapshot.paramMap.get('id')).subscribe((res) => {
-      this.place = res;
-      this.rating.establishment = res.id;
-    });
+    this.placesService
+      .getPlace(this.route.snapshot.paramMap.get('id'))
+      .subscribe((res) => {
+        this.place = res;
+        this.rating.establishment = res.id;
+      });
   }
-
 }

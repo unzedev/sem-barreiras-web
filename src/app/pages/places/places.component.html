@@ -183,7 +183,13 @@
                   <span class="icon">
                     <i class="fas fa-smile-beam"></i>
                   </span>
-                  <span>posicionamento atitudinal positivo</span>
+                  <span>atendimento receptivo</span>
+                </span>
+                <span class="tag" *ngIf="checkIfAccessibiltyExists(place, 'inclusivo_colaboradores')">
+                  <span class="icon">
+                    <i class="fas fa-smile-beam"></i>
+                  </span>
+                  <span>inclusivo com colaboradores</span>
                 </span>
               </div>
               <address *ngIf="place.address">

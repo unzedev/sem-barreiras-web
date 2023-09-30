@@ -149,7 +149,14 @@
             <div class="field">
               <label class="checkbox">
                 <input type="checkbox" [(ngModel)]="accessibilities.pap" name="pap">
-                Posicionamento atitudinal positivo
+                Atendimento receptivo
+              </label>
+            </div>
+            <div class="field">
+              <label class="checkbox">
+                <input type="checkbox" [(ngModel)]="accessibilities.inclusivo_colaboradores"
+                  name="inclusivo_colaboradores">
+                Inclusivo com colaboradores
               </label>
             </div>
           </div>
@@ -162,7 +169,7 @@
               <label for="zipcode">CEP</label>
               <div class="control">
                 <input type="tel" (change)="getAddress()" class="input" name="zipcode" id="zipcode" required
-                  maxlength="8" [(ngModel)]="place.address.zipCode">
+                  maxlength="9" [(ngModel)]="place.address.zipCode">
               </div>
             </div>
           </div>

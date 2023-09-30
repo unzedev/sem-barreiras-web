@@ -39,6 +39,7 @@ export class NewPlaceComponent implements OnInit {
     sinalizacao: false,
     site_acessivel: false,
     pap: false,
+    inclusivo_colaboradores: false,
   };
 
   cities: Observable<any[]>;
@@ -90,6 +91,11 @@ export class NewPlaceComponent implements OnInit {
       this.place.accessibilities.push({ name: 'site_acessivel', has: true });
     if (this.accessibilities.pap)
       this.place.accessibilities.push({ name: 'pap', has: true });
+    if (this.accessibilities.inclusivo_colaboradores)
+      this.place.accessibilities.push({
+        name: 'inclusivo_colaboradores',
+        has: true,
+      });
 
     this.placesService.createPlace(request).subscribe((res) => {
       this.toastr.success('Estabelecimento adicionado');
