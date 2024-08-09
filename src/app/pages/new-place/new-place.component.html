@@ -27,7 +27,7 @@
                 <div class="field">
                   <label for="type">Tipo</label>
                   <div class="control select">
-                    <select [(ngModel)]="place.type" class="input" name="type" id="type">
+                    <select [(ngModel)]="place.type" class="input" name="type" id="type" required>
                       <option value="">Selecione...</option>
                       <option value="Academia">Academia</option>
                       <option value="Aeroporto">Aeroporto</option>
@@ -80,9 +80,10 @@
               </div>
               <div class="column is-12">
                 <div class="field">
-                  <label for="description">Descrição <small>(opcional)</small></label>
+                  <label for="description">Descrição</label>
                   <div class="control">
-                    <input class="input" name="description" id="description" [(ngModel)]="place.address.description">
+                    <input required class="input" name="description" id="description"
+                      [(ngModel)]="place.address.description">
                   </div>
                 </div>
               </div>
