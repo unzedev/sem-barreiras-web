@@ -35,6 +35,7 @@ export class SignupComponent implements OnInit {
       phone: [null],
       deficiency: [null, [Validators.required]],
       password: [null, [Validators.required]],
+      consent: [false, [Validators.requiredTrue]],
       role: ['user'],
     });
     this.redirectUser();
@@ -47,6 +48,7 @@ export class SignupComponent implements OnInit {
       if (!request.phone) {
         delete request.phone;
       }
+      delete request.consent;
 
       this.usersService.createUser(request).subscribe(() => {
         this.usersService
@@ -61,6 +63,25 @@ export class SignupComponent implements OnInit {
           });
       });
     }
+  }
+
+  openConsentModal(): void {
+    const modal = document.getElementById('consent-modal');
+    if (modal) {
+      modal.classList.add('is-active');
+    }
+  }
+
+  closeConsentModal(): void {
+    const modal = document.getElementById('consent-modal');
+    if (modal) {
+      modal.classList.remove('is-active');
+    }
+  }
+
+  closeConsentModalAndAccept(): void {
+    this.closeConsentModal();
+    this.form.patchValue({ consent: true });
   }
 
   redirectUser(): void {

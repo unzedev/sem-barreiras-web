@@ -58,6 +58,15 @@
                     inválida</small>
                 </div>
               </div>
+              <div class="field">
+                <div class="control">
+                  <label class="checkbox">
+                    <input type="checkbox" formControlName="consent" required>
+                    Eu li e concordo com o <a href="#" class="has-text-primary" (click)="openConsentModal(); $event.preventDefault()">Termo de Consentimento para Tratamento de Dados Pessoais</a> da OSC Conexão Solidária, e autorizo o uso dos meus dados conforme descritos.
+                  </label>
+                  <small class="has-text-danger" *ngIf="submitted && form.controls.consent?.errors">Você deve concordar com o termo de consentimento</small>
+                </div>
+              </div>
               <br>
               <div class="field">
                 <button type="submit" class="button is-fullwidth is-primary">Cadastrar</button>
@@ -73,3 +82,44 @@
     </div>
   </div>
 </section>
+
+<!-- Modal do Termo de Consentimento -->
+<div id="consent-modal" class="modal">
+  <div class="modal-background" (click)="closeConsentModal()"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Termo de Consentimento</p>
+      <button (click)="closeConsentModal()" class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <p>A OSC Conexão Solidária, entidade sem fins lucrativos sediada em Porto Alegre – RS, responsável pelo projeto Conecta Sem Barreiras, tem o compromisso de proteger a privacidade e a segurança dos seus dados pessoais.</p>
+      <p>Ao utilizar esta plataforma, você concorda e autoriza o tratamento dos seus dados pessoais conforme as condições descritas neste termo, em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD).</p>
+      
+      <h4 class="title is-5 mt-4">1. Quais dados coletamos:</h4>
+      <ul>
+        <li>Dados pessoais fornecidos voluntariamente, como nome, e-mail, localização, avaliações e comentários sobre estabelecimentos;</li>
+        <li>Dados técnicos de acesso, como endereço IP e informações do dispositivo, para fins de segurança e melhoria da plataforma.</li>
+      </ul>
+      
+      <h4 class="title is-5 mt-4">2. Finalidades do tratamento:</h4>
+      <ul>
+        <li>Permitir seu cadastro e participação na plataforma;</li>
+        <li>Registrar, armazenar e publicar avaliações e relatos de acessibilidade;</li>
+        <li>Analisar dados para aprimorar a plataforma e promover ações de inclusão;</li>
+        <li>Compartilhar dados anonimizados para fins estatísticos e de pesquisa.</li>
+      </ul>
+      
+      <h4 class="title is-5 mt-4">3. Compartilhamento e segurança:</h4>
+      <p>Seus dados não serão vendidos, alugados ou compartilhados com terceiros para fins comerciais. Poderão ser compartilhados apenas com parceiros e colaboradores do projeto, sempre respeitando a privacidade e segurança dos dados.</p>
+      
+      <h4 class="title is-5 mt-4">4. Seus direitos:</h4>
+      <p>Você pode a qualquer momento solicitar acesso, correção, exclusão ou portabilidade dos seus dados, bem como revogar seu consentimento para o tratamento, entrando em contato pelo e-mail sembarreiras.plat@gmail.com.</p>
+      
+      <h4 class="title is-5 mt-4">5. Consentimento:</h4>
+      <p>Ao marcar a opção de concordância e utilizar a plataforma, você declara que leu, compreendeu e concorda com os termos acima.</p>
+    </section>
+    <footer class="modal-card-foot">
+      <button (click)="closeConsentModalAndAccept()" class="button is-primary">Entendi</button>
+    </footer>
+  </div>
+</div>
