@@ -148,3 +148,12 @@ body {
 textarea {
   min-height: 100px;
 }
+
+/* VLibras Widget Styles */
+[vw] {
+  z-index: 9999 !important;
+}
+
+[vw-access-button] {
+  z-index: 10000 !important;
+}
