@@ -48,6 +48,12 @@
         </div>
       </div>
       <div class="navbar-end">
+        <a class="navbar-item" routerLink="/doacao" routerLinkActive="is-active" tabindex="0">
+          <span class="icon has-text-danger">
+            <i class="fas fa-heart"></i>
+          </span>
+          <span>Contribua</span>
+        </a>
         <div class="navbar-item">
           <div class="buttons" *ngIf="userIsLogged">
             <a (click)="logout()" class="button is-primary is-outlined" tabindex="0">
@@ -82,7 +88,7 @@
       <!-- <img src="../assets/img/pucrs.svg" alt="PUCRS"> -->
     </div>
     <p>
-      OSC Conexão Solidária - CNPJ 24.236.775/0001-29
+      Associação Conexão Solidária - CNPJ 24.236.775/0001-29
       <br>
       <a href="mailto:sembarreiras.plat@gmail.com">sembarreiras.plat@gmail.com</a>
     </p>

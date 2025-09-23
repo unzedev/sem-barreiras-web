@@ -22,6 +22,7 @@ import { AdminPlacesComponent } from './pages/admin/admin-places/admin-places.co
 import { AdminRatingsComponent } from './pages/admin/admin-ratings/admin-ratings.component';
 import { AdminUsersComponent } from './pages/admin/admin-users/admin-users.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { DonationComponent } from './pages/donation/donation.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
     AdminRatingsComponent,
     AdminUsersComponent,
     ForgotPasswordComponent,
+    DonationComponent,
   ],
   imports: [
     BrowserModule,

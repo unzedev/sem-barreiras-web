@@ -11,6 +11,7 @@ import { AdminPlacesComponent } from './pages/admin/admin-places/admin-places.co
 import { AdminRatingsComponent } from './pages/admin/admin-ratings/admin-ratings.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { AdminUsersComponent } from './pages/admin/admin-users/admin-users.component';
+import { DonationComponent } from './pages/donation/donation.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,10 @@ const routes: Routes = [
   {
     path: 'recuperar',
     component: ForgotPasswordComponent,
+  },
+  {
+    path: 'doacao',
+    component: DonationComponent,
   },
   {
     path: 'estabelecimentos',

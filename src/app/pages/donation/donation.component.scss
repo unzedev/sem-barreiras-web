@@ -1,0 +1,56 @@
+@import '../../../variables.scss';
+
+.qr-code-image {
+  border: 2px solid #e8e8e8;
+  border-radius: $card-radius;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.is-family-monospace {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+// Acessibilidade para deficientes visuais
+.button:focus {
+  outline: 2px solid $primary;
+  outline-offset: 2px;
+}
+
+.input:focus {
+  outline: 2px solid $primary;
+  outline-offset: 2px;
+  border-color: $primary;
+}
+
+// Melhor contraste para texto
+.notification.is-info.is-light {
+  color: #363636;
+}
+
+// Feedback visual para cópia bem-sucedida
+.button.is-success {
+  background-color: $success;
+  border-color: $success;
+  animation: pulse-success 0.3s ease-in-out;
+}
+
+@keyframes pulse-success {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+// Screen reader only class (Bulma não tem por padrão)
+.is-sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}

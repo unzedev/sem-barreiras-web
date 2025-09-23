@@ -1,0 +1,152 @@
+<ng-container>
+    <section class="hero is-primary">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title is-3">
+            <span class="icon mr-2" aria-hidden="true">
+              <i class="fas fa-heart"></i>
+            </span>
+            Contribuição para Conecta Sem Barreiras
+          </h1>
+        <p class="subtitle">
+            Sua contribuição faz a diferença! Apoie nossa causa e ajude-nos a criar um mundo mais inclusivo e acessível para todos.
+        </p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-8">
+                
+                <div class="notification is-primary is-light">
+                  <h2 class="title is-5 mb-3">
+                    <span class="icon" aria-hidden="true">
+                      <i class="fas fa-qrcode"></i>
+                    </span>
+                    Faça sua contribuição via PIX
+                  </h2>
+                  
+                  <div class="has-text-centered">
+                    <p class="is-size-6 mb-3">
+                      <strong>Chave PIX (CNPJ):</strong>
+                    </p>
+                    
+                    <!-- QR Code -->
+                    <div class="mb-4">
+                    <p class="is-size-7 mb-2">
+                        Escaneie o QR Code com seu banco ou use a chave PIX abaixo
+                    </p>
+                      <img [src]="qrCodeUrl" 
+                           alt="QR Code para doação PIX da Associação Conexão Solidária. Chave PIX: 24.236.775/0001-29" 
+                           class="qr-code-image"
+                           width="200" 
+                           height="200"
+                           role="img"
+                           aria-describedby="qr-description">
+                      <div id="qr-description" class="is-sr-only">
+                        QR Code contendo a chave PIX 24.236.775/0001-29 da Associação Conexão Solidária para doações via PIX.
+                      </div>
+                    </div>
+
+                    <div class="has-text-centered mb-4">
+                        <p class="is-size-7">
+                          <strong>Associação Conexão Solidária</strong><br>
+                          CNPJ: 24.236.775/0001-29<br>
+                          Instituição: PAGSEGURO INTERNET S.A.<br>
+                          Email: sembarreiras.plat@gmail.com
+                        </p>
+                    </div>
+                    
+                    <!-- Campo de texto para copiar -->
+                    <div class="columns is-centered">
+                      <div class="column is-7">
+                        <div class="field has-addons">
+                          <div class="control is-expanded">
+                            <label for="pix-key-input" class="is-sr-only">Chave PIX para doação</label>
+                            <input id="pix-key-input"
+                                   class="input is-large has-text-centered is-family-monospace" 
+                                   type="text" 
+                                   [value]="pixKey" 
+                                   readonly
+                                   aria-label="Chave PIX da Associação Conexão Solidária: 24.236.775/0001-29"
+                                   aria-describedby="pix-instructions">
+                          </div>
+                          <div class="control">
+                            <button class="button is-large" 
+                                    [class]="copySuccess ? 'is-success' : 'is-primary'"
+                                    (click)="copyPixKey()"
+                                    title="Copiar chave PIX para área de transferência"
+                                    aria-label="Copiar chave PIX 24.236.775/0001-29 para área de transferência"
+                                    [attr.aria-describedby]="copySuccess ? 'copy-success-message' : null">
+                              <span class="icon" aria-hidden="true">
+                                <i [class]="copySuccess ? 'fas fa-check' : 'fas fa-copy'"></i>
+                              </span>
+                              <span class="is-sr-only">{{ copySuccess ? 'Copiado com sucesso' : 'Copiar' }}</span>
+                              <span *ngIf="copySuccess" id="copy-success-message" class="is-sr-only">
+                                Chave PIX copiada com sucesso para a área de transferência
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="mt-5">
+                    <h3 class="title is-6 mb-3">Como contribuir:</h3>
+                    <div class="columns">
+                      <div class="column is-6">
+                        <h4 class="title is-6 has-text-primary">
+                          <span aria-hidden="true">📱</span>
+                          <span class="is-sr-only">Método com QR Code:</span>
+                          Com QR Code:
+                        </h4>
+                        <ol class="is-size-6 ml-3" id="pix-instructions">
+                          <li>Abra o aplicativo do seu banco</li>
+                          <li>Selecione a opção "PIX"</li>
+                          <li>Escolha "PIX QR Code"</li>
+                          <li>Escaneie o QR Code acima</li>
+                          <li>Digite o valor que deseja doar</li>
+                          <li>Confirme a transação</li>
+                        </ol>
+                      </div>
+                      <div class="column is-6">
+                        <h4 class="title is-6 has-text-primary">
+                          <span aria-hidden="true">📋</span>
+                          <span class="is-sr-only">Método com Chave PIX:</span>
+                          Com Chave PIX:
+                        </h4>
+                        <ol class="is-size-6 ml-3">
+                          <li>Abra o aplicativo do seu banco</li>
+                          <li>Selecione a opção "PIX"</li>
+                          <li>Escolha "PIX Copia e Cola"</li>
+                          <li>Cole a chave PIX copiada</li>
+                          <li>Digite o valor que deseja doar</li>
+                          <li>Confirme a transação</li>
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="notification is-info is-light mt-5">
+                  <h3 class="title is-6 mb-3">
+                    <span class="icon" aria-hidden="true">
+                      <i class="fas fa-info-circle"></i>
+                    </span>
+                    Como sua contribuição é utilizada
+                  </h3>
+                  <p class="is-size-6">
+                    Sua doação é fundamental para manter nossa plataforma funcionando e expandir nosso impacto. 
+                    Com sua ajuda, conseguimos manter o site online, melhorar a acessibilidade e ampliar nossa 
+                    rede de estabelecimentos parceiros, beneficiando milhares de pessoas com deficiência.
+                  </p>
+                </div>
+
+        </div>
+      </div>
+    </div>
+    </section>
+</ng-container>
