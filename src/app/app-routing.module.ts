@@ -33,7 +33,7 @@ const routes: Routes = [
     component: ForgotPasswordComponent,
   },
   {
-    path: 'doacao',
+    path: 'contribuir',
     component: DonationComponent,
   },
   {
